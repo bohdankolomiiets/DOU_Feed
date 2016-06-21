@@ -7,7 +7,7 @@ import dagger.Component;
  * @version 1
  * @date 21.06.16
  */
-@Component(modules = {AppModule.class})
+@Component(modules = {AppModule.class, ApiModule.class})
 public interface AppComponent {
 
 }
