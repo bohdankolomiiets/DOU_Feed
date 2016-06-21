@@ -25,10 +25,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
     private Context mContext;
     private List<FeedItemEntity> mFeedList;
+    private OnFeedItemClickListener mListener;
 
-    public FeedAdapter(Context context) {
+    public FeedAdapter(Context context, OnFeedItemClickListener listener) {
         mContext = context;
         mFeedList = new ArrayList<>();
+        mListener = listener;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
         FeedItemEntity feedItem = mFeedList.get(position);
 
         Picasso.with(mContext)
-                .load(feedItem.getmUrl())
+                .load(feedItem.getImageUrl())
                 .into(holder.articleImage);
         holder.author.setText(feedItem.getmAuthor());
         holder.date.setText(feedItem.getmDate());
@@ -71,7 +73,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
     }
 
 
-    class Holder extends RecyclerView.ViewHolder {
+    class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.articleImage)
         CircleImageView articleImage;
 
@@ -96,6 +98,17 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
         public Holder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
+
+
+        @Override
+        public void onClick(View v) {
+            mListener.onClick(mFeedList.get(getLayoutPosition()).getmUrl());
+        }
+    }
+
+    public interface OnFeedItemClickListener {
+        void onClick(String url);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.bogdan.dou_feed.view;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -30,7 +32,7 @@ import butterknife.ButterKnife;
  * @version 1
  * @date 21.06.16
  */
-public class FeedFragment extends BaseFragment implements FeedView {
+public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.OnFeedItemClickListener {
     @BindView(R.id.feedRecyclerView)
     RecyclerView feedRecyclerView;
 
@@ -69,7 +71,7 @@ public class FeedFragment extends BaseFragment implements FeedView {
             }
         });
 
-        mFeedAdapter = new FeedAdapter(getContext());
+        mFeedAdapter = new FeedAdapter(getContext(), this);
         feedRecyclerView.setAdapter(mFeedAdapter);
 
 
@@ -90,4 +92,8 @@ public class FeedFragment extends BaseFragment implements FeedView {
     }
 
 
+    @Override
+    public void onClick(String url) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+    }
 }

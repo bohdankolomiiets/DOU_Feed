@@ -7,6 +7,7 @@ package com.example.bogdan.dou_feed.model.entity;
  */
 public class FeedItemEntity {
     private String mUrl;
+    private String mImageUrl;
     private String mAuthor;
     private String mDate;
     private int mWatchCount;
@@ -19,8 +20,9 @@ public class FeedItemEntity {
     public FeedItemEntity() {
     }
 
-    public FeedItemEntity(String url, String author, String date, int watchCount, int commentCount, String title, String description, String topic, String tags) {
+    public FeedItemEntity(String url, String imageUrl, String author, String date, int watchCount, int commentCount, String title, String description, String topic, String tags) {
         mUrl = url;
+        mImageUrl = imageUrl;
         mAuthor = author;
         mDate = date;
         mWatchCount = watchCount;
@@ -46,6 +48,10 @@ public class FeedItemEntity {
 
     public int getCommentCount() {
         return mCommentCount;
+    }
+
+    public String getImageUrl() {
+        return mImageUrl;
     }
 
     public void setCommentCount(int commentCount) {

@@ -23,7 +23,8 @@ public class DouParser {
 
         for (Element feedItem : items) {
 
-            String url = feedItem.select("h2 a img").first().attr("src");
+            String url = feedItem.select("h2 a").first().attr("href");
+            String imageUrl = feedItem.select("h2 a img").first().attr("src");
             String author = feedItem.select(".author").first().html();
             String date = feedItem.select(".date").first().text();
             int watchCount;
@@ -43,7 +44,7 @@ public class DouParser {
             String topic = feedItem.select(".more .topic").first().html();
             String tags = "tags";
 
-            FeedItemEntity newItemEntity = new FeedItemEntity(url, author, date, watchCount, commentCount, title, description, topic, tags);
+            FeedItemEntity newItemEntity = new FeedItemEntity(url, imageUrl,  author, date, watchCount, commentCount, title, description, topic, tags);
 
             feed.add(newItemEntity);
         }
