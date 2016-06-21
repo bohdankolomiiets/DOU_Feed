@@ -34,7 +34,8 @@ public class DouParser {
                 watchCount = 0;
             }
             String title = feedItem.select("h2 a").first().text().replace("&nbsp;", " ");
-            String description = feedItem.select(".b-typo").first().text().replace("&nbsp;", " ");
+            String description = feedItem.select(".b-typo").first().text();
+            description = deleteCommentCount(description);
             int commentCount;
             try {
                 commentCount = Integer.parseInt(feedItem.select(".b-typo a").first().html());
@@ -50,5 +51,21 @@ public class DouParser {
         }
 
         return feed;
+    }
+
+    private static String deleteCommentCount(String text) {
+        char[] charText = text.toCharArray();
+        int end = charText.length - 1;
+
+        for (int i = end; i >= 0; i--) {
+            try {
+                Integer.parseInt(String.valueOf(charText[i]));
+                end--;
+            } catch (NumberFormatException e) {
+                break;
+            }
+        }
+
+        return String.valueOf(charText).substring(0, end + 1);
     }
 }
