@@ -2,6 +2,7 @@ package com.example.bogdan.dou_feed;
 
 import android.app.Application;
 
+import com.example.bogdan.dou_feed.di.ApiModule;
 import com.example.bogdan.dou_feed.di.AppComponent;
 import com.example.bogdan.dou_feed.di.AppModule;
 import com.example.bogdan.dou_feed.di.DaggerAppComponent;
@@ -21,6 +22,7 @@ public class DouApp extends Application {
 
     private void resolveDependencies() {
         mAppComponent = DaggerAppComponent.builder()
+                .apiModule(new ApiModule(Constants.HTTP.BASE_URL))
                 .appModule(new AppModule(this))
                 .build();
     }
