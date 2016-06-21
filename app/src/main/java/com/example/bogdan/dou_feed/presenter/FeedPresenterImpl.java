@@ -1,6 +1,5 @@
 package com.example.bogdan.dou_feed.presenter;
 
-import com.example.bogdan.dou_feed.api.DouApi;
 import com.example.bogdan.dou_feed.model.DouModel;
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 import com.example.bogdan.dou_feed.view.FeedView;
@@ -37,7 +36,7 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
 
                     @Override
                     public void onCompleted() {
-
+                        mView.stopRefresh();
                     }
 
                     @Override
@@ -53,4 +52,11 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
                     }
                 });
     }
+
+    @Override
+    public void onRefresh() {
+        pageNumber = 0;
+        loadFeed();
+    }
+
 }

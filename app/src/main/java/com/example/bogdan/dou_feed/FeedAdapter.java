@@ -60,6 +60,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
         return mFeedList.size();
     }
 
+    public void clear() {
+        mFeedList.clear();
+        notifyDataSetChanged();
+    }
+
     public void addFeed(List<FeedItemEntity> feedList) {
         mFeedList.addAll(feedList);
         notifyDataSetChanged();

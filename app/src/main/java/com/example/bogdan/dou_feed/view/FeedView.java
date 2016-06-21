@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface FeedView {
     void showFeed(List<FeedItemEntity> feed);
+
+    void stopRefresh();
 }

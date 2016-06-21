@@ -27,11 +27,11 @@ public class DouParser {
             String author = feedItem.select(".author").first().html();
             String date = feedItem.select(".date").first().text();
             int watchCount;
-            if (feedItem.select(".pageviews").first().text() != null) {
+            try {
                 watchCount = Integer.parseInt(feedItem.select(".pageviews").first().text());
-            } else {
+            } catch (NullPointerException e) {
                 watchCount = 0;
-             }
+            }
             String title = feedItem.select("h2 a").first().text().replace("&nbsp;", " ");
             String description = feedItem.select(".b-typo").first().text().replace("&nbsp;", " ");
             int commentCount;

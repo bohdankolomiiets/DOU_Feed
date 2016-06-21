@@ -10,4 +10,6 @@ public interface FeedPresenter {
     void onCreateView();
 
     void loadFeed();
+
+    void onRefresh();
 }

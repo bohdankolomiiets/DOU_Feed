@@ -2,6 +2,7 @@ package com.example.bogdan.dou_feed.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,8 +37,8 @@ public class FeedFragment extends BaseFragment implements FeedView {
     @Inject
     FeedPresenter presenter;
 
-    private boolean loading = true;
-    int pastVisiblesItems, visibleItemCount, totalItemCount;
+    @BindView(R.id.swipeContainer)
+    SwipeRefreshLayout swipeLayout;
 
     private LinearLayoutManager mLayoutManager;
     private FeedAdapter mFeedAdapter;
@@ -52,6 +53,14 @@ public class FeedFragment extends BaseFragment implements FeedView {
 
         mLayoutManager = new LinearLayoutManager(getContext());
         feedRecyclerView.setLayoutManager(mLayoutManager);
+
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mFeedAdapter.clear();
+                presenter.onRefresh();
+            }
+        });
 
         feedRecyclerView.addOnScrollListener(new EndlessOnScrollListener(mLayoutManager) {
             @Override
@@ -75,7 +84,10 @@ public class FeedFragment extends BaseFragment implements FeedView {
         mFeedAdapter.addFeed(feed);
     }
 
-
+    @Override
+    public void stopRefresh() {
+        swipeLayout.setRefreshing(false);
+    }
 
 
 }
