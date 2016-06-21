@@ -14,7 +14,7 @@
             android:layout_height="72dp">
 
             <android.support.v4.widget.CircleImageView
-                android:id="@+id/feedImage"
+                android:id="@+id/articleImage"
                 android:layout_width="50dp"
                 android:layout_height="50dp" />
 
