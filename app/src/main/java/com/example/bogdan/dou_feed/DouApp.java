@@ -18,6 +18,7 @@ public class DouApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        resolveDependencies();
     }
 
     private void resolveDependencies() {

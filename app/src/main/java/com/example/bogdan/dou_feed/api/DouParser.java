@@ -1,6 +1,6 @@
 package com.example.bogdan.dou_feed.api;
 
-import com.example.bogdan.dou_feed.FeedItemEntity;
+import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,7 +27,7 @@ public class DouParser {
             String author = feedItem.select(".author").first().html();
             String date = feedItem.select(".date").first().text();
             int watchCount = Integer.parseInt(feedItem.select(".pageviews").first().text());
-            String title = feedItem.select("h2 a").first().html().replace("&nbsp;", " ");
+            String title = feedItem.select("h2 a").first().text().replace("&nbsp;", " ");
             String description = feedItem.select(".b-typo").first().text().replace("&nbsp;", " ");
             String topic = feedItem.select(".more .topic").first().html();
             String tags = "tags";

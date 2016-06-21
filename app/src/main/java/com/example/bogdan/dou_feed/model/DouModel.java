@@ -1,6 +1,6 @@
 package com.example.bogdan.dou_feed.model;
 
-import com.example.bogdan.dou_feed.FeedItemEntity;
+import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 
 import java.util.List;
 

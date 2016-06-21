@@ -1,8 +1,6 @@
 package com.example.bogdan.dou_feed.api;
 
-import android.test.suitebuilder.annotation.LargeTest;
-
-import com.example.bogdan.dou_feed.FeedItemEntity;
+import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 
 import java.util.List;
 

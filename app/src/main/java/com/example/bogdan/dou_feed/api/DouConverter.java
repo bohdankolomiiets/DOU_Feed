@@ -1,6 +1,6 @@
 package com.example.bogdan.dou_feed.api;
 
-import com.example.bogdan.dou_feed.FeedItemEntity;
+import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 import com.google.gson.reflect.TypeToken;
 
 import org.jsoup.Jsoup;

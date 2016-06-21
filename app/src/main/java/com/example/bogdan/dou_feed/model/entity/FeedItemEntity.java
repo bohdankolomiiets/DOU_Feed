@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed;
+package com.example.bogdan.dou_feed.model.entity;
 
 /**
  * @author Bogdan Kolomiets
@@ -29,6 +29,18 @@ public class FeedItemEntity {
         mTags = tags;
     }
 
+    @Override
+    public String toString() {
+        return "FeedItem = ["
+                + "url: " + mUrl
+                + ", author: " + mAuthor
+                + ", date: " + mDate
+                + ", watchCount: " + mWatchCount
+                + ", title: " + mTitle
+                + ", description: " + mDescription
+                + ", topic: " + mTopic
+                + ", tags: " + mTags;
+    }
 
     public String getmUrl() {
         return mUrl;
