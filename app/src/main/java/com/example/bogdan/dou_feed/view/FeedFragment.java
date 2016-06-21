@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.EndlessOnScrollListener;
@@ -79,8 +80,6 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
         return view;
     }
 
-
-
     @Override
     public void showFeed(List<FeedItemEntity> feed) {
         mFeedAdapter.addFeed(feed);
@@ -91,9 +90,23 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
         swipeLayout.setRefreshing(false);
     }
 
-
     @Override
     public void onClick(String url) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+    }
+
+    @Override
+    public void showLoading() {
+        showProgressDial();
+    }
+
+    @Override
+    public void hideLoading() {
+        hideProgressDial();
+    }
+
+    @Override
+    public void showError(String message) {
+        onError(message);
     }
 }

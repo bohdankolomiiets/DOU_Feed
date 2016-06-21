@@ -31,17 +31,20 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
 
     @Override
     public void loadFeed() {
+        mView.showLoading();
         mModel.getFeed(++pageNumber)
                 .subscribe(new Observer<List<FeedItemEntity>>() {
 
                     @Override
                     public void onCompleted() {
                         mView.stopRefresh();
+                        mView.hideLoading();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        mView.hideLoading();
+                        mView.showError(e.getMessage());
                     }
 
                     @Override
