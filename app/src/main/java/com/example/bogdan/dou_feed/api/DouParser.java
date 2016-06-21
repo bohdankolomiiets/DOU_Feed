@@ -1,4 +1,6 @@
-package com.example.bogdan.dou_feed;
+package com.example.bogdan.dou_feed.api;
+
+import com.example.bogdan.dou_feed.FeedItemEntity;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
