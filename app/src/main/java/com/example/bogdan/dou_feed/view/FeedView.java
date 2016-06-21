@@ -9,7 +9,7 @@ import java.util.List;
  * @version 1
  * @date 21.06.16
  */
-public interface FeedView {
+public interface FeedView extends View {
     void showFeed(List<FeedItemEntity> feed);
 
     void stopRefresh();
