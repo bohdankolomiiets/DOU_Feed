@@ -14,10 +14,10 @@ import dagger.Provides;
  * @date 21.06.16
  */
 @Module
-public class MainActivityModule {
+public class FeedViewModule {
     private FeedView mView;
 
-    public MainActivityModule(FeedView view) {
+    public FeedViewModule(FeedView view) {
         mView = view;
     }
 

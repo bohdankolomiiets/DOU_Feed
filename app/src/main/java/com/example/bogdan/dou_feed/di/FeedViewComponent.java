@@ -1,8 +1,8 @@
 package com.example.bogdan.dou_feed.di;
 
+import com.example.bogdan.dou_feed.view.FeedFragment;
 import com.example.bogdan.dou_feed.view.MainActivity;
 
-import dagger.Component;
 import dagger.Subcomponent;
 
 /**
@@ -11,7 +11,7 @@ import dagger.Subcomponent;
  * @date 21.06.16
  */
 @ActivityScope
-@Subcomponent(modules = {MainActivityModule.class})
-public interface MainActivityComponent {
-    void inject(MainActivity mainActivity);
+@Subcomponent(modules = {FeedViewModule.class})
+public interface FeedViewComponent {
+    void inject(FeedFragment feedFragment);
 }

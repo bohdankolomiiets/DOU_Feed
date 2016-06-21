@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DOU_Feed</string>
+    <string name="font_roboto">Roboto Regular</string>
 </resources>
