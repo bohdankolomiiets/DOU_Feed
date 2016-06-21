@@ -15,12 +15,13 @@ public class FeedItemEntity {
     private String mTitle;
     private String mDescription;
     private String mTopic;
-    private String mTags;
+    private String mCommentUrl;
 
     public FeedItemEntity() {
     }
 
-    public FeedItemEntity(String url, String imageUrl, String author, String date, int watchCount, int commentCount, String title, String description, String topic, String tags) {
+    public FeedItemEntity(String url, String imageUrl, String author, String date, int watchCount,
+                          int commentCount, String title, String description, String topic, String commentUrl) {
         mUrl = url;
         mImageUrl = imageUrl;
         mAuthor = author;
@@ -30,7 +31,7 @@ public class FeedItemEntity {
         mTitle = title;
         mDescription = description;
         mTopic = topic;
-        mTags = tags;
+        mCommentUrl = commentUrl;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class FeedItemEntity {
                 + ", title: " + mTitle
                 + ", description: " + mDescription
                 + ", topic: " + mTopic
-                + ", tags: " + mTags;
+                + ", tags: " + mCommentUrl;
     }
 
     public int getCommentCount() {
@@ -114,11 +115,11 @@ public class FeedItemEntity {
         this.mTopic = mTopic;
     }
 
-    public String getmTags() {
-        return mTags;
+    public String getCommentUrl() {
+        return mCommentUrl;
     }
 
-    public void setmTags(String mTags) {
-        this.mTags = mTags;
+    public void setCommentUrl(String commentUrl) {
+        this.mCommentUrl = commentUrl;
     }
 }

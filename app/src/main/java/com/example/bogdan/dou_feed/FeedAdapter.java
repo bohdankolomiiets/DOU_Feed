@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
@@ -74,6 +75,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
 
 
     class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @BindView(R.id.commentContainer)
+        LinearLayout commentContainer;
+
         @BindView(R.id.articleImage)
         CircleImageView articleImage;
 
@@ -98,13 +102,25 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
         public Holder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(this);
+            commentContainer.setOnClickListener(this);
+            title.setOnClickListener(this);
+            description.setOnClickListener(this);
         }
 
 
         @Override
         public void onClick(View v) {
-            mListener.onClick(mFeedList.get(getLayoutPosition()).getmUrl());
+            String url = null;
+            switch (v.getId()) {
+                case R.id.commentContainer:
+                    url = mFeedList.get(getLayoutPosition()).getCommentUrl();
+                    break;
+                default:
+                    url = mFeedList.get(getLayoutPosition()).getmUrl();
+            }
+            if (url != null) {
+                mListener.onClick(url);
+            }
         }
     }
 

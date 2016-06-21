@@ -43,9 +43,14 @@ public class DouParser {
                 commentCount = 0;
             }
             String topic = feedItem.select(".more .topic").first().html();
-            String tags = "tags";
-
-            FeedItemEntity newItemEntity = new FeedItemEntity(url, imageUrl,  author, date, watchCount, commentCount, title, description, topic, tags);
+            String commentUrl;
+            try {
+               commentUrl = feedItem.select(".b-typo a").first().attr("href");
+            } catch (NullPointerException e) {
+                commentUrl = null;
+            }
+            FeedItemEntity newItemEntity = new FeedItemEntity(url, imageUrl,  author, date,
+                    watchCount, commentCount, title, description, topic, commentUrl);
 
             feed.add(newItemEntity);
         }

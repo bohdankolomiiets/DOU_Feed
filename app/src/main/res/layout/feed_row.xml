@@ -84,6 +84,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary">
 
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,20 +99,27 @@
                 android:textSize="14sp"
                 android:textColor="@color/white"/>
 
-            <ImageView
+            <LinearLayout
+                android:gravity="end"
+                android:id="@+id/commentContainer"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:src="@mipmap/ic_comment_white_24dp"/>
-            <TextView
-                android:id="@+id/commentCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:layout_gravity="center"
-                android:fontFamily="@string/font_roboto"
-                android:textSize="14sp"
-                android:textColor="@color/white"/>
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:src="@mipmap/ic_comment_white_24dp"/>
+                <TextView
+                    android:id="@+id/commentCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@string/font_roboto"
+                    android:textSize="14sp"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/share"
