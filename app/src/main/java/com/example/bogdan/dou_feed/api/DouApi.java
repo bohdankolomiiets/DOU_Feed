@@ -22,5 +22,5 @@ public interface DouApi {
             , @Path("page-number") int pageNumber);
 
     @GET("page/{page-number}")
-    Observable<List<FeedItemEntity>> getFeedEntity(@Path("page-number")String pageNumber);
+    Observable<List<FeedItemEntity>> getFeedEntity(@Path("page-number")int pageNumber);
 }

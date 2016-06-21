@@ -3,11 +3,17 @@ package com.example.bogdan.dou_feed.di;
 import android.content.Context;
 
 import com.example.bogdan.dou_feed.DouApp;
+import com.example.bogdan.dou_feed.api.DouApi;
+import com.example.bogdan.dou_feed.model.DouModel;
+import com.example.bogdan.dou_feed.model.DouModelImpl;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * @author Bogdan Kolomiets
@@ -28,5 +34,17 @@ public class AppModule {
         return mApplication;
     }
 
+    @Singleton
+    @Provides
+    Observable.Transformer provideSchedulerTransformer() {
+        return o -> ((Observable) o).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io());
+    }
 
+    @Singleton
+    @Provides
+    DouModel provideDouModel(Observable.Transformer schedulerTransformer, DouApi api) {
+        return new DouModelImpl(schedulerTransformer, api);
+    }
 }
