@@ -26,12 +26,14 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
 
     @Override
     public void onCreateView() {
-        loadFeed();
+        loadFeed(false);
     }
 
     @Override
-    public void loadFeed() {
-        mView.showLoading();
+    public void loadFeed(boolean isRefresh) {
+        if (!isRefresh) {
+            mView.showLoading();
+        }
         mModel.getFeed(++pageNumber)
                 .subscribe(new Observer<List<FeedItemEntity>>() {
 
@@ -59,7 +61,7 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
     @Override
     public void onRefresh() {
         pageNumber = 0;
-        loadFeed();
+        loadFeed(true);
     }
 
 }

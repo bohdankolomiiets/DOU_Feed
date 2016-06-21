@@ -9,7 +9,7 @@ public interface FeedPresenter {
 
     void onCreateView();
 
-    void loadFeed();
+    void loadFeed(boolean isRefresh);
 
     void onRefresh();
 }

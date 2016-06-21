@@ -68,7 +68,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
         feedRecyclerView.addOnScrollListener(new EndlessOnScrollListener(mLayoutManager) {
             @Override
             public void onLoadMore() {
-                presenter.loadFeed();
+                presenter.loadFeed(false);
             }
         });
 
