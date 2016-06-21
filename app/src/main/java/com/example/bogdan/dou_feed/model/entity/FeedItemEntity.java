@@ -10,6 +10,7 @@ public class FeedItemEntity {
     private String mAuthor;
     private String mDate;
     private int mWatchCount;
+    private int mCommentCount;
     private String mTitle;
     private String mDescription;
     private String mTopic;
@@ -18,11 +19,12 @@ public class FeedItemEntity {
     public FeedItemEntity() {
     }
 
-    public FeedItemEntity(String url, String author, String date, int watchCount, String title, String description, String topic, String tags) {
+    public FeedItemEntity(String url, String author, String date, int watchCount, int commentCount, String title, String description, String topic, String tags) {
         mUrl = url;
         mAuthor = author;
         mDate = date;
         mWatchCount = watchCount;
+        mCommentCount = commentCount;
         mTitle = title;
         mDescription = description;
         mTopic = topic;
@@ -40,6 +42,14 @@ public class FeedItemEntity {
                 + ", description: " + mDescription
                 + ", topic: " + mTopic
                 + ", tags: " + mTags;
+    }
+
+    public int getCommentCount() {
+        return mCommentCount;
+    }
+
+    public void setCommentCount(int commentCount) {
+        mCommentCount = commentCount;
     }
 
     public String getmUrl() {

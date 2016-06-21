@@ -7,5 +7,7 @@ package com.example.bogdan.dou_feed.presenter;
  */
 public interface FeedPresenter {
 
-    void onCreate();
+    void onCreateView();
+
+    void loadFeed();
 }

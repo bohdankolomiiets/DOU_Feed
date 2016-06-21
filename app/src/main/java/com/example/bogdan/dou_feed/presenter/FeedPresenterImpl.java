@@ -26,7 +26,12 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
     }
 
     @Override
-    public void onCreate() {
+    public void onCreateView() {
+        loadFeed();
+    }
+
+    @Override
+    public void loadFeed() {
         mModel.getFeed(++pageNumber)
                 .subscribe(new Observer<List<FeedItemEntity>>() {
 

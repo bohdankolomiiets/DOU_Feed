@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
@@ -15,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * @author Bogdan Kolomiets
@@ -33,7 +34,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new Holder(((LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-        .inflate(R.layout.feed_row, parent, false));
+                .inflate(R.layout.feed_row, parent, false));
     }
 
     @Override
@@ -46,7 +47,12 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
         holder.author.setText(feedItem.getmAuthor());
         holder.date.setText(feedItem.getmDate());
         holder.title.setText(feedItem.getmTitle());
+        if (feedItem.getmWatchCount() != 0)
+            holder.watchCount.setText(String.valueOf(feedItem.getmWatchCount()));
+        if (feedItem.getCommentCount() != 0)
+            holder.commentCount.setText(String.valueOf(feedItem.getCommentCount()));
         holder.description.setText(feedItem.getmDescription());
+
     }
 
     @Override
@@ -54,7 +60,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
         return mFeedList.size();
     }
 
-    public void addFeedItem(List<FeedItemEntity> feedList) {
+    public void addFeed(List<FeedItemEntity> feedList) {
         mFeedList.addAll(feedList);
         notifyDataSetChanged();
     }
@@ -62,7 +68,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
 
     class Holder extends RecyclerView.ViewHolder {
         @BindView(R.id.articleImage)
-        ImageView articleImage;
+        CircleImageView articleImage;
 
         @BindView(R.id.author)
         TextView author;
@@ -73,10 +79,18 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
         @BindView(R.id.title)
         TextView title;
 
+        @BindView(R.id.watchCount)
+        TextView watchCount;
+
+        @BindView(R.id.commentCount)
+        TextView commentCount;
+
         @BindView(R.id.description)
         TextView description;
+
         public Holder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }
