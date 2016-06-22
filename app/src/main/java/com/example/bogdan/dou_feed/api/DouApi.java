@@ -1,5 +1,6 @@
 package com.example.bogdan.dou_feed.api;
 
+import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 
 import java.util.List;
@@ -16,9 +17,13 @@ import rx.Observable;
 public interface DouApi {
 
     @GET("{rubric}/page/{page-number}")
-    Observable<List<FeedItemEntity>> getFeedEntityByRubric(@Path("rubric")String rubric
-            , @Path("page-number") int pageNumber);
+    Observable<List<FeedItemEntity>> getFeedEntityByRubric(@Path("rubric")String rubric,
+                                                           @Path("page-number") int pageNumber);
 
     @GET("page/{page-number}")
     Observable<List<FeedItemEntity>> getFeedEntity(@Path("page-number")int pageNumber);
+
+    @GET("{rubric}/{article-url}")
+    Observable<ArticleEntity> getArticleEntity(@Path("rubric")String rubric,
+                                               @Path("article-url")String articleUrl);
 }

@@ -1,5 +1,6 @@
 package com.example.bogdan.dou_feed.api;
 
+import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 
 import org.jsoup.nodes.Document;
@@ -58,8 +59,15 @@ public class DouParser {
         return feed;
     }
 
-    public static void parseArticle(Document document) {
+    public static ArticleEntity parseArticle(Document document) {
+        ArticleEntity articlePage = new ArticleEntity();
 
+        Elements elements = document.select("article .b-typo div");
+        for (Element element : elements) {
+            System.out.println(element.tagName());
+        }
+
+        return null;
     }
 
     private static String deleteCommentCount(String text) {

@@ -1,5 +1,6 @@
 package com.example.bogdan.dou_feed.api;
 
+import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 import com.google.gson.reflect.TypeToken;
 
@@ -29,6 +30,9 @@ public class DouConverter implements Converter<ResponseBody, Object> {
         if (mType.toString().equals(new TypeToken<List<FeedItemEntity>>() {
         }.getType().toString())) {
             return DouParser.parseFeed(Jsoup.parse(value.string()));
+        } else if (mType.toString().equals(new TypeToken<ArticleEntity>() {
+        }.getType().toString())) {
+            return DouParser.parseFeed( Jsoup.parse(value.string()));
         }
         throw new IllegalArgumentException("This type does not supported " + mType);
     }
