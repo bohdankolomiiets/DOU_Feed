@@ -59,6 +59,7 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
     }
 
     private void showArticle(ArticleEntity articleEntity) {
+        mView.showHead(articleEntity.getAuthor(), articleEntity.getDate(), articleEntity.getTitle());
         for (int i = 0; i < articleEntity.size(); i++) {
             switch (articleEntity.getType(i)) {
                 case CONTENT:

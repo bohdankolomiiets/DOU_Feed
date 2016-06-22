@@ -67,10 +67,10 @@ public class DouParser {
         String title = document.select("article.b-typo h1").first().text().replace("&nbsp;", " ");
         articlePage.setTitle(title);
 
-        String date = document.select(".b-post-info.date").first().text();
+        String date = document.select(".b-post-info .date").first().text();
         articlePage.setDate(date);
 
-        String author = document.select(".b-post-info.author.name a").first().html();
+        String author = document.select(".b-post-info .author .name a").first().html();
         articlePage.setAuthor(author);
 
         Elements elements = document.select("article.b-typo div").first().children();

@@ -29,6 +29,15 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
     @BindView(R.id.articleContainer)
     LinearLayout container;
 
+    @BindView(R.id.articleAuthor)
+    TextView authorView;
+
+    @BindView(R.id.articleDate)
+    TextView dateView;
+
+    @BindView(R.id.articleTitle)
+    TextView titleView;
+
     @Inject
     ArticlePresenter presenter;
 
@@ -82,9 +91,9 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
 
     @Override
     public void showContent(String content) {
-        TextView textView = new TextView(getContext());
-        textView.setText(content);
-        container.addView(textView);
+        TextView contentView = (TextView) mLayoutInflater.inflate(R.layout.article_content, null);
+        contentView.setText(content);
+        container.addView(contentView);
     }
 
     @Override
@@ -100,5 +109,12 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
     @Override
     public void showCode(String code) {
 
+    }
+
+    @Override
+    public void showHead(String author, String date, String title) {
+        authorView.setText(author);
+        dateView.setText(date);
+        titleView.setText(title);
     }
 }

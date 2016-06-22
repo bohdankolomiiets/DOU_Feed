@@ -20,4 +20,6 @@ public interface ArticleView extends View {
 
     void showCode(String code);
 
+    void showHead(String author, String date, String title);
+
 }
