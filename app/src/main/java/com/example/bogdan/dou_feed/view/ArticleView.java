@@ -23,4 +23,5 @@ public interface ArticleView extends View {
     void showHead(String author, String date, String title);
 
     void showLink(String text);
+
 }

@@ -96,6 +96,8 @@ public class DouParser {
                 case "h6":
                     articlePage.addElement(Type.CONTENT_HEADING, element.text());
                     break;
+                case "pre":
+                    articlePage.addElement(Type.CONTENT_CODE, element.text());
             }
         }
 
