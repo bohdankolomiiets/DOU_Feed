@@ -2,6 +2,7 @@ package com.example.bogdan.dou_feed.di.component;
 
 import com.example.bogdan.dou_feed.di.module.ApiModule;
 import com.example.bogdan.dou_feed.di.module.AppModule;
+import com.example.bogdan.dou_feed.di.module.ArticleViewModule;
 import com.example.bogdan.dou_feed.di.module.CommentViewModule;
 import com.example.bogdan.dou_feed.di.module.FeedViewModule;
 
@@ -20,4 +21,6 @@ public interface AppComponent {
     FeedViewComponent plus(FeedViewModule feedViewModule);
 
     CommentsViewComponent plus(CommentViewModule commentViewModule);
+
+    ArticleViewComponent plus(ArticleViewModule articleViewModule);
 }

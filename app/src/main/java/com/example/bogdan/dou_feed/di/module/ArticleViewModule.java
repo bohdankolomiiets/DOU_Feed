@@ -15,10 +15,10 @@ import dagger.Provides;
  * @date 22.06.16
  */
 @Module
-public class ArticleModule {
+public class ArticleViewModule {
     private ArticleView mView;
 
-    public ArticleModule(ArticleView view) {
+    public ArticleViewModule(ArticleView view) {
         mView = view;
     }
 
