@@ -1,6 +1,7 @@
 package com.example.bogdan.dou_feed.presenter;
 
 import com.example.bogdan.dou_feed.model.DouModel;
+import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 import com.example.bogdan.dou_feed.view.FeedView;
 
