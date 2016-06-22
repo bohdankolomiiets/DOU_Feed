@@ -9,11 +9,13 @@ public class CommentItemEntity {
     private String mImageUrl;
     private String mAuthorName;
     private String mDateOfPublication;
+    private String mText;
 
-    public CommentItemEntity(String imageUrl, String authorName, String date) {
+    public CommentItemEntity(String imageUrl, String authorName, String date, String text) {
         mImageUrl = imageUrl;
         mAuthorName = authorName;
         mDateOfPublication = date;
+        mText = text;
     }
 
     public String getImageUrl() {
@@ -26,5 +28,9 @@ public class CommentItemEntity {
 
     public String getDateOfPublication() {
         return mDateOfPublication;
+    }
+
+    public String getText() {
+        return mText;
     }
 }

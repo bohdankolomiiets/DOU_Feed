@@ -1,6 +1,7 @@
 package com.example.bogdan.dou_feed.api;
 
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
+import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 import com.google.gson.reflect.TypeToken;
 
@@ -32,7 +33,10 @@ public class DouConverter implements Converter<ResponseBody, Object> {
             return DouParser.parseFeed(Jsoup.parse(value.string()));
         } else if (mType.toString().equals(new TypeToken<ArticleEntity>() {
         }.getType().toString())) {
-            return DouParser.parseFeed( Jsoup.parse(value.string()));
+            return DouParser.parseFeed(Jsoup.parse(value.string()));
+        } else if (mType.toString().equals(new TypeToken<List<CommentItemEntity>>() {
+        }.getType().toString())) {
+            return DouParser.parseComments(Jsoup.parse(value.string()));
         }
         throw new IllegalArgumentException("This type does not supported " + mType);
     }
