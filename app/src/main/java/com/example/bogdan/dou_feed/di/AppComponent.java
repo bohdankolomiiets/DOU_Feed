@@ -12,5 +12,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, ApiModule.class})
 public interface AppComponent {
-    FeedViewComponent plus(FeedViewModule mainActivityModule);
+    FeedViewComponent plus(FeedViewModule feedViewModule);
+
+    CommentsViewComponent plus(CommentViewModule commentViewModule);
 }
