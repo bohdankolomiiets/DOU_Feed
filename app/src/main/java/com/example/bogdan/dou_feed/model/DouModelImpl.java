@@ -1,6 +1,7 @@
 package com.example.bogdan.dou_feed.model;
 
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
+import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 import com.example.bogdan.dou_feed.api.DouApi;
 
@@ -45,6 +46,13 @@ public class DouModelImpl implements DouModel {
     public Observable<ArticleEntity> getArticle(String rubric, String articleUrl) {
         return mApiInterface
                 .getArticleEntity(rubric, articleUrl)
+                .compose(applySchedulers());
+    }
+
+    @Override
+    public Observable<List<CommentItemEntity>> getComments(String rubric, String articleUrl) {
+        return mApiInterface
+                .getCommentListEntity(rubric, articleUrl)
                 .compose(applySchedulers());
     }
 

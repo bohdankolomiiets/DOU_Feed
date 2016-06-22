@@ -1,6 +1,7 @@
 package com.example.bogdan.dou_feed.model;
 
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
+import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface DouModel {
     Observable<List<FeedItemEntity>> getFeed(int pageNumber);
 
     Observable<ArticleEntity> getArticle(String rubric, String articleUrl);
+
+    Observable<List<CommentItemEntity>> getComments(String rubric, String articleUrl);
 }
