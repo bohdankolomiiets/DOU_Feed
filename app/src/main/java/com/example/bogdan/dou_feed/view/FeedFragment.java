@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.EndlessOnScrollListener;
 import com.example.bogdan.dou_feed.FeedAdapter;
+import com.example.bogdan.dou_feed.HTTPUtils;
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.FeedViewModule;
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
@@ -92,7 +93,16 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
 
     @Override
     public void onClick(String url) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+        String rubric = HTTPUtils.getRubric(url);
+        System.out.println(rubric);
+        String urlPage = HTTPUtils.getPageUrl(url);
+        System.out.println("Page" + urlPage);
+        CommentsFragment cf = CommentsFragment.newInstance(rubric, urlPage);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, cf, null)
+                .addToBackStack(null)
+                .commit();
+//        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
 
     @Override
@@ -109,4 +119,5 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
     public void showError(String message) {
         onError(message);
     }
+
 }

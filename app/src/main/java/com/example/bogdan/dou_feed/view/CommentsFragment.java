@@ -49,13 +49,20 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
         return fragment;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        DouApp.getAppComponent().plus(new CommentViewModule(this)).inject(this);
+        super.onCreate(savedInstanceState);
+        String rubric = getArguments().getString("rubric");
+        String url = getArguments().getString("pageUrl");
+        presenter.onCreate(rubric, url);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        DouApp.getAppComponent().plus(new CommentViewModule(this)).inject(this);
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
-
         mLayoutManager = new LinearLayoutManager(getContext());
         commentRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new CommentsAdapter(getContext());

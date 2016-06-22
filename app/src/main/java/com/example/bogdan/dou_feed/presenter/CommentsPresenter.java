@@ -9,6 +9,8 @@ import android.os.Bundle;
  */
 public interface CommentsPresenter {
 
+    void onCreate(String rubric, String url);
+
     void onCreateView(Bundle savedInstanceState);
 
     void loadComments(String rubric, String pageUrl);

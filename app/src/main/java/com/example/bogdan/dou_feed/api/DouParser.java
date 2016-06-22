@@ -76,10 +76,10 @@ public class DouParser {
 
         Element commentBlock = document.getElementById("commentsList");
         for (Element commentItem : commentBlock.children()) {
-            String imageUrl = commentItem.select("img .g-avatar").first().attr("src");
-            String authorName = commentItem.select("a .avatar").first().text();
-            String date = commentItem.select("comment-link").first().text();
-            String content = commentItem.select(".text .b-typo").first().text();
+            String imageUrl = commentItem.select("img.g-avatar").first().attr("src");
+            String authorName = commentItem.select("a.avatar").first().text();
+            String date = commentItem.select(".comment-link").first().text();
+            String content = commentItem.select(".text.b-typo").first().text();
             CommentItemEntity comment = new CommentItemEntity(imageUrl, authorName, date, content);
             commentsList.add(comment);
         }

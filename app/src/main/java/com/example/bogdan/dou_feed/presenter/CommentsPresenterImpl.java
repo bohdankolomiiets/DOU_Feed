@@ -19,6 +19,8 @@ import rx.Observer;
  */
 public class CommentsPresenterImpl extends BasePresenter implements CommentsPresenter {
     private CommentsView mView;
+    private String mRubric;
+    private String mUrl;
 
     @Inject
     public CommentsPresenterImpl(DouModel model, CommentsView view) {
@@ -26,11 +28,16 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
         mView = view;
     }
 
+
+    @Override
+    public void onCreate(String rubric, String url) {
+        mUrl= url;
+        mRubric = rubric;
+    }
+
     @Override
     public void onCreateView(Bundle savedInstanceState) {
-        String rubric = savedInstanceState.getString("rubric");
-        String pageUrl = savedInstanceState.getString("pageUrl");
-        loadComments(rubric, pageUrl);
+        loadComments(mRubric, mUrl);
     }
 
     @Override
