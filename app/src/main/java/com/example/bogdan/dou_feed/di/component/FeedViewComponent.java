@@ -1,7 +1,8 @@
-package com.example.bogdan.dou_feed.di;
+package com.example.bogdan.dou_feed.di.component;
 
+import com.example.bogdan.dou_feed.di.ActivityScope;
+import com.example.bogdan.dou_feed.di.module.FeedViewModule;
 import com.example.bogdan.dou_feed.view.FeedFragment;
-import com.example.bogdan.dou_feed.view.MainActivity;
 
 import dagger.Subcomponent;
 

@@ -10,18 +10,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.bogdan.dou_feed.CommentsAdapter;
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.EndlessOnScrollListener;
 import com.example.bogdan.dou_feed.FeedAdapter;
 import com.example.bogdan.dou_feed.HTTPUtils;
 import com.example.bogdan.dou_feed.R;
-import com.example.bogdan.dou_feed.di.FeedViewModule;
+import com.example.bogdan.dou_feed.di.module.FeedViewModule;
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
 import com.example.bogdan.dou_feed.presenter.FeedPresenter;
-import com.example.bogdan.dou_feed.presenter.FeedPresenterImpl;
 
 import java.util.List;
 

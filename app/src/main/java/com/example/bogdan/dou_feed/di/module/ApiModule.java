@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed.di;
+package com.example.bogdan.dou_feed.di.module;
 
 import com.example.bogdan.dou_feed.api.DouApi;
 import com.example.bogdan.dou_feed.api.DouConverterFactory;

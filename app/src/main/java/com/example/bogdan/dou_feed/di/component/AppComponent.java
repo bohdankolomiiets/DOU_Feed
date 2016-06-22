@@ -1,4 +1,9 @@
-package com.example.bogdan.dou_feed.di;
+package com.example.bogdan.dou_feed.di.component;
+
+import com.example.bogdan.dou_feed.di.module.ApiModule;
+import com.example.bogdan.dou_feed.di.module.AppModule;
+import com.example.bogdan.dou_feed.di.module.CommentViewModule;
+import com.example.bogdan.dou_feed.di.module.FeedViewModule;
 
 import javax.inject.Singleton;
 
