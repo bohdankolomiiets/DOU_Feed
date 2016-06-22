@@ -19,6 +19,7 @@ import rx.Observer;
 public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
     private FeedView mView;
     private int pageNumber = 0;
+
     @Inject
     public FeedPresenterImpl(DouModel model, FeedView view) {
         super(model);
