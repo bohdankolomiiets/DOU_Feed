@@ -9,10 +9,38 @@ import java.util.List;
  * @date 22.06.16
  */
 public class ArticleEntity {
+    private String mAuthor;
+    private String mDate;
+    private String mTitle;
+
     private List<Element> mArticleElements;
 
     public ArticleEntity() {
         mArticleElements = new ArrayList<>();
+    }
+
+    public void setAuthor(String author) {
+        mAuthor = author;
+    }
+
+    public void setDate(String date) {
+        mDate = date;
+    }
+
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
+    public String getAuthor() {
+        return mAuthor;
+    }
+
+    public String getDate() {
+        return mDate;
+    }
+
+    public String getTitle() {
+        return mTitle;
     }
 
     public int size() {

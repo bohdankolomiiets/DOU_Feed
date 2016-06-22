@@ -63,6 +63,7 @@ public class DouParser {
 
     public static ArticleEntity parseArticle(Document document) {
         ArticleEntity articlePage = new ArticleEntity();
+        
 
         Elements elements = document.select("article.b-typo div").first().children();
         for (Element element : elements) {
