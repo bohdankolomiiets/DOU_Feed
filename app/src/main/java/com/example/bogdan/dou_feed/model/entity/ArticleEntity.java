@@ -19,28 +19,9 @@ public class ArticleEntity {
         return mArticleElements.size();
     }
 
-    public void addElement(String tag, String content) {
-        Element element;
-        switch (tag) {
-            case "p":
-                element = new Element(Type.CONTENT, content);
-                mArticleElements.add(element);
-                break;
-            case "img":
-                element = new Element(Type.IMAGE, content);
-                mArticleElements.add(element);
-                break;
-//            case "":
-//                element = new Element(Type.CONTENT_HEADING, content);
-//                mArticleElements.add(element);
-//                break;
-            case "pre":
-                element = new Element(Type.CONTENT_CODE, content);
-                mArticleElements.add(element);
-                break;
-            default:
-                break;
-        }
+    public void addElement(Type type, String content) {
+        Element element = new Element(type, content);
+        mArticleElements.add(element);
     }
 
     public Element getElement(int position) {

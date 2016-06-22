@@ -33,7 +33,7 @@ public class DouConverter implements Converter<ResponseBody, Object> {
             return DouParser.parseFeed(Jsoup.parse(value.string()));
         } else if (mType.toString().equals(new TypeToken<ArticleEntity>() {
         }.getType().toString())) {
-            return DouParser.parseFeed(Jsoup.parse(value.string()));
+            return DouParser.parseArticle(Jsoup.parse(value.string()));
         } else if (mType.toString().equals(new TypeToken<List<CommentItemEntity>>() {
         }.getType().toString())) {
             return DouParser.parseComments(Jsoup.parse(value.string()));

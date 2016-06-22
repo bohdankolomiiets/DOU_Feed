@@ -1,5 +1,6 @@
 package com.example.bogdan.dou_feed.api;
 
+import com.example.bogdan.dou_feed.model.entity.ArticleEntity.Type;
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
 import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
@@ -63,12 +64,16 @@ public class DouParser {
     public static ArticleEntity parseArticle(Document document) {
         ArticleEntity articlePage = new ArticleEntity();
 
-        Elements elements = document.select("article .b-typo div");
+        Elements elements = document.select("article.b-typo div").first().children();
         for (Element element : elements) {
-            System.out.println(element.tagName());
+            switch (element.tagName()) {
+                case "p":
+                    articlePage.addElement(Type.CONTENT, element.text());
+                    break;
+            }
         }
 
-        return null;
+        return articlePage;
     }
 
     public static List<CommentItemEntity> parseComments(Document document) {

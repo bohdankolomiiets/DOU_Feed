@@ -102,7 +102,11 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
                         .commit();
                 break;
             case FEED_ITEM:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                ArticleFragment fragment = ArticleFragment.newInstance(rubric, urlPage);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, fragment, null)
+                        .addToBackStack(null)
+                        .commit();
                 break;
         }
     }
