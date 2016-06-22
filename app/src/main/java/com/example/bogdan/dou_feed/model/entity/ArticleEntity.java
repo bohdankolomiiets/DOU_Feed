@@ -47,11 +47,20 @@ public class ArticleEntity {
         return mArticleElements.get(position);
     }
 
+    public Type getType(int position) {
+        return mArticleElements.get(position).getType();
+    }
+
+    public String getContent(int position) {
+        return mArticleElements.get(position).getContent();
+    }
+
+
     private class Element {
         private Type mType;
         private String mContent;
 
-        Element(Type type, String content) {
+        private Element(Type type, String content) {
             mType = type;
             mContent = content;
         }
@@ -65,7 +74,7 @@ public class ArticleEntity {
         }
     }
 
-    enum Type {
+    public enum Type {
         CONTENT,
         IMAGE,
         CONTENT_HEADING,

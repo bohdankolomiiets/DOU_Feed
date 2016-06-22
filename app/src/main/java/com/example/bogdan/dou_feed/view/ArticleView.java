@@ -9,6 +9,12 @@ import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
  */
 public interface ArticleView extends View {
 
-    void showArticle(ArticleEntity article);
+    void showContent(String content);
+
+    void showImage(String imageUrl);
+
+    void showHeading(String heading);
+
+    void showCode(String code);
 
 }

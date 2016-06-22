@@ -13,5 +13,4 @@ public interface ArticlePresenter {
 
     void onCreateView(Bundle savedInstanceState);
 
-    void loadArticle(String rubric, String url);
 }
