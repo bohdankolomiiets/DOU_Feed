@@ -110,20 +110,28 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
         @Override
         public void onClick(View v) {
             String url = null;
+            Type type;
             switch (v.getId()) {
                 case R.id.commentContainer:
+                    type = Type.COMMENT;
                     url = mFeedList.get(getLayoutPosition()).getCommentUrl();
                     break;
                 default:
+                    type = Type.FEED_ITEM;
                     url = mFeedList.get(getLayoutPosition()).getmUrl();
             }
             if (url != null) {
-                mListener.onClick(url);
+                mListener.onClick(url, type);
             }
         }
     }
 
     public interface OnFeedItemClickListener {
-        void onClick(String url);
+        void onClick(String url, Type type);
+    }
+
+    public enum Type {
+        COMMENT,
+        FEED_ITEM
     }
 }

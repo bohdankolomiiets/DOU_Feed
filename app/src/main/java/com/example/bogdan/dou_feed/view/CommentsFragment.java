@@ -2,6 +2,7 @@ package com.example.bogdan.dou_feed.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.*;
@@ -31,6 +32,9 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
 
     @BindView(R.id.commentRecyclerView)
     RecyclerView commentRecyclerView;
+
+    @BindView(R.id.commentSwipeContainer)
+    SwipeRefreshLayout swipeLayout;
 
     @Inject
     CommentsPresenter presenter;
@@ -68,6 +72,14 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
         mAdapter = new CommentsAdapter(getContext());
         commentRecyclerView.setAdapter(mAdapter);
 
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mAdapter.clear();
+                presenter.onRefresh();
+            }
+        });
+
         presenter.onCreateView(savedInstanceState);
         return view;
     }
@@ -75,6 +87,11 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
     @Override
     public void showComments(List<CommentItemEntity> comments) {
         mAdapter.addComments(comments);
+    }
+
+    @Override
+    public void stopRefresh() {
+        swipeLayout.setRefreshing(false);
     }
 
     @Override

@@ -12,4 +12,6 @@ import java.util.List;
 public interface CommentsView extends View {
 
     void showComments(List<CommentItemEntity> comments);
+
+    void stopRefresh();
 }

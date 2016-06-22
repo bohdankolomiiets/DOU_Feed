@@ -13,7 +13,7 @@ public interface CommentsPresenter {
 
     void onCreateView(Bundle savedInstanceState);
 
-    void loadComments(String rubric, String pageUrl);
+    void loadComments(String rubric, String pageUrl, boolean showLoading);
 
     void onRefresh();
 }

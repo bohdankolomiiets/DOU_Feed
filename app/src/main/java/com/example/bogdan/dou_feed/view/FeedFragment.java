@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.bogdan.dou_feed.CommentsAdapter;
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.EndlessOnScrollListener;
 import com.example.bogdan.dou_feed.FeedAdapter;
@@ -92,17 +93,21 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
     }
 
     @Override
-    public void onClick(String url) {
+    public void onClick(String url, FeedAdapter.Type type) {
         String rubric = HTTPUtils.getRubric(url);
-        System.out.println(rubric);
         String urlPage = HTTPUtils.getPageUrl(url);
-        System.out.println("Page" + urlPage);
-        CommentsFragment cf = CommentsFragment.newInstance(rubric, urlPage);
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, cf, null)
-                .addToBackStack(null)
-                .commit();
-//        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+        switch (type) {
+            case COMMENT:
+                CommentsFragment cf = CommentsFragment.newInstance(rubric, urlPage);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, cf, null)
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case FEED_ITEM:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                break;
+        }
     }
 
     @Override

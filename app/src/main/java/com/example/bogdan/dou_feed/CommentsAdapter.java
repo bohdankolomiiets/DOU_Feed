@@ -43,6 +43,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Holder
 
         Picasso.with(mContext)
                 .load(comment.getImageUrl())
+                .fit()
+                .centerCrop()
                 .into(holder.avatar);
         holder.author.setText(comment.getAuthorName());
         holder.date.setText(comment.getDateOfPublication());
@@ -52,6 +54,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Holder
     @Override
     public int getItemCount() {
         return mCommentList.size();
+    }
+
+    public void clear() {
+        mCommentList.clear();
+        notifyDataSetChanged();
     }
 
     public void addComments(List<CommentItemEntity> list) {

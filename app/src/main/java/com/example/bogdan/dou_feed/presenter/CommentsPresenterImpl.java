@@ -37,16 +37,18 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
 
     @Override
     public void onCreateView(Bundle savedInstanceState) {
-        loadComments(mRubric, mUrl);
+        loadComments(mRubric, mUrl, true);
     }
 
     @Override
-    public void loadComments(String rubric, String pageUrl) {
-        mView.showLoading();
+    public void loadComments(String rubric, String pageUrl, boolean showLoading) {
+        if (showLoading)
+            mView.showLoading();
         mModel.getComments(rubric, pageUrl)
                 .subscribe(new Observer<List<CommentItemEntity>>() {
                     @Override
                     public void onCompleted() {
+                        mView.stopRefresh();
                         mView.hideLoading();
                     }
 
@@ -67,6 +69,6 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
 
     @Override
     public void onRefresh() {
-
+        loadComments(mRubric, mUrl, false);
     }
 }

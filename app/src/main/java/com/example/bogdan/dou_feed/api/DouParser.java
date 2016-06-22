@@ -76,10 +76,26 @@ public class DouParser {
 
         Element commentBlock = document.getElementById("commentsList");
         for (Element commentItem : commentBlock.children()) {
+            String authorName;
+            String date;
+            String content;
             String imageUrl = commentItem.select("img.g-avatar").first().attr("src");
-            String authorName = commentItem.select("a.avatar").first().text();
-            String date = commentItem.select(".comment-link").first().text();
-            String content = commentItem.select(".text.b-typo").first().text();
+            try {
+                authorName = commentItem.select("a").first().text();
+            } catch (NullPointerException e) {
+                authorName = "Unknown";
+            }
+            try {
+                date = commentItem.select(".comment-link").first().text();
+            } catch (NullPointerException e) {
+                date = "";
+            }
+            try {
+                content = commentItem.select(".text.b-typo").first().text();
+            } catch (NullPointerException e) {
+                content = "";
+            }
+
             CommentItemEntity comment = new CommentItemEntity(imageUrl, authorName, date, content);
             commentsList.add(comment);
         }

@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:background="@color/focused"
+            android:background="@color/black"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="72dp"
@@ -36,14 +36,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@string/font_roboto"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:textColor="@color/white"/>
 
                 <TextView
                     android:id="@+id/commentDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@string/font_roboto"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:textColor="@color/white"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/commentSwipeContainer"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#e0e0e0">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/commentRecyclerView"
@@ -10,4 +12,4 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
 
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
