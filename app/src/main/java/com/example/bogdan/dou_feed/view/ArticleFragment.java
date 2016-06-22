@@ -9,10 +9,6 @@ import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
  */
 public class ArticleFragment extends BaseFragment implements ArticleView {
 
-    @Override
-    public void showArticle(ArticleEntity article) {
-
-    }
 
     @Override
     public void showLoading() {
@@ -27,5 +23,25 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
     @Override
     public void showError(String message) {
         onError(message);
+    }
+
+    @Override
+    public void showContent(String content) {
+
+    }
+
+    @Override
+    public void showImage(String imageUrl) {
+
+    }
+
+    @Override
+    public void showHeading(String heading) {
+
+    }
+
+    @Override
+    public void showCode(String code) {
+
     }
 }

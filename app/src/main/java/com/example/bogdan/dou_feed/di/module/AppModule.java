@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed.di;
+package com.example.bogdan.dou_feed.di.module;
 
 import android.content.Context;
 

@@ -11,7 +11,7 @@ import android.view.View;
 import com.example.bogdan.dou_feed.CommentsAdapter;
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.R;
-import com.example.bogdan.dou_feed.di.CommentViewModule;
+import com.example.bogdan.dou_feed.di.module.CommentViewModule;
 import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
 import com.example.bogdan.dou_feed.presenter.CommentsPresenter;
 
