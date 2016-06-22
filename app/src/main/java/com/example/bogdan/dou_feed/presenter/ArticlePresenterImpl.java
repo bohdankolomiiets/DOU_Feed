@@ -74,6 +74,9 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
                 case CONTENT_CODE:
                     mView.showCode(articleEntity.getContent(i));
                     break;
+                case LINK:
+                    mView.showLink(articleEntity.getContent(i));
+                    break;
             }
         }
     }

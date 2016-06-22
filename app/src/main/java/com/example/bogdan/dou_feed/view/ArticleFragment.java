@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.*;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.module.ArticleViewModule;
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
 import com.example.bogdan.dou_feed.presenter.ArticlePresenter;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
@@ -98,7 +100,11 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
 
     @Override
     public void showImage(String imageUrl) {
-
+        ImageView imageView = (ImageView) mLayoutInflater.inflate(R.layout.article_image, null);
+        Picasso.with(getContext())
+                .load(imageUrl)
+                .into(imageView);
+        container.addView(imageView);
     }
 
     @Override
@@ -118,5 +124,10 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
         authorView.setText(author);
         dateView.setText(date);
         titleView.setText(title);
+    }
+
+    @Override
+    public void showLink(String text) {
+        
     }
 }

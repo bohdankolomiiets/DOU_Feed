@@ -83,6 +83,9 @@ public class DouParser {
                     if (element.children().hasAttr("src")) {
                         articlePage.addElement(Type.IMAGE, element.children().attr("src"));
                     }
+                    if (element.children().hasAttr("href")) {
+                        articlePage.addElement(Type.LINK, element.children().attr("href"));
+                    }
                     articlePage.addElement(Type.CONTENT, element.text());
                     break;
                 case "h1":
