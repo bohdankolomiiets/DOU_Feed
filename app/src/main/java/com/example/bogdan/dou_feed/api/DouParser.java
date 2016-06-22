@@ -11,6 +11,8 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Bogdan Kolomiets
@@ -62,6 +64,7 @@ public class DouParser {
     }
 
     public static ArticleEntity parseArticle(Document document) {
+        Pattern pattern = Pattern.compile("h\\d");
         ArticleEntity articlePage = new ArticleEntity();
 
         String title = document.select("article.b-typo h1").first().text().replace("&nbsp;", " ");
@@ -77,7 +80,18 @@ public class DouParser {
         for (Element element : elements) {
             switch (element.tagName()) {
                 case "p":
+                    if (element.children().hasAttr("src")) {
+                        articlePage.addElement(Type.IMAGE, element.children().attr("src"));
+                    }
                     articlePage.addElement(Type.CONTENT, element.text());
+                    break;
+                case "h1":
+                case "h2":
+                case "h3":
+                case "h4":
+                case "h5":
+                case "h6":
+                    articlePage.addElement(Type.CONTENT_HEADING, element.text());
                     break;
             }
         }

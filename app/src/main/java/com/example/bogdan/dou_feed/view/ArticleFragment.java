@@ -103,7 +103,9 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
 
     @Override
     public void showHeading(String heading) {
-
+        TextView headingView = (TextView) mLayoutInflater.inflate(R.layout.article_heading, null);
+        headingView.setText(heading);
+        container.addView(headingView);
     }
 
     @Override
