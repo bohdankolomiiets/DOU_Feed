@@ -103,8 +103,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
             super(itemView);
             ButterKnife.bind(this, itemView);
             commentContainer.setOnClickListener(this);
-            title.setOnClickListener(this);
-            description.setOnClickListener(this);
+            itemView.setOnClickListener(this);
         }
 
 

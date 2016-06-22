@@ -6,4 +6,5 @@
     <color name="black">#000</color>
     <color name="white">#fff</color>
     <color name="title">#1876ac</color>
+    <color name="focused">#64B5F6</color>
 </resources>

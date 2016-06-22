@@ -58,6 +58,10 @@ public class DouParser {
         return feed;
     }
 
+    public static void parseArticle(Document document) {
+
+    }
+
     private static String deleteCommentCount(String text) {
         char[] charText = text.toCharArray();
         int end = charText.length - 1;
