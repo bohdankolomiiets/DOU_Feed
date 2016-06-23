@@ -7,6 +7,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,8 @@ import butterknife.ButterKnife;
  */
 public class ArticleFragment extends BaseFragment implements ArticleView {
     private static final int LAYOUT = R.layout.article_layout;
+    private String mRubric;
+    private String mUrl;
 
     @BindView(R.id.articleContainer)
     LinearLayout container;
@@ -66,9 +70,10 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         DouApp.getAppComponent().plus(new ArticleViewModule(this)).inject(this);
         super.onCreate(savedInstanceState);
-        String rubric = getArguments().getString(RUBRIC_KEY);
-        String url = getArguments().getString(URL_KEY);
-        presenter.onCreate(rubric, url);
+        setHasOptionsMenu(true);
+        mRubric = getArguments().getString(RUBRIC_KEY);
+        mUrl = getArguments().getString(URL_KEY);
+        presenter.onCreate(mRubric, mUrl);
     }
 
     @Nullable
@@ -79,6 +84,27 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
         mLayoutInflater = inflater;
         presenter.onCreateView(savedInstanceState);
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.article_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.goComments:
+                CommentsFragment fragment = CommentsFragment.newInstance(mRubric, mUrl);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, fragment, null)
+                        .addToBackStack(null)
+                        .commit();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -138,4 +164,5 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
     public void showLink(String text) {
 
     }
+
 }
