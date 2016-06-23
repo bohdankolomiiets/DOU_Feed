@@ -13,6 +13,7 @@ public class ArticleEntity {
     private String mDate;
     private String mTitle;
 
+    private TableElement mTableElement;
     private List<Element> mArticleElements;
 
     public ArticleEntity() {
@@ -52,6 +53,39 @@ public class ArticleEntity {
         mArticleElements.add(element);
     }
 
+    public void addTable() {
+        mTableElement = new TableElement();
+        mArticleElements.add(mTableElement);
+    }
+
+    public void addRowCell(String cell) {
+        mTableElement.addCell(cell);
+    }
+
+    public void addTableRow() {
+        mTableElement.addRow();
+    }
+
+    private void getTableElement(int position) {
+        mTableElement = (TableElement)getElement(position);
+    }
+
+    public int tableSize() {
+        return mTableElement.size();
+    }
+
+    public int tableRowSize(int index) {
+        return mTableElement.rowSize(index);
+    }
+
+    private List<String> getTableRow(int index) {
+        return mTableElement.getTableRow(index);
+    }
+
+    public String getRowCell(int rowIndex, int position) {
+        return mTableElement.getTableRow(rowIndex).get(position);
+    }
+
     public Element getElement(int position) {
         return mArticleElements.get(position);
     }
@@ -83,13 +117,45 @@ public class ArticleEntity {
         }
     }
 
+    private class TableElement extends Element {
+        private List<List<String>> mTable;
+        private List<String> mTableRow;
+
+        private TableElement() {
+            super(Type.TABLE, "");
+            mTable = new ArrayList<>();
+        }
+
+        public void addCell(String cell) {
+            mTableRow.add(cell);
+        }
+
+        public void addRow() {
+            mTableRow = new ArrayList<>();
+            mTable.add(mTableRow);
+        }
+
+        public int size() {
+            return mTable.size();
+        }
+
+        public int rowSize(int position) {
+            return mTable.get(position).size();
+        }
+
+        public List<String> getTableRow(int position) {
+            return mTable.get(position);
+        }
+    }
+
     public enum Type {
         CONTENT,
         IMAGE,
         CONTENT_HEADING,
         CONTENT_CODE,
         LINK,
-        BLOCKQUOTE
+        BLOCKQUOTE,
+        TABLE
     }
 
 

@@ -11,7 +11,6 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -103,7 +102,23 @@ public class DouParser {
                 case "blockquote":
                     articlePage.addElement(Type.BLOCKQUOTE, element.text());
                     break;
-
+                case "table":
+                    articlePage.addTable();
+                    for (Element tableElements : element.children()) {
+                        if (tableElements.tagName().equals("thead")) {
+                            articlePage.addTableRow();
+                            for (Element head : tableElements.children().first().children()) {
+                                articlePage.addRowCell(head.text());
+                            }
+                        } else if (tableElements.tagName().equals("tbody")) {
+                            for (Element row : tableElements.children()) {
+                                articlePage.addTableRow();
+                                for (Element column : row.children()) {
+                                    articlePage.addRowCell(column.text());
+                                }
+                            }
+                        }
+                    }
             }
             if (element.children().hasAttr("src")) {
                 articlePage.addElement(Type.IMAGE, element.children().attr("src"));
