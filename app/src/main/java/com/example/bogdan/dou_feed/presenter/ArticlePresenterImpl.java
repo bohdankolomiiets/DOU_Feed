@@ -63,10 +63,7 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
         for (int i = 0; i < articleEntity.size(); i++) {
             switch (articleEntity.getType(i)) {
                 case CONTENT:
-                    mView.showContent(articleEntity.getContent(i), false);
-                    break;
-                case EM_CONTENT:
-                    mView.showContent(articleEntity.getContent(i), true);
+                    mView.showContent(articleEntity.getContent(i));
                     break;
                 case CONTENT_HEADING:
                     mView.showHeading(articleEntity.getContent(i));
@@ -79,6 +76,9 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
                     break;
                 case LINK:
                     mView.showLink(articleEntity.getContent(i));
+                    break;
+                case BLOCKQUOTE:
+                    mView.showBlockquote(articleEntity.getContent(i));
                     break;
             }
         }

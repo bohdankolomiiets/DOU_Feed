@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -124,13 +125,9 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
     }
 
     @Override
-    public void showContent(String content, boolean em) {
+    public void showContent(String content) {
         TextView contentView = (TextView) mLayoutInflater.inflate(R.layout.article_content, null);
         contentView.setText(content);
-        if (em) {
-            contentView.setTypeface(null, Typeface.ITALIC);
-        }
-
         container.addView(contentView);
     }
 
@@ -168,6 +165,13 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
     @Override
     public void showLink(String text) {
 
+    }
+
+    @Override
+    public void showBlockquote(String text) {
+        TextView blockView = (TextView) mLayoutInflater.inflate(R.layout.article_blockquote , null);
+        blockView.setText(text);
+        container.addView(blockView);
     }
 
 }

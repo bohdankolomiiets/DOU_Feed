@@ -84,8 +84,6 @@ public class DouParser {
                         for (Element children : element.children()) {
                             if (children.tagName().equals("src")) {
                                 articlePage.addElement(Type.IMAGE, children.attr("src"));
-                            } else if (children.tagName().equals("em")) {
-                                articlePage.addElement(Type.EM_CONTENT, element.text());
                             }
                         }
                         articlePage.addElement(Type.CONTENT, element.text());
@@ -101,6 +99,11 @@ public class DouParser {
                     break;
                 case "pre":
                     articlePage.addElement(Type.CONTENT_CODE, element.text());
+                    break;
+                case "blockquote":
+                    articlePage.addElement(Type.BLOCKQUOTE, element.text());
+                    break;
+
             }
             if (element.children().hasAttr("src")) {
                 articlePage.addElement(Type.IMAGE, element.children().attr("src"));

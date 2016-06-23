@@ -12,7 +12,7 @@ public interface ArticleView extends View {
 
     String URL_KEY = "URL_KEY";
 
-    void showContent(String content, boolean em);
+    void showContent(String content);
 
     void showImage(String imageUrl);
 
@@ -23,5 +23,7 @@ public interface ArticleView extends View {
     void showHead(String author, String date, String title);
 
     void showLink(String text);
+
+    void showBlockquote(String text);
 
 }
