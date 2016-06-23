@@ -89,6 +89,7 @@ public class ArticleEntity {
         CONTENT_HEADING,
         CONTENT_CODE,
         LINK,
+        EM_CONTENT
     }
 
 

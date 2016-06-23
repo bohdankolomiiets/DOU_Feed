@@ -1,5 +1,6 @@
 package com.example.bogdan.dou_feed.view;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
@@ -123,9 +124,13 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
     }
 
     @Override
-    public void showContent(String content) {
+    public void showContent(String content, boolean em) {
         TextView contentView = (TextView) mLayoutInflater.inflate(R.layout.article_content, null);
         contentView.setText(content);
+        if (em) {
+            contentView.setTypeface(null, Typeface.ITALIC);
+        }
+
         container.addView(contentView);
     }
 

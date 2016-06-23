@@ -84,6 +84,8 @@ public class DouParser {
                         for (Element children : element.children()) {
                             if (children.tagName().equals("src")) {
                                 articlePage.addElement(Type.IMAGE, children.attr("src"));
+                            } else if (children.tagName().equals("em")) {
+                                articlePage.addElement(Type.EM_CONTENT, element.text());
                             }
                         }
                         articlePage.addElement(Type.CONTENT, element.text());
