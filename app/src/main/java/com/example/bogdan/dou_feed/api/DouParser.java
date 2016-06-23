@@ -80,13 +80,14 @@ public class DouParser {
         for (Element element : elements) {
             switch (element.tagName()) {
                 case "p":
-                    if (element.children().hasAttr("src")) {
-                        articlePage.addElement(Type.IMAGE, element.children().attr("src"));
+                    if (element.hasText()) {
+                        for (Element children : element.children()) {
+                            if (children.tagName().equals("src")) {
+                                articlePage.addElement(Type.IMAGE, children.attr("src"));
+                            }
+                        }
+                        articlePage.addElement(Type.CONTENT, element.text());
                     }
-                    if (element.children().hasAttr("href")) {
-                        articlePage.addElement(Type.LINK, element.children().attr("href"));
-                    }
-                    articlePage.addElement(Type.CONTENT, element.text());
                     break;
                 case "h1":
                 case "h2":
@@ -98,6 +99,9 @@ public class DouParser {
                     break;
                 case "pre":
                     articlePage.addElement(Type.CONTENT_CODE, element.text());
+            }
+            if (element.children().hasAttr("src")) {
+                articlePage.addElement(Type.IMAGE, element.children().attr("src"));
             }
         }
 
