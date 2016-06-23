@@ -2,22 +2,24 @@ package com.example.bogdan.dou_feed.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.*;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.module.ArticleViewModule;
-import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
 import com.example.bogdan.dou_feed.presenter.ArticlePresenter;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import javax.inject.Inject;
 
@@ -75,7 +77,6 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
         View view = inflater.inflate(LAYOUT, container, false);
         ButterKnife.bind(this, view);
         mLayoutInflater = inflater;
-
         presenter.onCreateView(savedInstanceState);
         return view;
     }
