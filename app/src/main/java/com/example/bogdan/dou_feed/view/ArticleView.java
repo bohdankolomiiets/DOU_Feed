@@ -1,6 +1,7 @@
 package com.example.bogdan.dou_feed.view;
 
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
+import com.example.bogdan.dou_feed.model.entity.TableEntity;
 
 /**
  * @author Bogdan Kolomiets
@@ -25,5 +26,7 @@ public interface ArticleView extends View {
     void showLink(String text);
 
     void showBlockquote(String text);
+
+    void showTable(TableEntity table);
 
 }

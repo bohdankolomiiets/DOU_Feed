@@ -17,11 +17,15 @@ import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.module.ArticleViewModule;
+import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
+import com.example.bogdan.dou_feed.model.entity.TableEntity;
 import com.example.bogdan.dou_feed.presenter.ArticlePresenter;
 import com.squareup.picasso.Picasso;
 
@@ -172,6 +176,29 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
         TextView blockView = (TextView) mLayoutInflater.inflate(R.layout.article_blockquote , null);
         blockView.setText(text);
         container.addView(blockView);
+    }
+
+    @Override
+    public void showTable(TableEntity table) {
+        HorizontalScrollView scrollView =
+                (HorizontalScrollView) mLayoutInflater.inflate(R.layout.article_table, null);
+        TableLayout tableContainer = (TableLayout) scrollView.findViewById(R.id.articleTable);
+
+        for (int i = 0; i < table.tableSize(); i++) {
+            TableRow tableRow = new TableRow(getContext());
+            for (int j = 0; j < table.tableRowSize(i); j++) {
+                TextView cellView = new TextView(getContext());
+                cellView.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.table_cell_border));
+                cellView.setPadding(20, 10, 20, 10);
+                cellView.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+                cellView.setText(table.getRowCell(i, j));
+                tableRow.addView(cellView);
+            }
+
+            tableContainer.addView(tableRow);
+        }
+
+        container.addView(scrollView);
     }
 
 }

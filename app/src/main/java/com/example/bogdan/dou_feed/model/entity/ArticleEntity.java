@@ -13,7 +13,6 @@ public class ArticleEntity {
     private String mDate;
     private String mTitle;
 
-    private TableElement mTableElement;
     private List<Element> mArticleElements;
 
     public ArticleEntity() {
@@ -49,41 +48,12 @@ public class ArticleEntity {
     }
 
     public void addElement(Type type, String content) {
-        Element element = new Element(type, content);
+        ArticleElement element = new ArticleElement(type, content);
         mArticleElements.add(element);
     }
 
-    public void addTable() {
-        mTableElement = new TableElement();
-        mArticleElements.add(mTableElement);
-    }
-
-    public void addRowCell(String cell) {
-        mTableElement.addCell(cell);
-    }
-
-    public void addTableRow() {
-        mTableElement.addRow();
-    }
-
-    private void getTableElement(int position) {
-        mTableElement = (TableElement)getElement(position);
-    }
-
-    public int tableSize() {
-        return mTableElement.size();
-    }
-
-    public int tableRowSize(int index) {
-        return mTableElement.rowSize(index);
-    }
-
-    private List<String> getTableRow(int index) {
-        return mTableElement.getTableRow(index);
-    }
-
-    public String getRowCell(int rowIndex, int position) {
-        return mTableElement.getTableRow(rowIndex).get(position);
+    public void addTable(TableEntity table) {
+        mArticleElements.add(table);
     }
 
     public Element getElement(int position) {
@@ -91,60 +61,28 @@ public class ArticleEntity {
     }
 
     public Type getType(int position) {
-        return mArticleElements.get(position).getType();
+        return getElement(position).getmType();
     }
 
     public String getContent(int position) {
-        return mArticleElements.get(position).getContent();
+        return ((ArticleElement)getElement(position)).getContent();
     }
 
-
-    private class Element {
+    private class ArticleElement implements Element {
         private Type mType;
         private String mContent;
 
-        private Element(Type type, String content) {
+        private ArticleElement(Type type, String content) {
             mType = type;
             mContent = content;
         }
 
-        public Type getType() {
+        public Type getmType() {
             return mType;
         }
 
         public String getContent() {
             return mContent;
-        }
-    }
-
-    private class TableElement extends Element {
-        private List<List<String>> mTable;
-        private List<String> mTableRow;
-
-        private TableElement() {
-            super(Type.TABLE, "");
-            mTable = new ArrayList<>();
-        }
-
-        public void addCell(String cell) {
-            mTableRow.add(cell);
-        }
-
-        public void addRow() {
-            mTableRow = new ArrayList<>();
-            mTable.add(mTableRow);
-        }
-
-        public int size() {
-            return mTable.size();
-        }
-
-        public int rowSize(int position) {
-            return mTable.get(position).size();
-        }
-
-        public List<String> getTableRow(int position) {
-            return mTable.get(position);
         }
     }
 

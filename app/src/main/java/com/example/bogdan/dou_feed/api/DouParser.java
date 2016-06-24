@@ -4,6 +4,7 @@ import com.example.bogdan.dou_feed.model.entity.ArticleEntity.Type;
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
 import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
 import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
+import com.example.bogdan.dou_feed.model.entity.TableEntity;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -103,22 +104,23 @@ public class DouParser {
                     articlePage.addElement(Type.BLOCKQUOTE, element.text());
                     break;
                 case "table":
-                    articlePage.addTable();
+                    TableEntity table = new TableEntity();
                     for (Element tableElements : element.children()) {
                         if (tableElements.tagName().equals("thead")) {
-                            articlePage.addTableRow();
+                            table.addTableRow();
                             for (Element head : tableElements.children().first().children()) {
-                                articlePage.addRowCell(head.text());
+                                table.addRowCell(head.text());
                             }
                         } else if (tableElements.tagName().equals("tbody")) {
                             for (Element row : tableElements.children()) {
-                                articlePage.addTableRow();
+                                table.addTableRow();
                                 for (Element column : row.children()) {
-                                    articlePage.addRowCell(column.text());
+                                    table.addRowCell(column.text());
                                 }
                             }
                         }
                     }
+                    articlePage.addTable(table);
             }
             if (element.children().hasAttr("src")) {
                 articlePage.addElement(Type.IMAGE, element.children().attr("src"));

@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.example.bogdan.dou_feed.model.DouModel;
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
+import com.example.bogdan.dou_feed.model.entity.TableEntity;
 import com.example.bogdan.dou_feed.view.ArticleView;
 
 import javax.inject.Inject;
@@ -45,6 +46,7 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
 
                     @Override
                     public void onError(Throwable e) {
+                        e.printStackTrace();
                         mView.hideLoading();
                         mView.showError(e.getMessage());
                     }
@@ -79,6 +81,9 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
                     break;
                 case BLOCKQUOTE:
                     mView.showBlockquote(articleEntity.getContent(i));
+                    break;
+                case TABLE:
+                    mView.showTable((TableEntity)articleEntity.getElement(i));
                     break;
             }
         }
