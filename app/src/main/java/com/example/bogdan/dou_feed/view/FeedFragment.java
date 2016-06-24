@@ -1,12 +1,10 @@
 package com.example.bogdan.dou_feed.view;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +18,7 @@ import com.example.bogdan.dou_feed.FeedAdapter;
 import com.example.bogdan.dou_feed.HTTPUtils;
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.module.FeedViewModule;
-import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
+import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.example.bogdan.dou_feed.presenter.FeedPresenter;
 
 import java.util.List;
@@ -35,7 +33,9 @@ import butterknife.ButterKnife;
  * @version 1
  * @date 21.06.16
  */
-public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.OnFeedItemClickListener {
+public class FeedFragment extends BaseFragment implements FeedView, View.OnClickListener, FeedAdapter.OnFeedItemClickListener {
+    public static final int RUBRIC_ID = 1;
+
     @BindView(R.id.feedRecyclerView)
     RecyclerView feedRecyclerView;
 
@@ -46,6 +46,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
     SwipeRefreshLayout swipeLayout;
 
     private LinearLayout mRubricContainer;
+    private TextView mRubricView;
     private LinearLayoutManager mLayoutManager;
     private FeedAdapter mFeedAdapter;
 
@@ -57,9 +58,10 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
         View view = inflater.inflate(R.layout.feed_layout, container, false);
         ButterKnife.bind(this, view);
         mRubricContainer = (LinearLayout) getActivity().findViewById(R.id.rubricContainer);
-        TextView rubricView = (TextView) inflater.inflate(R.layout.rubric_text, null);
-        rubricView.setText("Все рубрики");
-        mRubricContainer.addView(rubricView);
+        mRubricView = (TextView) inflater.inflate(R.layout.rubric_text, null);
+        mRubricView.setText("Все рубрики");
+        mRubricView.setId(RUBRIC_ID);
+        mRubricContainer.addView(mRubricView);
         mLayoutManager = new LinearLayoutManager(getContext());
         feedRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -87,7 +89,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
     }
 
     @Override
-    public void showFeed(List<FeedItemEntity> feed) {
+    public void showFeed(List<FeedItem> feed) {
         mFeedAdapter.addFeed(feed);
     }
 
@@ -135,4 +137,12 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
         onError(message);
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case RUBRIC_ID:
+                PopupMenu popupMenu = new PopupMenu(getContext(), mRubricView);
+
+        }
+    }
 }

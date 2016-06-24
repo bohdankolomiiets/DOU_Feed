@@ -3,8 +3,11 @@ package com.example.bogdan.dou_feed.api;
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity.Type;
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
 import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
-import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
+import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.example.bogdan.dou_feed.model.entity.TableEntity;
+import com.example.bogdan.dou_feed.model.entity.feed.FeedItemContent;
+import com.example.bogdan.dou_feed.model.entity.feed.FeedItemFooter;
+import com.example.bogdan.dou_feed.model.entity.feed.FeedItemHeader;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -21,43 +24,53 @@ import java.util.regex.Pattern;
  */
 public class DouParser {
 
-    public static List<FeedItemEntity> parseFeed(Document document) {
-        List<FeedItemEntity> feed = new ArrayList<>();
+    public static List<FeedItem> parseFeed(Document document) {
+        List<FeedItem> feed = new ArrayList<>();
 
         Elements items = document.select(".b-lenta article");
 
         for (Element feedItem : items) {
 
             String url = feedItem.select("h2 a").first().attr("href");
+
             String imageUrl = feedItem.select("h2 a img").first().attr("src");
-            String author = feedItem.select(".author").first().html();
+            String authorName = feedItem.select(".author").first().html();
             String date = feedItem.select(".date").first().text();
+            FeedItemHeader header = new FeedItemHeader(imageUrl, authorName, date);
+
+            String title = feedItem.select("h2 a").first().text().replace("&nbsp;", " ");
+            String description = feedItem.select(".b-typo").first().text();
+            description = deleteCommentCount(description);
+            FeedItemContent content = new FeedItemContent(title, description);
+
             int watchCount;
             try {
                 watchCount = Integer.parseInt(feedItem.select(".pageviews").first().text());
             } catch (NullPointerException e) {
                 watchCount = 0;
             }
-            String title = feedItem.select("h2 a").first().text().replace("&nbsp;", " ");
-            String description = feedItem.select(".b-typo").first().text();
-            description = deleteCommentCount(description);
             int commentCount;
             try {
                 commentCount = Integer.parseInt(feedItem.select(".b-typo a").first().html());
             } catch (NullPointerException e) {
                 commentCount = 0;
             }
-            String topic = feedItem.select(".more .topic").first().html();
             String commentUrl;
             try {
                commentUrl = feedItem.select(".b-typo a").first().attr("href");
             } catch (NullPointerException e) {
                 commentUrl = null;
             }
-            FeedItemEntity newItemEntity = new FeedItemEntity(url, imageUrl,  author, date,
-                    watchCount, commentCount, title, description, topic, commentUrl);
+            FeedItemFooter footer = new FeedItemFooter(watchCount, commentCount, commentUrl);
 
-            feed.add(newItemEntity);
+            FeedItem feedItemEntity = new FeedItem.Builder()
+                    .url(url)
+                    .header(header)
+                    .content(content)
+                    .footer(footer)
+                    .build();
+
+            feed.add(feedItemEntity);
         }
 
         return feed;

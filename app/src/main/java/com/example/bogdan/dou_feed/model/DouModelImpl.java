@@ -2,7 +2,7 @@ package com.example.bogdan.dou_feed.model;
 
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
 import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
-import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
+import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.example.bogdan.dou_feed.api.DouApi;
 
 import java.util.List;
@@ -29,14 +29,14 @@ public class DouModelImpl implements DouModel {
     }
 
     @Override
-    public Observable<List<FeedItemEntity>> getFeedByRubric(String rubric, int pageNumber) {
+    public Observable<List<FeedItem>> getFeedByRubric(String rubric, int pageNumber) {
         return mApiInterface
                 .getFeedEntityByRubric(rubric, pageNumber)
                 .compose(applySchedulers());
     }
 
     @Override
-    public Observable<List<FeedItemEntity>> getFeed(int pageNumber) {
+    public Observable<List<FeedItem>> getFeed(int pageNumber) {
         return mApiInterface
                 .getFeedEntity(pageNumber)
                 .compose(applySchedulers());

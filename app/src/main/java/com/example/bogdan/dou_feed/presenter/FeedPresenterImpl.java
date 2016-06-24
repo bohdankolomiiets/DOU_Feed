@@ -1,8 +1,7 @@
 package com.example.bogdan.dou_feed.presenter;
 
 import com.example.bogdan.dou_feed.model.DouModel;
-import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
-import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
+import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.example.bogdan.dou_feed.view.FeedView;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
             mView.showLoading();
         }
         mModel.getFeed(++pageNumber)
-                .subscribe(new Observer<List<FeedItemEntity>>() {
+                .subscribe(new Observer<List<FeedItem>>() {
 
                     @Override
                     public void onCompleted() {
@@ -52,7 +51,7 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
                     }
 
                     @Override
-                    public void onNext(List<FeedItemEntity> feedItemEntities) {
+                    public void onNext(List<FeedItem> feedItemEntities) {
                         if (feedItemEntities != null) {
                             mView.showFeed(feedItemEntities);
                         }

@@ -2,7 +2,7 @@ package com.example.bogdan.dou_feed.api;
 
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
 import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
-import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
+import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.google.gson.reflect.TypeToken;
 
 import org.jsoup.Jsoup;
@@ -28,7 +28,7 @@ public class DouConverter implements Converter<ResponseBody, Object> {
 
     @Override
     public Object convert(ResponseBody value) throws IOException {
-        if (mType.toString().equals(new TypeToken<List<FeedItemEntity>>() {
+        if (mType.toString().equals(new TypeToken<List<FeedItem>>() {
         }.getType().toString())) {
             return DouParser.parseFeed(Jsoup.parse(value.string()));
         } else if (mType.toString().equals(new TypeToken<ArticleEntity>() {

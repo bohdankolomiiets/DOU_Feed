@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.bogdan.dou_feed.model.entity.FeedItemEntity;
+import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
     private Context mContext;
-    private List<FeedItemEntity> mFeedList;
+    private List<FeedItem> mFeedList;
     private OnFeedItemClickListener mListener;
 
     public FeedAdapter(Context context, OnFeedItemClickListener listener) {
@@ -42,19 +42,20 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
-        FeedItemEntity feedItem = mFeedList.get(position);
+        FeedItem feedItem = mFeedList.get(position);
 
         Picasso.with(mContext)
-                .load(feedItem.getImageUrl())
+                .load(feedItem.getHeader().getImageUrl())
                 .into(holder.articleImage);
-        holder.author.setText(feedItem.getmAuthor());
-        holder.date.setText(feedItem.getmDate());
-        holder.title.setText(feedItem.getmTitle());
-        if (feedItem.getmWatchCount() != 0)
-            holder.watchCount.setText(String.valueOf(feedItem.getmWatchCount()));
-        if (feedItem.getCommentCount() != 0)
-            holder.commentCount.setText(String.valueOf(feedItem.getCommentCount()));
-        holder.description.setText(feedItem.getmDescription());
+        holder.author.setText(feedItem.getHeader().getAuthorName());
+        holder.date.setText(feedItem.getHeader().getDate());
+        holder.title.setText(feedItem.getContent().getTitle());
+        holder.description.setText(feedItem.getContent().getDescription());
+        if (feedItem.getFooter().getWatchCount() != 0)
+            holder.watchCount.setText(String.valueOf(feedItem.getFooter().getWatchCount()));
+        if (feedItem.getFooter().getCommentCount() != 0)
+            holder.commentCount.setText(String.valueOf(feedItem.getFooter().getCommentCount()));
+
 
     }
 
@@ -68,7 +69,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
         notifyDataSetChanged();
     }
 
-    public void addFeed(List<FeedItemEntity> feedList) {
+    public void addFeed(List<FeedItem> feedList) {
         mFeedList.addAll(feedList);
         notifyDataSetChanged();
     }
@@ -114,11 +115,11 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
             switch (v.getId()) {
                 case R.id.commentContainer:
                     type = Type.COMMENT;
-                    url = mFeedList.get(getLayoutPosition()).getCommentUrl();
+                    url = mFeedList.get(getLayoutPosition()).getFooter().getCommentUrl();
                     break;
                 default:
                     type = Type.FEED_ITEM;
-                    url = mFeedList.get(getLayoutPosition()).getmUrl();
+                    url = mFeedList.get(getLayoutPosition()).getUrl();
             }
             if (url != null) {
                 mListener.onClick(url, type);
