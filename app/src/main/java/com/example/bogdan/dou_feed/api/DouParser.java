@@ -7,7 +7,7 @@ import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.example.bogdan.dou_feed.model.entity.TableEntity;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItemContent;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItemFooter;
-import com.example.bogdan.dou_feed.model.entity.feed.FeedItemHeader;
+import com.example.bogdan.dou_feed.model.entity.feed.Header;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,7 +36,7 @@ public class DouParser {
             String imageUrl = feedItem.select("h2 a img").first().attr("src");
             String authorName = feedItem.select(".author").first().html();
             String date = feedItem.select(".date").first().text();
-            FeedItemHeader header = new FeedItemHeader(imageUrl, authorName, date);
+            Header header = new Header(imageUrl, authorName, date);
 
             String title = feedItem.select("h2 a").first().text().replace("&nbsp;", " ");
             String description = feedItem.select(".b-typo").first().text();
@@ -151,10 +151,9 @@ public class DouParser {
 
         Element commentBlock = document.getElementById("commentsList");
         for (Element commentItem : commentBlock.children()) {
+            String imageUrl = commentItem.select("img.g-avatar").first().attr("src");
             String authorName;
             String date;
-            String content;
-            String imageUrl = commentItem.select("img.g-avatar").first().attr("src");
             try {
                 authorName = commentItem.select("a").first().text();
             } catch (NullPointerException e) {
@@ -165,13 +164,16 @@ public class DouParser {
             } catch (NullPointerException e) {
                 date = "";
             }
+            Header header = new Header(imageUrl, authorName, date);
+
+            String content;
             try {
                 content = commentItem.select(".text.b-typo").first().text();
             } catch (NullPointerException e) {
                 content = "";
             }
 
-            CommentItemEntity comment = new CommentItemEntity(imageUrl, authorName, date, content);
+            CommentItemEntity comment = new CommentItemEntity(header, content);
             commentsList.add(comment);
         }
 

@@ -7,7 +7,7 @@ package com.example.bogdan.dou_feed.model.entity.feed;
  */
 public class FeedItem {
     private final String mUrl;
-    private final FeedItemHeader mHeader;
+    private final Header mHeader;
     private final FeedItemFooter mFooter;
     private final FeedItemContent mContent;
 
@@ -22,7 +22,7 @@ public class FeedItem {
         return mUrl;
     }
 
-    public FeedItemHeader getHeader() {
+    public Header getHeader() {
         return mHeader;
     }
 
@@ -36,7 +36,7 @@ public class FeedItem {
 
     public static class Builder {
         private String mUrl;
-        private FeedItemHeader mHeader;
+        private Header mHeader;
         private FeedItemContent mContent;
         private FeedItemFooter mFooter;
 
@@ -49,7 +49,7 @@ public class FeedItem {
             return this;
         }
 
-        public Builder header(FeedItemHeader header) {
+        public Builder header(Header header) {
             mHeader = header;
             return this;
         }

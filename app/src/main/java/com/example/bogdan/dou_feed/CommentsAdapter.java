@@ -42,12 +42,12 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Holder
         CommentItemEntity comment = mCommentList.get(position);
 
         Picasso.with(mContext)
-                .load(comment.getImageUrl())
+                .load(comment.getHeader().getImageUrl())
                 .fit()
                 .centerCrop()
                 .into(holder.avatar);
-        holder.author.setText(comment.getAuthorName());
-        holder.date.setText(comment.getDateOfPublication());
+        holder.author.setText(comment.getHeader().getAuthorName());
+        holder.date.setText(comment.getHeader().getDate());
         holder.text.setText(comment.getText());
     }
 
