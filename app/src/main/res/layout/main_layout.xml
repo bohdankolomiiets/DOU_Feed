@@ -4,7 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/toolbar" />
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/toolbar" />
+
+        <LinearLayout
+            android:id="@+id/rubricContainer"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/container"

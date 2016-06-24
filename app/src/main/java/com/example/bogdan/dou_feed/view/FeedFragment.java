@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.EndlessOnScrollListener;
@@ -52,7 +55,10 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
         DouApp.getAppComponent().plus(new FeedViewModule(this)).inject(this);
         View view = inflater.inflate(R.layout.feed_layout, container, false);
         ButterKnife.bind(this, view);
-
+        LinearLayout rubricContainer =(LinearLayout) getActivity().findViewById(R.id.rubricContainer);
+        TextView rubricView = (TextView) inflater.inflate(R.layout.rubric_text, null);
+        rubricView.setText("Все рубрики");
+        rubricContainer.addView(rubricView);
         mLayoutManager = new LinearLayoutManager(getContext());
         feedRecyclerView.setLayoutManager(mLayoutManager);
 
