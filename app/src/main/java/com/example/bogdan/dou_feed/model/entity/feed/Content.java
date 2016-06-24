@@ -5,11 +5,11 @@ package com.example.bogdan.dou_feed.model.entity.feed;
  * @version 1
  * @date 24.06.16
  */
-public class FeedItemContent {
+public class Content {
     private String mTitle;
     private String mDescription;
 
-    public FeedItemContent(String title, String description) {
+    public Content(String title, String description) {
         mTitle = title;
         mDescription = description;
     }

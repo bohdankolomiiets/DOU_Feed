@@ -1,6 +1,6 @@
 package com.example.bogdan.dou_feed.view;
 
-import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
+import com.example.bogdan.dou_feed.model.entity.CommentItem;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface CommentsView extends View {
 
-    void showComments(List<CommentItemEntity> comments);
+    void showComments(List<CommentItem> comments);
 
     void stopRefresh();
 

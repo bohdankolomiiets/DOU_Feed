@@ -8,8 +8,8 @@ package com.example.bogdan.dou_feed.model.entity.feed;
 public class FeedItem {
     private final String mUrl;
     private final Header mHeader;
-    private final FeedItemFooter mFooter;
-    private final FeedItemContent mContent;
+    private final Footer mFooter;
+    private final Content mContent;
 
     private FeedItem(Builder builder) {
         mUrl = builder.mUrl;
@@ -26,19 +26,19 @@ public class FeedItem {
         return mHeader;
     }
 
-    public FeedItemFooter getFooter() {
+    public Footer getFooter() {
         return mFooter;
     }
 
-    public FeedItemContent getContent() {
+    public Content getContent() {
         return mContent;
     }
 
     public static class Builder {
         private String mUrl;
         private Header mHeader;
-        private FeedItemContent mContent;
-        private FeedItemFooter mFooter;
+        private Content mContent;
+        private Footer mFooter;
 
         public Builder() {
 
@@ -54,12 +54,12 @@ public class FeedItem {
             return this;
         }
 
-        public Builder content(FeedItemContent content) {
+        public Builder content(Content content) {
             mContent = content;
             return this;
         }
 
-        public Builder footer(FeedItemFooter footer) {
+        public Builder footer(Footer footer) {
             mFooter = footer;
             return this;
         }

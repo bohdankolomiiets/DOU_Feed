@@ -12,7 +12,7 @@ import com.example.bogdan.dou_feed.CommentsAdapter;
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.module.CommentViewModule;
-import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
+import com.example.bogdan.dou_feed.model.entity.CommentItem;
 import com.example.bogdan.dou_feed.presenter.CommentsPresenter;
 
 import java.util.List;
@@ -85,7 +85,7 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
     }
 
     @Override
-    public void showComments(List<CommentItemEntity> comments) {
+    public void showComments(List<CommentItem> comments) {
         mAdapter.addComments(comments);
     }
 

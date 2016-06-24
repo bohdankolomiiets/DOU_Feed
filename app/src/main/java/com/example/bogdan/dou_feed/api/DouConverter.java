@@ -1,7 +1,7 @@
 package com.example.bogdan.dou_feed.api;
 
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
-import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
+import com.example.bogdan.dou_feed.model.entity.CommentItem;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.google.gson.reflect.TypeToken;
 
@@ -34,7 +34,7 @@ public class DouConverter implements Converter<ResponseBody, Object> {
         } else if (mType.toString().equals(new TypeToken<ArticleEntity>() {
         }.getType().toString())) {
             return DouParser.parseArticle(Jsoup.parse(value.string()));
-        } else if (mType.toString().equals(new TypeToken<List<CommentItemEntity>>() {
+        } else if (mType.toString().equals(new TypeToken<List<CommentItem>>() {
         }.getType().toString())) {
             return DouParser.parseComments(Jsoup.parse(value.string()));
         }

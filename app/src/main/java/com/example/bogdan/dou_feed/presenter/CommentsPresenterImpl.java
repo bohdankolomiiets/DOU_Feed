@@ -3,7 +3,7 @@ package com.example.bogdan.dou_feed.presenter;
 import android.os.Bundle;
 
 import com.example.bogdan.dou_feed.model.DouModel;
-import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
+import com.example.bogdan.dou_feed.model.entity.CommentItem;
 import com.example.bogdan.dou_feed.view.CommentsView;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
         if (showLoading)
             mView.showLoading();
         mModel.getComments(rubric, pageUrl)
-                .subscribe(new Observer<List<CommentItemEntity>>() {
+                .subscribe(new Observer<List<CommentItem>>() {
                     @Override
                     public void onCompleted() {
                         mView.stopRefresh();
@@ -59,7 +59,7 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
                     }
 
                     @Override
-                    public void onNext(List<CommentItemEntity> commentItemEntities) {
+                    public void onNext(List<CommentItem> commentItemEntities) {
                         if (isNotEmpty(commentItemEntities)) {
                             mView.showComments(commentItemEntities);
                         } else {
@@ -74,7 +74,7 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
         loadComments(mRubric, mUrl, false);
     }
 
-    private boolean isNotEmpty(List<CommentItemEntity> comments) {
+    private boolean isNotEmpty(List<CommentItem> comments) {
         return (comments != null && !comments.isEmpty());
     }
 }

@@ -2,11 +2,11 @@ package com.example.bogdan.dou_feed.api;
 
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity.Type;
 import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
-import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
+import com.example.bogdan.dou_feed.model.entity.CommentItem;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.example.bogdan.dou_feed.model.entity.TableEntity;
-import com.example.bogdan.dou_feed.model.entity.feed.FeedItemContent;
-import com.example.bogdan.dou_feed.model.entity.feed.FeedItemFooter;
+import com.example.bogdan.dou_feed.model.entity.feed.Content;
+import com.example.bogdan.dou_feed.model.entity.feed.Footer;
 import com.example.bogdan.dou_feed.model.entity.feed.Header;
 
 import org.jsoup.nodes.Document;
@@ -27,41 +27,41 @@ public class DouParser {
     public static List<FeedItem> parseFeed(Document document) {
         List<FeedItem> feed = new ArrayList<>();
 
-        Elements items = document.select(".b-lenta article");
+        Elements feedItems = document.select(".b-lenta article");
 
-        for (Element feedItem : items) {
+        for (Element item : feedItems) {
 
-            String url = feedItem.select("h2 a").first().attr("href");
+            String url = item.select("h2 a").first().attr("href");
 
-            String imageUrl = feedItem.select("h2 a img").first().attr("src");
-            String authorName = feedItem.select(".author").first().html();
-            String date = feedItem.select(".date").first().text();
+            String imageUrl = item.select("h2 a img").first().attr("src");
+            String authorName = item.select(".author").first().html();
+            String date = item.select(".date").first().text();
             Header header = new Header(imageUrl, authorName, date);
 
-            String title = feedItem.select("h2 a").first().text().replace("&nbsp;", " ");
-            String description = feedItem.select(".b-typo").first().text();
+            String title = item.select("h2 a").first().text().replace("&nbsp;", " ");
+            String description = item.select(".b-typo").first().text();
             description = deleteCommentCount(description);
-            FeedItemContent content = new FeedItemContent(title, description);
+            Content content = new Content(title, description);
 
             int watchCount;
             try {
-                watchCount = Integer.parseInt(feedItem.select(".pageviews").first().text());
+                watchCount = Integer.parseInt(item.select(".pageviews").first().text());
             } catch (NullPointerException e) {
                 watchCount = 0;
             }
             int commentCount;
             try {
-                commentCount = Integer.parseInt(feedItem.select(".b-typo a").first().html());
+                commentCount = Integer.parseInt(item.select(".b-typo a").first().html());
             } catch (NullPointerException e) {
                 commentCount = 0;
             }
             String commentUrl;
             try {
-               commentUrl = feedItem.select(".b-typo a").first().attr("href");
+               commentUrl = item.select(".b-typo a").first().attr("href");
             } catch (NullPointerException e) {
                 commentUrl = null;
             }
-            FeedItemFooter footer = new FeedItemFooter(watchCount, commentCount, commentUrl);
+            Footer footer = new Footer(watchCount, commentCount, commentUrl);
 
             FeedItem feedItemEntity = new FeedItem.Builder()
                     .url(url)
@@ -77,7 +77,6 @@ public class DouParser {
     }
 
     public static ArticleEntity parseArticle(Document document) {
-        Pattern pattern = Pattern.compile("h\\d");
         ArticleEntity articlePage = new ArticleEntity();
 
         String title = document.select("article.b-typo h1").first().text().replace("&nbsp;", " ");
@@ -146,8 +145,8 @@ public class DouParser {
         return articlePage;
     }
 
-    public static List<CommentItemEntity> parseComments(Document document) {
-        List<CommentItemEntity> commentsList = new ArrayList<>();
+    public static List<CommentItem> parseComments(Document document) {
+        List<CommentItem> commentsList = new ArrayList<>();
 
         Element commentBlock = document.getElementById("commentsList");
         for (Element commentItem : commentBlock.children()) {
@@ -173,7 +172,7 @@ public class DouParser {
                 content = "";
             }
 
-            CommentItemEntity comment = new CommentItemEntity(header, content);
+            CommentItem comment = new CommentItem(header, content);
             commentsList.add(comment);
         }
 

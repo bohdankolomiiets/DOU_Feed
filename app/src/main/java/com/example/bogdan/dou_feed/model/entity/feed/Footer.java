@@ -5,12 +5,12 @@ package com.example.bogdan.dou_feed.model.entity.feed;
  * @version 1
  * @date 24.06.16
  */
-public class FeedItemFooter {
+public class Footer {
     private int mWatchCount;
     private int mCommentCount;
     private String mCommentUrl;
 
-    public FeedItemFooter(int watchCount, int commentCount, String commentUrl) {
+    public Footer(int watchCount, int commentCount, String commentUrl) {
         mWatchCount = watchCount;
         mCommentCount = commentCount;
         mCommentUrl = commentUrl;

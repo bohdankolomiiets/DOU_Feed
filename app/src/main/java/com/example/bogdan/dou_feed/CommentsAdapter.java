@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.bogdan.dou_feed.model.entity.CommentItemEntity;
+import com.example.bogdan.dou_feed.model.entity.CommentItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Holder> {
     private Context mContext;
-    private List<CommentItemEntity> mCommentList;
+    private List<CommentItem> mCommentList;
 
     public CommentsAdapter(Context context) {
         mContext = context;
@@ -39,7 +39,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Holder
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
-        CommentItemEntity comment = mCommentList.get(position);
+        CommentItem comment = mCommentList.get(position);
 
         Picasso.with(mContext)
                 .load(comment.getHeader().getImageUrl())
@@ -61,7 +61,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Holder
         notifyDataSetChanged();
     }
 
-    public void addComments(List<CommentItemEntity> list) {
+    public void addComments(List<CommentItem> list) {
         mCommentList.addAll(list);
         notifyDataSetChanged();
     }
