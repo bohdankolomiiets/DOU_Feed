@@ -45,6 +45,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
     @BindView(R.id.swipeContainer)
     SwipeRefreshLayout swipeLayout;
 
+    private LinearLayout mRubricContainer;
     private LinearLayoutManager mLayoutManager;
     private FeedAdapter mFeedAdapter;
 
@@ -55,10 +56,10 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
         DouApp.getAppComponent().plus(new FeedViewModule(this)).inject(this);
         View view = inflater.inflate(R.layout.feed_layout, container, false);
         ButterKnife.bind(this, view);
-        LinearLayout rubricContainer =(LinearLayout) getActivity().findViewById(R.id.rubricContainer);
+        mRubricContainer = (LinearLayout) getActivity().findViewById(R.id.rubricContainer);
         TextView rubricView = (TextView) inflater.inflate(R.layout.rubric_text, null);
         rubricView.setText("Все рубрики");
-        rubricContainer.addView(rubricView);
+        mRubricContainer.addView(rubricView);
         mLayoutManager = new LinearLayoutManager(getContext());
         feedRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -101,6 +102,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
         String urlPage = HTTPUtils.getPageUrl(url);
         switch (type) {
             case COMMENT:
+                mRubricContainer.removeAllViews();
                 CommentsFragment cf = CommentsFragment.newInstance(rubric, urlPage);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container, cf, null)
@@ -108,6 +110,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
                         .commit();
                 break;
             case FEED_ITEM:
+                mRubricContainer.removeAllViews();
                 ArticleFragment fragment = ArticleFragment.newInstance(rubric, urlPage);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container, fragment, null)
