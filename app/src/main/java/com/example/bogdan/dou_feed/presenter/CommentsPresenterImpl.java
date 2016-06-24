@@ -60,8 +60,10 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
 
                     @Override
                     public void onNext(List<CommentItemEntity> commentItemEntities) {
-                        if (commentItemEntities != null) {
+                        if (isNotEmpty(commentItemEntities)) {
                             mView.showComments(commentItemEntities);
+                        } else {
+                            mView.showEmptyList();
                         }
                     }
                 });
@@ -70,5 +72,9 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
     @Override
     public void onRefresh() {
         loadComments(mRubric, mUrl, false);
+    }
+
+    private boolean isNotEmpty(List<CommentItemEntity> comments) {
+        return (comments != null && !comments.isEmpty());
     }
 }

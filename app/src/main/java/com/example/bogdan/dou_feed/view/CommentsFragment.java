@@ -95,6 +95,11 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
     }
 
     @Override
+    public void showEmptyList() {
+        showError("Пока не коментариев к этой записи");
+    }
+
+    @Override
     public void showLoading() {
         showProgressDial();
     }

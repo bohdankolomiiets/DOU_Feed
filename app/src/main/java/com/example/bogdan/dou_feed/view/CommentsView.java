@@ -14,4 +14,6 @@ public interface CommentsView extends View {
     void showComments(List<CommentItemEntity> comments);
 
     void stopRefresh();
+
+    void showEmptyList();
 }
