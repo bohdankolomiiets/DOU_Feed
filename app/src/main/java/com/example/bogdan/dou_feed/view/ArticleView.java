@@ -28,4 +28,5 @@ public interface ArticleView extends View {
 
     void showTable(TableEntity table);
 
+    void showListElement(String text);
 }

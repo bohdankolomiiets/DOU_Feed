@@ -3,7 +3,7 @@ package com.example.bogdan.dou_feed.presenter;
 import android.os.Bundle;
 
 import com.example.bogdan.dou_feed.model.DouModel;
-import com.example.bogdan.dou_feed.model.entity.Article;
+import com.example.bogdan.dou_feed.model.entity.article.Article;
 import com.example.bogdan.dou_feed.model.entity.TableEntity;
 import com.example.bogdan.dou_feed.view.ArticleView;
 
@@ -87,6 +87,8 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
                 case TABLE:
                     mView.showTable((TableEntity)articleEntity.getElement(i));
                     break;
+                case LIST_ELEMENT:
+                    mView.showListElement(articleEntity.getContent(i));
             }
         }
     }

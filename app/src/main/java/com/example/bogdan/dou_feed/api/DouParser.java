@@ -1,7 +1,7 @@
 package com.example.bogdan.dou_feed.api;
 
-import com.example.bogdan.dou_feed.model.entity.Article.Type;
-import com.example.bogdan.dou_feed.model.entity.Article;
+import com.example.bogdan.dou_feed.model.entity.article.Article.Type;
+import com.example.bogdan.dou_feed.model.entity.article.Article;
 import com.example.bogdan.dou_feed.model.entity.CommentItem;
 import com.example.bogdan.dou_feed.model.entity.article.ArticleHeader;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
@@ -132,6 +132,14 @@ public class DouParser {
                         }
                     }
                     articlePage.addTable(table);
+                    break;
+                case "ul":
+                    for (Element listChildren : element.children()) {
+                        if (listChildren.tagName().equals("li")) {
+                            articlePage.addElement(Type.LIST_ELEMENT, listChildren.text());
+                        }
+                    }
+                    break;
             }
             if (element.children().hasAttr("src")) {
                 articlePage.addElement(Type.IMAGE, element.children().attr("src"));

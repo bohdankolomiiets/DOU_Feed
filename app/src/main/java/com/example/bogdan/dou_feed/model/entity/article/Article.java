@@ -1,5 +1,7 @@
-package com.example.bogdan.dou_feed.model.entity;
+package com.example.bogdan.dou_feed.model.entity.article;
 
+import com.example.bogdan.dou_feed.model.entity.Element;
+import com.example.bogdan.dou_feed.model.entity.TableEntity;
 import com.example.bogdan.dou_feed.model.entity.article.ArticleHeader;
 
 import java.util.ArrayList;
@@ -74,7 +76,8 @@ public class Article {
         CONTENT_CODE,
         LINK,
         BLOCKQUOTE,
-        TABLE
+        TABLE,
+        LIST_ELEMENT
     }
 
 

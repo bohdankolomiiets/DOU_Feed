@@ -195,4 +195,11 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
         container.addView(scrollView);
     }
 
+    @Override
+    public void showListElement(String text) {
+        TextView listElement = (TextView) mLayoutInflater.inflate(R.layout.article_content, null);
+        listElement.setText("- " + text);
+        container.addView(listElement);
+    }
+
 }

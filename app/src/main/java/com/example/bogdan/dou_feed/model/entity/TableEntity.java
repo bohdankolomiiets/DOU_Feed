@@ -1,5 +1,7 @@
 package com.example.bogdan.dou_feed.model.entity;
 
+import com.example.bogdan.dou_feed.model.entity.article.Article;
+
 import java.util.ArrayList;
 import java.util.List;
 
