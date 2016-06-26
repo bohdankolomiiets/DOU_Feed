@@ -26,12 +26,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
     private Context mContext;
     private List<FeedItem> mFeedList;
-    private OnFeedItemClickListener mListener;
+    private OnFeedItemClickListener mOnClickListener;
 
     public FeedAdapter(Context context, OnFeedItemClickListener listener) {
         mContext = context;
         mFeedList = new ArrayList<>();
-        mListener = listener;
+        mOnClickListener = listener;
     }
 
     @Override
@@ -46,15 +46,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
 
         Picasso.with(mContext)
                 .load(feedItem.getHeader().getImageUrl())
-                .into(holder.articleImage);
-        holder.author.setText(feedItem.getHeader().getAuthorName());
-        holder.date.setText(feedItem.getHeader().getDate());
-        holder.title.setText(feedItem.getContent().getTitle());
-        holder.description.setText(feedItem.getContent().getDescription());
+                .into(holder.articleImageView);
+        holder.authorView.setText(feedItem.getHeader().getAuthorName());
+        holder.dateView.setText(feedItem.getHeader().getDate());
+        holder.titleView.setText(feedItem.getContent().getTitle());
+        holder.descriptionView.setText(feedItem.getContent().getDescription());
         if (feedItem.getFooter().getWatchCount() != 0)
-            holder.watchCount.setText(String.valueOf(feedItem.getFooter().getWatchCount()));
+            holder.watchCountView.setText(String.valueOf(feedItem.getFooter().getWatchCount()));
         if (feedItem.getFooter().getCommentCount() != 0)
-            holder.commentCount.setText(String.valueOf(feedItem.getFooter().getCommentCount()));
+            holder.commentCountView.setText(String.valueOf(feedItem.getFooter().getCommentCount()));
 
 
     }
@@ -69,8 +69,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
         notifyDataSetChanged();
     }
 
-    public void addFeed(List<FeedItem> feedList) {
-        mFeedList.addAll(feedList);
+    public void addFeed(List<FeedItem> feed) {
+        mFeedList.addAll(feed);
         notifyDataSetChanged();
     }
 
@@ -80,25 +80,25 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
         LinearLayout commentContainer;
 
         @BindView(R.id.articleImage)
-        CircleImageView articleImage;
+        CircleImageView articleImageView;
 
         @BindView(R.id.author)
-        TextView author;
+        TextView authorView;
 
         @BindView(R.id.date)
-        TextView date;
+        TextView dateView;
 
         @BindView(R.id.title)
-        TextView title;
+        TextView titleView;
 
         @BindView(R.id.watchCount)
-        TextView watchCount;
+        TextView watchCountView;
 
         @BindView(R.id.commentCount)
-        TextView commentCount;
+        TextView commentCountView;
 
         @BindView(R.id.description)
-        TextView description;
+        TextView descriptionView;
 
         public Holder(View itemView) {
             super(itemView);
@@ -110,7 +110,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
 
         @Override
         public void onClick(View v) {
-            String url = null;
+            String url;
             Type type;
             switch (v.getId()) {
                 case R.id.commentContainer:
@@ -122,7 +122,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
                     url = mFeedList.get(getLayoutPosition()).getUrl();
             }
             if (url != null) {
-                mListener.onClick(url, type);
+                mOnClickListener.onClick(url, type);
             }
         }
     }
