@@ -24,11 +24,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Holder> {
     private Context mContext;
-    private List<CommentItem> mCommentList;
+    private List<CommentItem> mCommentsList;
 
     public CommentsAdapter(Context context) {
         mContext = context;
-        mCommentList = new ArrayList<>();
+        mCommentsList = new ArrayList<>();
     }
 
     @Override
@@ -39,45 +39,45 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Holder
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
-        CommentItem comment = mCommentList.get(position);
+        CommentItem comment = mCommentsList.get(position);
 
         Picasso.with(mContext)
                 .load(comment.getHeader().getImageUrl())
                 .fit()
                 .centerCrop()
-                .into(holder.avatar);
-        holder.author.setText(comment.getHeader().getAuthorName());
-        holder.date.setText(comment.getHeader().getDate());
-        holder.text.setText(comment.getText());
+                .into(holder.avatarView);
+        holder.authorView.setText(comment.getHeader().getAuthorName());
+        holder.dateView.setText(comment.getHeader().getDate());
+        holder.contentView.setText(comment.getText());
     }
 
     @Override
     public int getItemCount() {
-        return mCommentList.size();
+        return mCommentsList.size();
     }
 
     public void clear() {
-        mCommentList.clear();
+        mCommentsList.clear();
         notifyDataSetChanged();
     }
 
-    public void addComments(List<CommentItem> list) {
-        mCommentList.addAll(list);
+    public void addComments(List<CommentItem> comments) {
+        mCommentsList.addAll(comments);
         notifyDataSetChanged();
     }
 
     class Holder extends RecyclerView.ViewHolder {
         @BindView(R.id.commentAvatar)
-        CircleImageView avatar;
+        CircleImageView avatarView;
 
         @BindView(R.id.commenetAuthor)
-        TextView author;
+        TextView authorView;
 
         @BindView(R.id.commentDate)
-        TextView date;
+        TextView dateView;
 
         @BindView(R.id.commentText)
-        TextView text;
+        TextView contentView;
 
         public Holder(View itemView) {
             super(itemView);
