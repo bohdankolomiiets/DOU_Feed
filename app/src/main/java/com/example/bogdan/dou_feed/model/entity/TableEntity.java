@@ -11,10 +11,10 @@ import java.util.List;
 public class TableEntity implements Element{
     private List<List<String>> mTable;
     private List<String> mTableRow;
-    private ArticleEntity.Type mType;
+    private Article.Type mType;
 
     public TableEntity() {
-        mType = ArticleEntity.Type.TABLE;
+        mType = Article.Type.TABLE;
         mTable = new ArrayList<>();
     }
 
@@ -59,7 +59,7 @@ public class TableEntity implements Element{
         return getTableRow(rowIndex).get(position);
     }
 
-    public ArticleEntity.Type getmType() {
+    public Article.Type getmType() {
         return mType;
     }
 }

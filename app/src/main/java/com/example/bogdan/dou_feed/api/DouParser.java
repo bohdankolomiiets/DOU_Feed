@@ -1,8 +1,9 @@
 package com.example.bogdan.dou_feed.api;
 
-import com.example.bogdan.dou_feed.model.entity.ArticleEntity.Type;
-import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
+import com.example.bogdan.dou_feed.model.entity.Article.Type;
+import com.example.bogdan.dou_feed.model.entity.Article;
 import com.example.bogdan.dou_feed.model.entity.CommentItem;
+import com.example.bogdan.dou_feed.model.entity.article.ArticleHeader;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.example.bogdan.dou_feed.model.entity.TableEntity;
 import com.example.bogdan.dou_feed.model.entity.feed.Content;
@@ -15,7 +16,6 @@ import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * @author Bogdan Kolomiets
@@ -76,17 +76,13 @@ public class DouParser {
         return feed;
     }
 
-    public static ArticleEntity parseArticle(Document document) {
-        ArticleEntity articlePage = new ArticleEntity();
-
-        String title = document.select("article.b-typo h1").first().text().replace("&nbsp;", " ");
-        articlePage.setTitle(title);
-
+    public static Article parseArticle(Document document) {
+        String authorName = document.select(".b-post-info .author .name a").first().html();
         String date = document.select(".b-post-info .date").first().text();
-        articlePage.setDate(date);
+        String title = document.select("article.b-typo h1").first().text().replace("&nbsp;", " ");
+        ArticleHeader header = new ArticleHeader(authorName, date, title);
 
-        String author = document.select(".b-post-info .author .name a").first().html();
-        articlePage.setAuthor(author);
+        Article articlePage = new Article(header);
 
         Elements elements = document.select("article.b-typo div").first().children();
         for (Element element : elements) {

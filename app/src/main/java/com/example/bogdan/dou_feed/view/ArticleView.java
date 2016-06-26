@@ -1,6 +1,5 @@
 package com.example.bogdan.dou_feed.view;
 
-import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
 import com.example.bogdan.dou_feed.model.entity.TableEntity;
 
 /**

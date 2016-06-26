@@ -3,7 +3,7 @@ package com.example.bogdan.dou_feed.presenter;
 import android.os.Bundle;
 
 import com.example.bogdan.dou_feed.model.DouModel;
-import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
+import com.example.bogdan.dou_feed.model.entity.Article;
 import com.example.bogdan.dou_feed.model.entity.TableEntity;
 import com.example.bogdan.dou_feed.view.ArticleView;
 
@@ -38,7 +38,7 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
     public void onCreateView(Bundle savedInstanceState) {
         mView.showLoading();
         mModel.getArticle(mRubric, mUrl)
-                .subscribe(new Observer<ArticleEntity>() {
+                .subscribe(new Observer<Article>() {
                     @Override
                     public void onCompleted() {
                         mView.hideLoading();
@@ -52,7 +52,7 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
                     }
 
                     @Override
-                    public void onNext(ArticleEntity articleEntity) {
+                    public void onNext(Article articleEntity) {
                         if (articleEntity != null) {
                             showArticle(articleEntity);
                         }
@@ -60,8 +60,10 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
                 });
     }
 
-    private void showArticle(ArticleEntity articleEntity) {
-        mView.showHead(articleEntity.getAuthor(), articleEntity.getDate(), articleEntity.getTitle());
+    private void showArticle(Article articleEntity) {
+        mView.showHead(articleEntity.getHeader().getAuthorName(),
+                articleEntity.getHeader().getDate(),
+                articleEntity.getHeader().getTitle());
         for (int i = 0; i < articleEntity.size(); i++) {
             switch (articleEntity.getType(i)) {
                 case CONTENT:

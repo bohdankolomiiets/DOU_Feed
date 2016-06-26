@@ -1,6 +1,6 @@
 package com.example.bogdan.dou_feed.api;
 
-import com.example.bogdan.dou_feed.model.entity.ArticleEntity;
+import com.example.bogdan.dou_feed.model.entity.Article;
 import com.example.bogdan.dou_feed.model.entity.CommentItem;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 
@@ -25,8 +25,8 @@ public interface DouApi {
     Observable<List<FeedItem>> getFeedEntity(@Path("page-number")int pageNumber);
 
     @GET("{rubric}/{article-url}")
-    Observable<ArticleEntity> getArticleEntity(@Path("rubric")String rubric,
-                                               @Path("article-url")String articleUrl);
+    Observable<Article> getArticleEntity(@Path("rubric")String rubric,
+                                         @Path("article-url")String articleUrl);
 
     @GET("{rubric}/{article-url}/#comments")
     Observable<List<CommentItem>> getCommentListEntity(@Path("rubric")String rubric,

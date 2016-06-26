@@ -1,5 +1,7 @@
 package com.example.bogdan.dou_feed.model.entity;
 
+import com.example.bogdan.dou_feed.model.entity.article.ArticleHeader;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,39 +10,18 @@ import java.util.List;
  * @version 1
  * @date 22.06.16
  */
-public class ArticleEntity {
-    private String mAuthor;
-    private String mDate;
-    private String mTitle;
+public class Article {
+    private ArticleHeader mHeader;
 
     private List<Element> mArticleElements;
 
-    public ArticleEntity() {
+    public Article(ArticleHeader header) {
+        mHeader = header;
         mArticleElements = new ArrayList<>();
     }
 
-    public void setAuthor(String author) {
-        mAuthor = author;
-    }
-
-    public void setDate(String date) {
-        mDate = date;
-    }
-
-    public void setTitle(String title) {
-        mTitle = title;
-    }
-
-    public String getAuthor() {
-        return mAuthor;
-    }
-
-    public String getDate() {
-        return mDate;
-    }
-
-    public String getTitle() {
-        return mTitle;
+    public ArticleHeader getHeader() {
+        return mHeader;
     }
 
     public int size() {

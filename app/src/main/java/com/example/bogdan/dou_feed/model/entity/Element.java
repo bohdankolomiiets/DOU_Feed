@@ -1,7 +1,5 @@
 package com.example.bogdan.dou_feed.model.entity;
 
-import com.example.bogdan.dou_feed.FeedAdapter;
-
 /**
  * @author Bogdan Kolomiets
  * @version 1
@@ -9,5 +7,5 @@ import com.example.bogdan.dou_feed.FeedAdapter;
  */
 public interface Element {
 
-    ArticleEntity.Type getmType();
+    Article.Type getmType();
 }
