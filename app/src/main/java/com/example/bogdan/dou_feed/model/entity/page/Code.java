@@ -25,6 +25,5 @@ public class Code extends PageElement {
                 (HorizontalScrollView) inflater.inflate(R.layout.article_code, null);
         TextView codeTextView = (TextView) codeView.findViewById(R.id.articleCode);
         codeTextView.setText(mCodeText);
-
     }
 }
