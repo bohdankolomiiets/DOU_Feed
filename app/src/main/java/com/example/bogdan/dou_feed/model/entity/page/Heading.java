@@ -19,7 +19,7 @@ public class Heading extends PageElement {
     }
 
     @Override
-    void display(LayoutInflater inflater, ViewGroup container) {
+    public void display(LayoutInflater inflater, ViewGroup container) {
         TextView headingView = (TextView) inflater.inflate(R.layout.article_heading, null);
         headingView.setText(mText);
         container.addView(headingView);

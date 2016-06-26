@@ -1,7 +1,6 @@
 package com.example.bogdan.dou_feed.view;
 
-import com.example.bogdan.dou_feed.model.entity.Link;
-import com.example.bogdan.dou_feed.model.entity.TableEntity;
+import com.example.bogdan.dou_feed.model.entity.page.PageElement;
 
 /**
  * @author Bogdan Kolomiets
@@ -13,21 +12,7 @@ public interface ArticleView extends View {
 
     String URL_KEY = "URL_KEY";
 
-    void showContent(String content);
-
-    void showImage(String imageUrl);
-
-    void showHeading(String heading);
-
-    void showCode(String code);
+    void showPageElement(PageElement element);
 
     void showHead(String author, String date, String title);
-
-    void showLink(Link link);
-
-    void showBlockquote(String text);
-
-    void showTable(TableEntity table);
-
-    void showListElement(String text);
 }

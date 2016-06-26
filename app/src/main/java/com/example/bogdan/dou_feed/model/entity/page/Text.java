@@ -11,15 +11,15 @@ import com.example.bogdan.dou_feed.R;
  * @version 1
  * @date 26.06.16
  */
-public class Content extends PageElement {
+public class Text extends PageElement {
     private String mText;
 
-    public Content(String text) {
+    public Text(String text) {
         mText = text;
     }
 
     @Override
-    void display(LayoutInflater inflater, ViewGroup container) {
+    public void display(LayoutInflater inflater, ViewGroup container) {
         TextView contentView = (TextView) inflater.inflate(R.layout.article_content, null);
         contentView.setText(mText);
         container.addView(contentView);

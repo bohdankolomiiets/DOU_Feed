@@ -1,9 +1,5 @@
 package com.example.bogdan.dou_feed.model.entity.article;
 
-import com.example.bogdan.dou_feed.model.entity.Element;
-import com.example.bogdan.dou_feed.model.entity.Link;
-import com.example.bogdan.dou_feed.model.entity.TableEntity;
-import com.example.bogdan.dou_feed.model.entity.article.ArticleHeader;
 import com.example.bogdan.dou_feed.model.entity.page.PageElement;
 
 import java.util.ArrayList;
@@ -35,8 +31,8 @@ public class Article {
     public void addElement(PageElement element) {
         mArticleElements.add(element);
     }
-//
-//    public void addTable(TableEntity table) {
-//        mArticleElements.add(table);
-//    }
+
+    public PageElement getPageElement(int position) {
+        return mArticleElements.get(position);
+    }
 }

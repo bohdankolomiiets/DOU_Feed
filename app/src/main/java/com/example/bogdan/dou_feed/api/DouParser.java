@@ -1,15 +1,19 @@
 package com.example.bogdan.dou_feed.api;
 
-import com.example.bogdan.dou_feed.model.entity.Link;
-import com.example.bogdan.dou_feed.model.entity.article.Article.Type;
-import com.example.bogdan.dou_feed.model.entity.article.Article;
 import com.example.bogdan.dou_feed.model.entity.CommentItem;
+import com.example.bogdan.dou_feed.model.entity.page.Table;
+import com.example.bogdan.dou_feed.model.entity.article.Article;
 import com.example.bogdan.dou_feed.model.entity.article.ArticleHeader;
-import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
-import com.example.bogdan.dou_feed.model.entity.TableEntity;
 import com.example.bogdan.dou_feed.model.entity.feed.Content;
+import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.example.bogdan.dou_feed.model.entity.feed.Footer;
 import com.example.bogdan.dou_feed.model.entity.feed.Header;
+import com.example.bogdan.dou_feed.model.entity.page.Blockquote;
+import com.example.bogdan.dou_feed.model.entity.page.Code;
+import com.example.bogdan.dou_feed.model.entity.page.Heading;
+import com.example.bogdan.dou_feed.model.entity.page.Image;
+import com.example.bogdan.dou_feed.model.entity.page.ListElement;
+import com.example.bogdan.dou_feed.model.entity.page.Text;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -92,13 +96,13 @@ public class DouParser {
                     if (element.hasText()) {
                         for (Element children : element.children()) {
                             if (children.tagName().equals("src")) {
-                                articlePage.addElement(Type.IMAGE, children.attr("src"));
+                                articlePage.addElement(new Image(children.attr("src")));
                             } else if (children.tagName().equals("a") &&
                                     children.children().hasAttr("src")) {
-                                articlePage.addElement(Type.IMAGE, children.children().attr("src"));
+                                articlePage.addElement(new Image(children.children().attr("src")));
                             }
                         }
-                        articlePage.addElement(Type.CONTENT, element.text());
+                        articlePage.addElement(new Text(element.text()));
                     }
                     break;
                 case "h1":
@@ -107,16 +111,16 @@ public class DouParser {
                 case "h4":
                 case "h5":
                 case "h6":
-                    articlePage.addElement(Type.CONTENT_HEADING, element.text());
+                    articlePage.addElement(new Heading(element.text()));
                     break;
                 case "pre":
-                    articlePage.addElement(Type.CONTENT_CODE, element.text());
+                    articlePage.addElement(new Code(element.text()));
                     break;
                 case "blockquote":
-                    articlePage.addElement(Type.BLOCKQUOTE, element.text());
+                    articlePage.addElement(new Blockquote(element.text()));
                     break;
                 case "table":
-                    TableEntity table = new TableEntity();
+                    Table table = new Table();
                     for (Element tableElements : element.children()) {
                         if (tableElements.tagName().equals("thead")) {
                             table.addTableRow();
@@ -132,18 +136,20 @@ public class DouParser {
                             }
                         }
                     }
-                    articlePage.addTable(table);
+                    articlePage.addElement(table);
                     break;
                 case "ul":
+                    ListElement list = new ListElement();
                     for (Element listChildren : element.children()) {
                         if (listChildren.tagName().equals("li")) {
-                            articlePage.addElement(Type.LIST_ELEMENT, listChildren.text());
+                            list.add(listChildren.text());
                         }
                     }
+                    articlePage.addElement(list);
                     break;
             }
             if (element.children().hasAttr("src")) {
-                articlePage.addElement(Type.IMAGE, element.children().attr("src"));
+                articlePage.addElement(new Image(element.children().attr("src")));
             }
         }
 

@@ -20,7 +20,7 @@ public class Code extends PageElement {
     }
 
     @Override
-    void display(LayoutInflater inflater, ViewGroup container) {
+    public void display(LayoutInflater inflater, ViewGroup container) {
         HorizontalScrollView codeView =
                 (HorizontalScrollView) inflater.inflate(R.layout.article_code, null);
         TextView codeTextView = (TextView) codeView.findViewById(R.id.articleCode);

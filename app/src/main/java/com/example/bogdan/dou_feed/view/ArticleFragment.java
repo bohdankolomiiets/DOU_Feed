@@ -2,27 +2,20 @@ package com.example.bogdan.dou_feed.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.module.ArticleViewModule;
-import com.example.bogdan.dou_feed.model.entity.Link;
-import com.example.bogdan.dou_feed.model.entity.TableEntity;
+import com.example.bogdan.dou_feed.model.entity.page.PageElement;
 import com.example.bogdan.dou_feed.presenter.ArticlePresenter;
-import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
@@ -124,34 +117,8 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
     }
 
     @Override
-    public void showContent(String content) {
-        TextView contentView = (TextView) mLayoutInflater.inflate(R.layout.article_content, null);
-        contentView.setText(content);
-        container.addView(contentView);
-    }
-
-    @Override
-    public void showImage(String imageUrl) {
-        ImageView imageView = (ImageView) mLayoutInflater.inflate(R.layout.article_image, null);
-        Picasso.with(getContext())
-                .load(imageUrl)
-                .into(imageView);
-        container.addView(imageView);
-    }
-
-    @Override
-    public void showHeading(String heading) {
-        TextView headingView = (TextView) mLayoutInflater.inflate(R.layout.article_heading, null);
-        headingView.setText(heading);
-        container.addView(headingView);
-    }
-
-    @Override
-    public void showCode(String code) {
-        HorizontalScrollView codeView = (HorizontalScrollView) mLayoutInflater.inflate(R.layout.article_code, null);
-        TextView codeText = (TextView) codeView.findViewById(R.id.articleCode);
-        codeText.setText(code);
-        container.addView(codeView);
+    public void showPageElement(PageElement element) {
+        element.display(mLayoutInflater, container);
     }
 
     @Override
@@ -160,48 +127,4 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
         dateView.setText(date);
         titleView.setText(title);
     }
-
-    @Override
-    public void showLink(Link link) {
-        System.out.println("URL = " + link.getUrl());
-        System.out.println("TEXT = " + link.getText());
-    }
-
-    @Override
-    public void showBlockquote(String text) {
-        TextView blockView = (TextView) mLayoutInflater.inflate(R.layout.article_blockquote , null);
-        blockView.setText(text);
-        container.addView(blockView);
-    }
-
-    @Override
-    public void showTable(TableEntity table) {
-        HorizontalScrollView scrollView =
-                (HorizontalScrollView) mLayoutInflater.inflate(R.layout.article_table, null);
-        TableLayout tableContainer = (TableLayout) scrollView.findViewById(R.id.articleTable);
-
-        for (int i = 0; i < table.tableSize(); i++) {
-            TableRow tableRow = new TableRow(getContext());
-            for (int j = 0; j < table.tableRowSize(i); j++) {
-                TextView cellView = new TextView(getContext());
-                cellView.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.table_cell_border));
-                cellView.setPadding(20, 10, 20, 10);
-                cellView.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
-                cellView.setText(table.getRowCell(i, j));
-                tableRow.addView(cellView);
-            }
-
-            tableContainer.addView(tableRow);
-        }
-
-        container.addView(scrollView);
-    }
-
-    @Override
-    public void showListElement(String text) {
-        TextView listElement = (TextView) mLayoutInflater.inflate(R.layout.article_content, null);
-        listElement.setText("- " + text);
-        container.addView(listElement);
-    }
-
 }

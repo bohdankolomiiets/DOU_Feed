@@ -19,7 +19,7 @@ public class Blockquote extends PageElement {
     }
 
     @Override
-    void display(LayoutInflater inflater, ViewGroup container) {
+    public void display(LayoutInflater inflater, ViewGroup container) {
         TextView blockView = (TextView) inflater.inflate(R.layout.article_blockquote, null);
         blockView.setText(mText);
         container.addView(blockView);

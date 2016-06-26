@@ -20,7 +20,7 @@ public class Image extends PageElement {
     }
 
     @Override
-    void display(LayoutInflater inflater, ViewGroup container) {
+    public void display(LayoutInflater inflater, ViewGroup container) {
         ImageView imageView = (ImageView) inflater.inflate(R.layout.article_image, null);
         Picasso.with(inflater.getContext())
                 .load(mUrl)

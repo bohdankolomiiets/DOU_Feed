@@ -13,10 +13,10 @@ import java.util.ArrayList;
  * @version 1
  * @date 26.06.16
  */
-public class List extends PageElement {
+public class ListElement extends PageElement {
     private java.util.List<String> mList;
 
-    public List() {
+    public ListElement() {
         mList = new ArrayList<>();
     }
 
@@ -25,11 +25,11 @@ public class List extends PageElement {
     }
 
     @Override
-    void display(LayoutInflater inflater, ViewGroup container) {
+    public void display(LayoutInflater inflater, ViewGroup container) {
         TextView listView = (TextView) inflater.inflate(R.layout.article_content, null);
 
         for (String listElement : mList) {
-            listView.setText(listElement + '\n');
+            listView.append("- " + listElement + "\n");
         }
 
         container.addView(listView);

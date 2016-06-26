@@ -3,9 +3,7 @@ package com.example.bogdan.dou_feed.presenter;
 import android.os.Bundle;
 
 import com.example.bogdan.dou_feed.model.DouModel;
-import com.example.bogdan.dou_feed.model.entity.Link;
 import com.example.bogdan.dou_feed.model.entity.article.Article;
-import com.example.bogdan.dou_feed.model.entity.TableEntity;
 import com.example.bogdan.dou_feed.view.ArticleView;
 
 import javax.inject.Inject;
@@ -66,31 +64,7 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
                 articleEntity.getHeader().getDate(),
                 articleEntity.getHeader().getTitle());
         for (int i = 0; i < articleEntity.size(); i++) {
-            switch (articleEntity.getType(i)) {
-                case CONTENT:
-                    mView.showContent(articleEntity.getContent(i));
-                    break;
-                case CONTENT_HEADING:
-                    mView.showHeading(articleEntity.getContent(i));
-                    break;
-                case IMAGE:
-                    mView.showImage(articleEntity.getContent(i));
-                    break;
-                case CONTENT_CODE:
-                    mView.showCode(articleEntity.getContent(i));
-                    break;
-                case LINK:
-                    break;
-                case BLOCKQUOTE:
-                    mView.showBlockquote(articleEntity.getContent(i));
-                    break;
-                case TABLE:
-                    mView.showTable((TableEntity)articleEntity.getElement(i));
-                    break;
-                case LIST_ELEMENT:
-                    mView.showListElement(articleEntity.getContent(i));
-                    break;
-            }
+            mView.showPageElement(articleEntity.getPageElement(i));
         }
     }
 }
