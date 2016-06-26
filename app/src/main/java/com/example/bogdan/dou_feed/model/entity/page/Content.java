@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed.model.entity;
+package com.example.bogdan.dou_feed.model.entity.page;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
