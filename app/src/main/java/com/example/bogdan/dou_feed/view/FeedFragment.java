@@ -141,8 +141,12 @@ public class FeedFragment extends BaseFragment implements FeedView, View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case RUBRIC_ID:
-                PopupMenu popupMenu = new PopupMenu(getContext(), mRubricView);
 
         }
+    }
+
+    private void showPopupMenu(View v) {
+//        PopupMenu popupMenu = new PopupMenu(getContext(), mRubricView);
+//        popupMenu.getMenu().addSubMenu()
     }
 }

@@ -1,5 +1,6 @@
 package com.example.bogdan.dou_feed.api;
 
+import com.example.bogdan.dou_feed.model.entity.Link;
 import com.example.bogdan.dou_feed.model.entity.article.Article.Type;
 import com.example.bogdan.dou_feed.model.entity.article.Article;
 import com.example.bogdan.dou_feed.model.entity.CommentItem;

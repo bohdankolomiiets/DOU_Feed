@@ -1,5 +1,6 @@
 package com.example.bogdan.dou_feed.view;
 
+import com.example.bogdan.dou_feed.model.entity.Link;
 import com.example.bogdan.dou_feed.model.entity.TableEntity;
 
 /**
@@ -22,7 +23,7 @@ public interface ArticleView extends View {
 
     void showHead(String author, String date, String title);
 
-    void showLink(String text);
+    void showLink(Link link);
 
     void showBlockquote(String text);
 

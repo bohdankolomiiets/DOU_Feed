@@ -1,6 +1,7 @@
 package com.example.bogdan.dou_feed.model.entity.article;
 
 import com.example.bogdan.dou_feed.model.entity.Element;
+import com.example.bogdan.dou_feed.model.entity.Link;
 import com.example.bogdan.dou_feed.model.entity.TableEntity;
 import com.example.bogdan.dou_feed.model.entity.article.ArticleHeader;
 
@@ -33,6 +34,10 @@ public class Article {
     public void addElement(Type type, String content) {
         ArticleElement element = new ArticleElement(type, content);
         mArticleElements.add(element);
+    }
+
+    public void addLink(Link link) {
+        mArticleElements.add(link);
     }
 
     public void addTable(TableEntity table) {

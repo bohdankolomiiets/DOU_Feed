@@ -61,6 +61,7 @@ public class TableEntity implements Element{
         return getTableRow(rowIndex).get(position);
     }
 
+    @Override
     public Article.Type getmType() {
         return mType;
     }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.module.ArticleViewModule;
+import com.example.bogdan.dou_feed.model.entity.Link;
 import com.example.bogdan.dou_feed.model.entity.TableEntity;
 import com.example.bogdan.dou_feed.presenter.ArticlePresenter;
 import com.squareup.picasso.Picasso;
@@ -161,8 +162,9 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
     }
 
     @Override
-    public void showLink(String text) {
-
+    public void showLink(Link link) {
+        System.out.println("URL = " + link.getUrl());
+        System.out.println("TEXT = " + link.getText());
     }
 
     @Override
