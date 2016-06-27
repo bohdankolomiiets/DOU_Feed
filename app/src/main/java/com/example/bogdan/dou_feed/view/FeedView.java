@@ -1,5 +1,6 @@
 package com.example.bogdan.dou_feed.view;
 
+import com.example.bogdan.dou_feed.model.entity.Category;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 
 import java.util.List;
@@ -13,4 +14,8 @@ public interface FeedView extends View {
     void showFeed(List<FeedItem> feed);
 
     void stopRefresh();
+
+    void showCategoryMenu(List<Category> categories);
+
+    void clear();
 }

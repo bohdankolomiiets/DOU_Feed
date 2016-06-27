@@ -7,8 +7,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +20,7 @@ import com.example.bogdan.dou_feed.FeedAdapter;
 import com.example.bogdan.dou_feed.HTTPUtils;
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.module.FeedViewModule;
+import com.example.bogdan.dou_feed.model.entity.Category;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.example.bogdan.dou_feed.presenter.FeedPresenter;
 
@@ -61,6 +64,7 @@ public class FeedFragment extends BaseFragment implements FeedView, View.OnClick
         mRubricView = (TextView) inflater.inflate(R.layout.rubric_text, null);
         mRubricView.setText("Все рубрики");
         mRubricView.setId(RUBRIC_ID);
+        mRubricView.setOnClickListener(this);
         mRubricContainer.addView(mRubricView);
         mLayoutManager = new LinearLayoutManager(getContext());
         feedRecyclerView.setLayoutManager(mLayoutManager);
@@ -95,6 +99,31 @@ public class FeedFragment extends BaseFragment implements FeedView, View.OnClick
     @Override
     public void stopRefresh() {
         swipeLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void clear() {
+        mFeedAdapter.clear();
+    }
+
+    @Override
+    public void showCategoryMenu(List<Category> categories) {
+        PopupMenu popupMenu = new PopupMenu(getContext(), mRubricView);
+
+        for (int i = 0; i < categories.size(); i++) {
+            popupMenu.getMenu().addSubMenu(0, i, 0, categories.get(i).getName());
+        }
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                mRubricView.setText(item.getTitle());
+                System.out.println("ID " + item.getItemId());
+                presenter.onChangeCategory(categories.get(item.getItemId()));
+                return false;
+            }
+        });
+
+        popupMenu.show();
     }
 
     @Override
@@ -140,12 +169,8 @@ public class FeedFragment extends BaseFragment implements FeedView, View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case RUBRIC_ID:
-
+                presenter.onCategoryClick();
+                break;
         }
-    }
-
-    private void showPopupMenu(View v) {
-        PopupMenu popupMenu = new PopupMenu(getContext(), mRubricView);
-        
     }
 }

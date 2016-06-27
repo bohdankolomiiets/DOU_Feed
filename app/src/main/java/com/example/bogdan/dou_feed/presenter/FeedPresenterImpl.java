@@ -1,6 +1,7 @@
 package com.example.bogdan.dou_feed.presenter;
 
 import com.example.bogdan.dou_feed.model.DouModel;
+import com.example.bogdan.dou_feed.model.entity.Category;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.example.bogdan.dou_feed.view.FeedView;
 
@@ -57,6 +58,69 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void loadFeedByCaregory(String category, boolean isRefresh) {
+        mView.clear();
+        if (category.isEmpty()) {
+            loadFeed(isRefresh);
+            return;
+        }
+
+        if (!isRefresh) {
+            mView.showLoading();
+        }
+
+        mModel.getFeedByRubric(category, ++pageNumber)
+                .subscribe(new Observer<List<FeedItem>>() {
+                    @Override
+                    public void onCompleted() {
+                        mView.stopRefresh();
+                        mView.hideLoading();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.hideLoading();;
+                        mView.showError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(List<FeedItem> feedItems) {
+                        if (feedItems != null) {
+                            mView.showFeed(feedItems);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onCategoryClick() {
+        mModel.getCategories()
+                .subscribe(new Observer<List<Category>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<Category> categories) {
+                        if (categories != null) {
+                            mView.showCategoryMenu(categories);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onChangeCategory(Category category) {
+        loadFeedByCaregory(category.getUrl(), false);
     }
 
     @Override

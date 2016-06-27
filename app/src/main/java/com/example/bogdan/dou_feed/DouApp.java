@@ -1,6 +1,9 @@
 package com.example.bogdan.dou_feed;
 
 import android.app.Application;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.example.bogdan.dou_feed.di.module.ApiModule;
 import com.example.bogdan.dou_feed.di.component.AppComponent;
@@ -23,12 +26,19 @@ public class DouApp extends Application {
 
     private void resolveDependencies() {
         mAppComponent = DaggerAppComponent.builder()
-                .apiModule(new ApiModule(Constants.HTTP.BASE_URL))
                 .appModule(new AppModule(this))
+                .apiModule(new ApiModule(Constants.HTTP.BASE_URL))
                 .build();
     }
 
     public static AppComponent getAppComponent() {
         return mAppComponent;
     }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 }
