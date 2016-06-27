@@ -7,11 +7,11 @@ package com.example.bogdan.dou_feed.model.entity;
  */
 public class Category {
     private String mName;
-    private String mUrl;
+    private String mUrlName;
 
     public Category(String name, String url) {
         mName = name;
-        mUrl = url;
+        mUrlName = url;
     }
 
     public String getName() {
@@ -19,6 +19,6 @@ public class Category {
     }
 
     public String getUrl() {
-        return mUrl;
+        return mUrlName;
     }
 }

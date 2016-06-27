@@ -1,10 +1,12 @@
 package com.example.bogdan.dou_feed.model;
 
+import com.example.bogdan.dou_feed.model.entity.Category;
 import com.example.bogdan.dou_feed.model.entity.article.Article;
 import com.example.bogdan.dou_feed.model.entity.CommentItem;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.example.bogdan.dou_feed.api.DouApi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -53,6 +55,23 @@ public class DouModelImpl implements DouModel {
     public Observable<List<CommentItem>> getComments(String rubric, String articleUrl) {
         return mApiInterface
                 .getCommentListEntity(rubric, articleUrl)
+                .compose(applySchedulers());
+    }
+
+    @Override
+    public Observable<List<Category>> getCategories() {
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category("Все рубрики", ""));
+        categories.add(new Category("Статьи", "articles"));
+        categories.add(new Category("Интервью", "interviews"));
+        categories.add(new Category("Колумнисты", "columns"));
+        categories.add(new Category("Новости", "news"));
+        categories.add(new Category("Ссылки", "digests"));
+        categories.add(new Category("События", "events"));
+        categories.add(new Category("Новости сайта", "sitenews"));
+
+        return Observable.from(categories)
+                .toList()
                 .compose(applySchedulers());
     }
 

@@ -1,5 +1,6 @@
 package com.example.bogdan.dou_feed.model;
 
+import com.example.bogdan.dou_feed.model.entity.Category;
 import com.example.bogdan.dou_feed.model.entity.article.Article;
 import com.example.bogdan.dou_feed.model.entity.CommentItem;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
@@ -22,4 +23,6 @@ public interface DouModel {
     Observable<Article> getArticle(String rubric, String articleUrl);
 
     Observable<List<CommentItem>> getComments(String rubric, String articleUrl);
+
+    Observable<List<Category>> getCategories();
 }
