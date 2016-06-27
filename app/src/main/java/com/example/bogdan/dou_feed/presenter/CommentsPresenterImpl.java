@@ -19,7 +19,7 @@ import rx.Observer;
  */
 public class CommentsPresenterImpl extends BasePresenter implements CommentsPresenter {
     private CommentsView mView;
-    private String mRubric;
+    private String mCategory;
     private String mUrl;
 
     @Inject
@@ -32,12 +32,12 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
     @Override
     public void onCreate(String rubric, String url) {
         mUrl= url;
-        mRubric = rubric;
+        mCategory = rubric;
     }
 
     @Override
     public void onCreateView(Bundle savedInstanceState) {
-        loadComments(mRubric, mUrl, true);
+        loadComments(mCategory, mUrl, true);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
 
     @Override
     public void onRefresh() {
-        loadComments(mRubric, mUrl, false);
+        loadComments(mCategory, mUrl, false);
     }
 
     private boolean isNotEmpty(List<CommentItem> comments) {
