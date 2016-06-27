@@ -1,6 +1,8 @@
 package com.example.bogdan.dou_feed.model.entity.page;
 
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -14,6 +16,7 @@ import com.squareup.picasso.Picasso;
  */
 public class Image extends PageElement {
     private String mUrl;
+    private ImageView mImageView;
 
     public Image(String url) {
         mUrl = url;
@@ -21,10 +24,10 @@ public class Image extends PageElement {
 
     @Override
     public void display(LayoutInflater inflater, ViewGroup container) {
-        ImageView imageView = (ImageView) inflater.inflate(R.layout.article_image, null);
+        mImageView = (ImageView) inflater.inflate(R.layout.article_image, null);
         Picasso.with(inflater.getContext())
                 .load(mUrl)
-                .into(imageView);
-        container.addView(imageView);
+                .into(mImageView);
+        container.addView(mImageView);
     }
 }

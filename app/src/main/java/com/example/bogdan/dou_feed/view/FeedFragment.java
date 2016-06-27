@@ -83,7 +83,6 @@ public class FeedFragment extends BaseFragment implements FeedView, View.OnClick
         mFeedAdapter = new FeedAdapter(getContext(), this);
         feedRecyclerView.setAdapter(mFeedAdapter);
 
-
         presenter.onCreateView();
         return view;
     }
@@ -146,7 +145,7 @@ public class FeedFragment extends BaseFragment implements FeedView, View.OnClick
     }
 
     private void showPopupMenu(View v) {
-//        PopupMenu popupMenu = new PopupMenu(getContext(), mRubricView);
-//        popupMenu.getMenu().addSubMenu()
+        PopupMenu popupMenu = new PopupMenu(getContext(), mRubricView);
+        
     }
 }
