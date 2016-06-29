@@ -28,7 +28,9 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void hideProgressDial() {
-        mProgressDialog.dismiss();
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
     }
 
     protected void onError(String message) {

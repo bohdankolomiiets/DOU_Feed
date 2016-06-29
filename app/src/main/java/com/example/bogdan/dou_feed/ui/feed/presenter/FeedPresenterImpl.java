@@ -1,5 +1,6 @@
 package com.example.bogdan.dou_feed.ui.feed.presenter;
 
+import com.example.bogdan.dou_feed.Constants;
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.HTTPUtils;
 import com.example.bogdan.dou_feed.model.DouModel;
@@ -35,10 +36,12 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
 
     @Override
     public void loadFeed(boolean isRefresh) {
-        showNetworkError();
-        if (!isRefresh) {
+        if (DouApp.isNetworkAvailable() && !isRefresh) {
             mView.showLoading();
+        } else if (isRefresh && !DouApp.isNetworkAvailable()) {
+            mView.showError(Constants.HTTP.NET_ERROR_MSG);
         }
+
         mModel.getFeed(++pageNumber)
                 .subscribe(new Observer<List<FeedItem>>() {
 
@@ -54,8 +57,7 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
                         mView.hideLoading();
 
                         if (HTTPUtils.isNetworkException(e)) {
-                            showNetworkError();
-                        }
+                            mView.showError(Constants.HTTP.NET_ERROR_MSG);                        }
                     }
 
                     @Override
@@ -69,12 +71,8 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
 
     @Override
     public void onRefresh() {
+
         pageNumber = 0;
         loadFeed(true);
     }
-
-    private void showNetworkError() {
-        mView.showError("Проверьте, пожалуйста, интернет соединение");
-    }
-
 }

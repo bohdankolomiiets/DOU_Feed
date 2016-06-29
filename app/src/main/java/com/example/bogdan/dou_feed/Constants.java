@@ -9,5 +9,6 @@ public class Constants {
 
     public static final class HTTP {
         public static final String BASE_URL = "https://dou.ua/lenta/";
+        public static final String NET_ERROR_MSG = "Проверьте, пожалуйста, интернет соединение";
     }
 }

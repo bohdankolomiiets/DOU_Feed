@@ -5,6 +5,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.example.bogdan.dou_feed.Constants;
+import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.HTTPUtils;
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.model.DouModel;
@@ -42,8 +44,9 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
 
     @Override
     public void onCreateView(Bundle savedInstanceState) {
-        showNetworkError();
-        mView.showLoading();
+        if (DouApp.isNetworkAvailable()) {
+            mView.showLoading();
+        }
         mModel.getArticle(mRubric, mUrl)
                 .subscribe(new Observer<Article>() {
                     @Override
@@ -57,7 +60,7 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
                         mView.hideLoading();
 
                         if (HTTPUtils.isNetworkException(e)) {
-                            showNetworkError();
+                            mView.showError(Constants.HTTP.NET_ERROR_MSG);
                         }
                     }
 
@@ -77,9 +80,5 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
         for (int i = 0; i < articleEntity.size(); i++) {
             mView.showPageElement(articleEntity.getPageElement(i));
         }
-    }
-
-    private void showNetworkError() {
-        mView.showError("Проверьте, пожалуйста, интернет соединение");
     }
 }

@@ -2,6 +2,8 @@ package com.example.bogdan.dou_feed.ui.comments.presenter;
 
 import android.os.Bundle;
 
+import com.example.bogdan.dou_feed.Constants;
+import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.HTTPUtils;
 import com.example.bogdan.dou_feed.model.DouModel;
 import com.example.bogdan.dou_feed.model.entity.CommentItem;
@@ -44,9 +46,12 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
 
     @Override
     public void loadComments(String rubric, String pageUrl, boolean showLoading) {
-        showNetworkError();
-        if (showLoading)
+        if (DouApp.isNetworkAvailable() && showLoading) {
             mView.showLoading();
+        } else if (!showLoading && !DouApp.isNetworkAvailable()) {
+            mView.showError(Constants.HTTP.NET_ERROR_MSG);
+        }
+
         mModel.getComments(rubric, pageUrl)
                 .subscribe(new Observer<List<CommentItem>>() {
                     @Override
@@ -61,8 +66,7 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
                         mView.hideLoading();
 
                         if (HTTPUtils.isNetworkException(e)) {
-                            showNetworkError();
-                        }
+                            mView.showError(Constants.HTTP.NET_ERROR_MSG);                        }
                     }
 
                     @Override
@@ -78,14 +82,11 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
 
     @Override
     public void onRefresh() {
+
         loadComments(mCategory, mUrl, false);
     }
 
     private boolean isNotEmpty(List<CommentItem> comments) {
         return (comments != null && !comments.isEmpty());
-    }
-
-    private void showNetworkError() {
-        mView.showError("Проверьте, пожалуйста, интернет соединение");
     }
 }
