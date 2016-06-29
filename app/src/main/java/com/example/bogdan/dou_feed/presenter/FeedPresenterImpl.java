@@ -17,116 +17,53 @@ import rx.Observer;
  * @date 21.06.16
  */
 public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
-    private FeedView mView;
-    private int pageNumber = 0;
+  private FeedView mView;
+  private int pageNumber = 0;
 
-    @Inject
-    public FeedPresenterImpl(DouModel model, FeedView view) {
-        super(model);
-        mView = view;
+  @Inject
+  public FeedPresenterImpl(DouModel model, FeedView view) {
+    super(model);
+    mView = view;
+  }
+
+  @Override
+  public void onCreateView() {
+    loadFeed(false);
+  }
+
+  @Override
+  public void loadFeed(boolean isRefresh) {
+    if (!isRefresh) {
+      mView.showLoading();
     }
+    mModel.getFeed(++pageNumber)
+            .subscribe(new Observer<List<FeedItem>>() {
 
-    @Override
-    public void onCreateView() {
-        loadFeed(false);
-    }
+              @Override
+              public void onCompleted() {
+                mView.stopRefresh();
+                mView.hideLoading();
+              }
 
-    @Override
-    public void loadFeed(boolean isRefresh) {
-        if (!isRefresh) {
-            mView.showLoading();
-        }
-        mModel.getFeed(++pageNumber)
-                .subscribe(new Observer<List<FeedItem>>() {
+              @Override
+              public void onError(Throwable e) {
+                mView.hideLoading();
+                mView.showError(e.getMessage());
+              }
 
-                    @Override
-                    public void onCompleted() {
-                        mView.stopRefresh();
-                        mView.hideLoading();
-                    }
+              @Override
+              public void onNext(List<FeedItem> feedItemEntities) {
+                if (feedItemEntities != null) {
+                  mView.showFeed(feedItemEntities);
+                }
+              }
+            });
+  }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideLoading();
-                        mView.showError(e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(List<FeedItem> feedItemEntities) {
-                        if (feedItemEntities != null) {
-                            mView.showFeed(feedItemEntities);
-                        }
-                    }
-                });
-    }
-
-    @Override
-    public void loadFeedByCaregory(String category, boolean isRefresh) {
-        mView.clear();
-        if (category.isEmpty()) {
-            loadFeed(isRefresh);
-            return;
-        }
-
-        if (!isRefresh) {
-            mView.showLoading();
-        }
-
-        mModel.getFeedByRubric(category, ++pageNumber)
-                .subscribe(new Observer<List<FeedItem>>() {
-                    @Override
-                    public void onCompleted() {
-                        mView.stopRefresh();
-                        mView.hideLoading();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.hideLoading();;
-                        mView.showError(e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(List<FeedItem> feedItems) {
-                        if (feedItems != null) {
-                            mView.showFeed(feedItems);
-                        }
-                    }
-                });
-    }
-
-    @Override
-    public void onCategoryClick() {
-        mModel.getCategories()
-                .subscribe(new Observer<List<Category>>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<Category> categories) {
-                        if (categories != null) {
-                            mView.showCategoryMenu(categories);
-                        }
-                    }
-                });
-    }
-
-    @Override
-    public void onChangeCategory(Category category) {
-        loadFeedByCaregory(category.getUrl(), false);
-    }
-
-    @Override
-    public void onRefresh() {
-        pageNumber = 0;
-        loadFeed(true);
-    }
+  @Override
+  public void onRefresh() {
+    pageNumber = 0;
+    loadFeed(true);
+  }
 
 }

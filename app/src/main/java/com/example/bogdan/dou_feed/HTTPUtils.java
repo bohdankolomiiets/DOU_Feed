@@ -7,34 +7,47 @@ package com.example.bogdan.dou_feed;
  */
 public class HTTPUtils {
 
-    private HTTPUtils() {
+  private HTTPUtils() {
 
+  }
+
+  public static String getRubric(String url) {
+    int baseLength = Constants.HTTP.BASE_URL.length();
+    if (!isSecure(url)) {
+      baseLength -= 1;
     }
 
-    public static String getRubric(String url) {
-        int baseLength = Constants.HTTP.BASE_URL.length();
-        char[] characters = url.toCharArray();
+    char[] characters = url.toCharArray();
 
-        return getUrl(characters, baseLength);
+    return getUrl(characters, baseLength);
+  }
+
+  public static String getPageUrl(String url) {
+    int baseLength = Constants.HTTP.BASE_URL.length() + getRubric(url).length() + 1;
+    if (!isSecure(url)) {
+      baseLength -= 1;
+    }
+    char[] character = url.toCharArray();
+
+    return getUrl(character, baseLength);
+  }
+
+  private static String getUrl(char[] characters, int baseLength) {
+    StringBuilder sb = new StringBuilder();
+
+    for (int i = baseLength; i < characters.length; i++) {
+      if (characters[i] == '/') {
+        break;
+      }
+      sb.append(characters[i]);
     }
 
-    public static String getPageUrl(String url) {
-        int baseLength = Constants.HTTP.BASE_URL.length() + getRubric(url).length() + 1;
-        char[] character = url.toCharArray();
+    return sb.toString();
+  }
 
-        return getUrl(character, baseLength);
-    }
+  private static boolean isSecure(String url) {
+    url = url.substring(0, 5);
 
-    private static String getUrl(char[] characters, int baseLength) {
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = baseLength; i < characters.length; i++) {
-            if (characters[i] == '/') {
-                break;
-            }
-            sb.append(characters[i]);
-        }
-
-        return sb.toString();
-    }
+    return url.equals("https");
+  }
 }
