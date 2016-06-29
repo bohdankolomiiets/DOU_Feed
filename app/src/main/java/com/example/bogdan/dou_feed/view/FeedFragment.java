@@ -1,6 +1,7 @@
 package com.example.bogdan.dou_feed.view;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -37,98 +38,94 @@ import butterknife.ButterKnife;
  * @date 21.06.16
  */
 public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.OnFeedItemClickListener {
+    @BindView(R.id.feedRecyclerView)
+    RecyclerView feedRecyclerView;
 
-  @BindView(R.id.feedRecyclerView)
-  RecyclerView feedRecyclerView;
+    @Inject
+    FeedPresenter presenter;
 
-  @Inject
-  FeedPresenter presenter;
+    @BindView(R.id.swipeContainer)
+    SwipeRefreshLayout swipeLayout;
 
-  @BindView(R.id.swipeContainer)
-  SwipeRefreshLayout swipeLayout;
-
-  private LinearLayoutManager mLayoutManager;
-  private FeedAdapter mFeedAdapter;
+    private LinearLayoutManager mLayoutManager;
+    private FeedAdapter mFeedAdapter;
 
 
-  @Nullable
-  @Override
-  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    DouApp.getAppComponent().plus(new FeedViewModule(this)).inject(this);
-    View view = inflater.inflate(R.layout.feed_layout, container, false);
-    ButterKnife.bind(this, view);
-    mLayoutManager = new LinearLayoutManager(getContext());
-    feedRecyclerView.setLayoutManager(mLayoutManager);
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        DouApp.getAppComponent().plus(new FeedViewModule(this)).inject(this);
+        View view = inflater.inflate(R.layout.feed_layout, container, false);
+        ButterKnife.bind(this, view);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        feedRecyclerView.setLayoutManager(mLayoutManager);
 
-    swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-      @Override
-      public void onRefresh() {
-        mFeedAdapter.clear();
-        presenter.onRefresh();
-      }
-    });
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mFeedAdapter.clear();
+                presenter.onRefresh();
+            }
+        });
 
-    feedRecyclerView.addOnScrollListener(new EndlessOnScrollListener(mLayoutManager) {
-      @Override
-      public void onLoadMore() {
-        presenter.loadFeed(false);
-      }
-    });
+        feedRecyclerView.addOnScrollListener(new EndlessOnScrollListener(mLayoutManager) {
+            @Override
+            public void onLoadMore() {
+                presenter.loadFeed(false);
+            }
+        });
 
-    mFeedAdapter = new FeedAdapter(getContext(), this);
-    feedRecyclerView.setAdapter(mFeedAdapter);
+        mFeedAdapter = new FeedAdapter(getContext(), this);
+        feedRecyclerView.setAdapter(mFeedAdapter);
 
-    presenter.onCreateView();
-    return view;
-  }
-
-  @Override
-  public void showFeed(List<FeedItem> feed) {
-    mFeedAdapter.addFeed(feed);
-  }
-
-  @Override
-  public void stopRefresh() {
-    swipeLayout.setRefreshing(false);
-  }
-
-  @Override
-  public void onClick(String url, FeedAdapter.Type type) {
-    System.out.println("URL = " + url);
-    String rubric = HTTPUtils.getRubric(url);
-    System.out.println("RUBRIC " + rubric);
-    String urlPage = HTTPUtils.getPageUrl(url);
-    switch (type) {
-      case COMMENT:
-        CommentsFragment cf = CommentsFragment.newInstance(rubric, urlPage);
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, cf, null)
-                .addToBackStack(null)
-                .commit();
-        break;
-      case FEED_ITEM:
-        System.out.println("Rubric = " + rubric + " Page = " + urlPage);
-        ArticleFragment fragment = ArticleFragment.newInstance(rubric, urlPage);
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment, null)
-                .addToBackStack(null)
-                .commit();
-        break;
+        presenter.onCreateView();
+        return view;
     }
-  }
 
-  @Override
-  public void showLoading() {
-    showProgressDial();
-  }
+    @Override
+    public void showFeed(List<FeedItem> feed) {
+        mFeedAdapter.addFeed(feed);
+    }
 
-  @Override
-  public void hideLoading() {
-    hideProgressDial();
-  }
+    @Override
+    public void stopRefresh() {
+        swipeLayout.setRefreshing(false);
+    }
 
-  @Override
-  public void showError(String message) {
-    onError(message);
-  }
+    @Override
+    public void onClick(String url, FeedAdapter.Type type) {
+        String rubric = HTTPUtils.getRubric(url);
+        String urlPage = HTTPUtils.getPageUrl(url);
+        switch (type) {
+            case COMMENT:
+                CommentsFragment cf = CommentsFragment.newInstance(rubric, urlPage);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, cf, null)
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case FEED_ITEM:
+                ArticleFragment fragment = ArticleFragment.newInstance(rubric, urlPage);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, fragment, null)
+                        .addToBackStack(null)
+                        .commit();
+                break;
+        }
+    }
+
+    @Override
+    public void showLoading() {
+        showProgressDial();
+    }
+
+    @Override
+    public void hideLoading() {
+        hideProgressDial();
+    }
+
+    @Override
+    public void showError(String message) {
+        onError(message);
+    }
 }
