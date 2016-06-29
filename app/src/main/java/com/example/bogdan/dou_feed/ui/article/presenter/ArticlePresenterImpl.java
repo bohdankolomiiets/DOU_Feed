@@ -5,6 +5,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.example.bogdan.dou_feed.HTTPUtils;
+import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.model.DouModel;
 import com.example.bogdan.dou_feed.model.entity.article.Article;
 import com.example.bogdan.dou_feed.ui.common.BasePresenter;
@@ -12,6 +14,7 @@ import com.example.bogdan.dou_feed.ui.article.view.ArticleView;
 
 import javax.inject.Inject;
 
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observer;
 
 /**
@@ -39,6 +42,7 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
 
     @Override
     public void onCreateView(Bundle savedInstanceState) {
+        showNetworkError();
         mView.showLoading();
         mModel.getArticle(mRubric, mUrl)
                 .subscribe(new Observer<Article>() {
@@ -51,7 +55,10 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
                     public void onError(Throwable e) {
                         e.printStackTrace();
                         mView.hideLoading();
-                        mView.showError(e.getMessage());
+
+                        if (HTTPUtils.isNetworkException(e)) {
+                            showNetworkError();
+                        }
                     }
 
                     @Override
@@ -70,5 +77,9 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
         for (int i = 0; i < articleEntity.size(); i++) {
             mView.showPageElement(articleEntity.getPageElement(i));
         }
+    }
+
+    private void showNetworkError() {
+        mView.showError("Проверьте, пожалуйста, интернет соединение");
     }
 }

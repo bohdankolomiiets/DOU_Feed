@@ -25,10 +25,10 @@ public class ImageDialog extends Dialog {
         super(context, R.style.DialogTheme);
         setContentView(LAYOUT);
         ButterKnife.bind(this);
+
     }
 
     public void setImage(Bitmap image) {
         imageView.setImageBitmap(image);
     }
-
 }

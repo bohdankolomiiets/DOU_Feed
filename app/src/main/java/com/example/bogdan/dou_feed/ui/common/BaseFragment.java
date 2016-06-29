@@ -32,8 +32,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void onError(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
-
-
 }

@@ -25,6 +25,4 @@ public abstract class BasePresenter {
     public void onStop() {
         mCompositeSubscription.clear();
     }
-
-
 }

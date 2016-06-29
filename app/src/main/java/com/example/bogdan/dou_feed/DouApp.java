@@ -17,11 +17,13 @@ import com.example.bogdan.dou_feed.di.component.DaggerAppComponent;
  */
 public class DouApp extends Application {
     private static AppComponent mAppComponent;
+    private static Context mContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
         resolveDependencies();
+        mContext = getApplicationContext();
     }
 
     private void resolveDependencies() {
@@ -35,9 +37,10 @@ public class DouApp extends Application {
         return mAppComponent;
     }
 
-    public boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
