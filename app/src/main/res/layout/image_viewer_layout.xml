@@ -4,11 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ImageView
+    <com.example.bogdan.dou_feed.ui.common.ResizebleImageView
         android:id="@+id/viewerImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:scaleType="fitXY"/>
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>
