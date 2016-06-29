@@ -20,6 +20,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.HttpException;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
@@ -57,13 +58,15 @@ public class ApiModule {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request request = chain.request();
+                        request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
 
-                        if (DouApp.isNetworkAvailable()) {
-                            request = request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build();
-                        } else {
-                            request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
+                        Response response = chain.proceed(request);
+
+                        if ((response.code() == 504) && DouApp.isNetworkAvailable()) {
+                            response = chain.proceed(request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build());
                         }
-                        return chain.proceed(request);
+
+                        return response;
                     }
                 })
                 .build();
