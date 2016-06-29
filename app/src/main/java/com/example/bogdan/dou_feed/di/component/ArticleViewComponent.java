@@ -2,7 +2,7 @@ package com.example.bogdan.dou_feed.di.component;
 
 import com.example.bogdan.dou_feed.di.ActivityScope;
 import com.example.bogdan.dou_feed.di.module.ArticleViewModule;
-import com.example.bogdan.dou_feed.view.ArticleFragment;
+import com.example.bogdan.dou_feed.ui.article.view.ArticleFragment;
 
 import dagger.Subcomponent;
 

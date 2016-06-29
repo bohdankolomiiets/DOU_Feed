@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed.presenter;
+package com.example.bogdan.dou_feed.ui.common;
 
 import com.example.bogdan.dou_feed.model.DouModel;
 

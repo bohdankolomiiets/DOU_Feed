@@ -1,9 +1,9 @@
-package com.example.bogdan.dou_feed.presenter;
+package com.example.bogdan.dou_feed.ui.feed.presenter;
 
 import com.example.bogdan.dou_feed.model.DouModel;
-import com.example.bogdan.dou_feed.model.entity.Category;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
-import com.example.bogdan.dou_feed.view.FeedView;
+import com.example.bogdan.dou_feed.ui.common.BasePresenter;
+import com.example.bogdan.dou_feed.ui.feed.view.FeedView;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed;
+package com.example.bogdan.dou_feed.ui.common;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

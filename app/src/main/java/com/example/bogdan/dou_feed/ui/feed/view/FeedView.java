@@ -1,6 +1,7 @@
-package com.example.bogdan.dou_feed.view;
+package com.example.bogdan.dou_feed.ui.feed.view;
 
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
+import com.example.bogdan.dou_feed.ui.common.View;
 
 import java.util.List;
 

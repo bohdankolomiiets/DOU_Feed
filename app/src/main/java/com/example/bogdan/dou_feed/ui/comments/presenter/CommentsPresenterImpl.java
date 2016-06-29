@@ -1,10 +1,11 @@
-package com.example.bogdan.dou_feed.presenter;
+package com.example.bogdan.dou_feed.ui.comments.presenter;
 
 import android.os.Bundle;
 
 import com.example.bogdan.dou_feed.model.DouModel;
 import com.example.bogdan.dou_feed.model.entity.CommentItem;
-import com.example.bogdan.dou_feed.view.CommentsView;
+import com.example.bogdan.dou_feed.ui.common.BasePresenter;
+import com.example.bogdan.dou_feed.ui.comments.view.CommentsView;
 
 import java.util.List;
 

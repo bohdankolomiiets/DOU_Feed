@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed.view;
+package com.example.bogdan.dou_feed.ui.common;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;

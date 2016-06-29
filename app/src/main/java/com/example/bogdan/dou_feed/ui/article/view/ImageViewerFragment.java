@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed.view;
+package com.example.bogdan.dou_feed.ui.article.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,7 @@ import android.view.*;
 import android.view.View;
 
 import com.example.bogdan.dou_feed.R;
+import com.example.bogdan.dou_feed.ui.common.BaseFragment;
 
 /**
  * @author Bogdan Kolomiets

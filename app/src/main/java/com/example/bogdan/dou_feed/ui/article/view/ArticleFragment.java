@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed.view;
+package com.example.bogdan.dou_feed.ui.article.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +15,9 @@ import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.module.ArticleViewModule;
 import com.example.bogdan.dou_feed.model.entity.page.PageElement;
-import com.example.bogdan.dou_feed.presenter.ArticlePresenter;
+import com.example.bogdan.dou_feed.ui.article.presenter.ArticlePresenter;
+import com.example.bogdan.dou_feed.ui.common.BaseFragment;
+import com.example.bogdan.dou_feed.ui.comments.view.CommentsFragment;
 
 import javax.inject.Inject;
 

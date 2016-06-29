@@ -1,14 +1,14 @@
-package com.example.bogdan.dou_feed.presenter;
+package com.example.bogdan.dou_feed.ui.article.presenter;
 
 import android.os.Bundle;
 
 import com.example.bogdan.dou_feed.model.DouModel;
 import com.example.bogdan.dou_feed.model.entity.article.Article;
-import com.example.bogdan.dou_feed.view.ArticleView;
+import com.example.bogdan.dou_feed.ui.common.BasePresenter;
+import com.example.bogdan.dou_feed.ui.article.view.ArticleView;
 
 import javax.inject.Inject;
 
-import retrofit2.adapter.rxjava.HttpException;
 import rx.Observer;
 
 /**

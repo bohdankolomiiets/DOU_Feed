@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed.view;
+package com.example.bogdan.dou_feed.ui.comments.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,12 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.*;
 import android.view.View;
 
-import com.example.bogdan.dou_feed.CommentsAdapter;
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.module.CommentViewModule;
 import com.example.bogdan.dou_feed.model.entity.CommentItem;
-import com.example.bogdan.dou_feed.presenter.CommentsPresenter;
+import com.example.bogdan.dou_feed.ui.comments.presenter.CommentsPresenter;
+import com.example.bogdan.dou_feed.ui.common.BaseFragment;
 
 import java.util.List;
 

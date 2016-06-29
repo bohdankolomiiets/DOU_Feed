@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed.presenter;
+package com.example.bogdan.dou_feed.ui.feed.presenter;
 
 /**
  * @author Bogdan Kolomiets

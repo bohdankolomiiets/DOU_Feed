@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed;
+package com.example.bogdan.dou_feed.ui.comments.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.model.entity.CommentItem;
 import com.squareup.picasso.Picasso;
 

@@ -2,9 +2,9 @@ package com.example.bogdan.dou_feed.di.module;
 
 import com.example.bogdan.dou_feed.di.ActivityScope;
 import com.example.bogdan.dou_feed.model.DouModel;
-import com.example.bogdan.dou_feed.presenter.ArticlePresenter;
-import com.example.bogdan.dou_feed.presenter.ArticlePresenterImpl;
-import com.example.bogdan.dou_feed.view.ArticleView;
+import com.example.bogdan.dou_feed.ui.article.presenter.ArticlePresenter;
+import com.example.bogdan.dou_feed.ui.article.presenter.ArticlePresenterImpl;
+import com.example.bogdan.dou_feed.ui.article.view.ArticleView;
 
 import dagger.Module;
 import dagger.Provides;
