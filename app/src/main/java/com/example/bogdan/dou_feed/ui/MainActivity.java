@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.model.entity.page.Image;
-import com.example.bogdan.dou_feed.ui.article.view.ImageViewerFragment;
+import com.example.bogdan.dou_feed.ui.article.view.ImageDialog;
 import com.example.bogdan.dou_feed.ui.feed.view.FeedFragment;
 
 import butterknife.ButterKnife;
@@ -66,11 +66,10 @@ public class MainActivity extends AppCompatActivity  implements
     @Override
     public void onImageClick(ImageView imageView) {
         Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-        ImageViewerFragment fragment = ImageViewerFragment.newInstance(image);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment, null)
-                .addToBackStack(null)
-                .commit();
+        ImageDialog imageDialog = new ImageDialog(this);
+        imageDialog.show();
+        System.out.println("Size " + image.getByteCount());
+        imageDialog.setImage(image);
     }
 
 

@@ -8,4 +8,5 @@
     <color name="title">#1876ac</color>
     <color name="focused">#64B5F6</color>
     <color name="silver">#757575</color>
+    <color name="transparentBlack">#D8000000</color>
 </resources>
