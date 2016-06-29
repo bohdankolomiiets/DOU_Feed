@@ -19,7 +19,7 @@ public class Image extends PageElement implements OnClickListener {
     private String mUrl;
     private ImageView mImageView;
     private Context mContext;
-    
+
     public Image(String url) {
         mUrl = url;
     }
@@ -40,6 +40,8 @@ public class Image extends PageElement implements OnClickListener {
     public void onClick(View v) {
         if (v == mImageView) {
             if (hasImageClickListener(mContext)) {
+                System.out.println("YEAHHHH");
+
                 ((OnImageClickListener)mContext).onImageClick(mImageView);
             }
         }

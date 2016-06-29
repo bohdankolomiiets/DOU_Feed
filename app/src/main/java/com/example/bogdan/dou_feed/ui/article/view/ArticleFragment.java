@@ -16,8 +16,8 @@ import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.module.ArticleViewModule;
 import com.example.bogdan.dou_feed.model.entity.page.PageElement;
 import com.example.bogdan.dou_feed.ui.article.presenter.ArticlePresenter;
-import com.example.bogdan.dou_feed.ui.common.BaseFragment;
 import com.example.bogdan.dou_feed.ui.comments.view.CommentsFragment;
+import com.example.bogdan.dou_feed.ui.common.BaseFragment;
 
 import javax.inject.Inject;
 

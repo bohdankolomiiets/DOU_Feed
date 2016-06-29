@@ -1,5 +1,7 @@
 package com.example.bogdan.dou_feed.ui.article.view;
 
+import android.graphics.Bitmap;
+
 import com.example.bogdan.dou_feed.model.entity.page.PageElement;
 import com.example.bogdan.dou_feed.ui.common.View;
 
