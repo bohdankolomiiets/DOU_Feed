@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.api.DouApi;
-import com.example.bogdan.dou_feed.lib.PresenterCache;
+import com.example.bogdan.dou_feed.ui.lib.PresenterCache;
 import com.example.bogdan.dou_feed.model.DouModel;
 import com.example.bogdan.dou_feed.model.DouModelImpl;
 

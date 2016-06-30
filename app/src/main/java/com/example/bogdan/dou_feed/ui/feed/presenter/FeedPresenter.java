@@ -1,6 +1,6 @@
 package com.example.bogdan.dou_feed.ui.feed.presenter;
 
-import com.example.bogdan.dou_feed.lib.Presenter;
+import com.example.bogdan.dou_feed.ui.lib.Presenter;
 
 /**
  * @author Bogdan Kolomiets

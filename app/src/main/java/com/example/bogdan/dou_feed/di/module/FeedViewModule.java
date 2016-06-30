@@ -3,9 +3,8 @@ package com.example.bogdan.dou_feed.di.module;
 import android.support.annotation.NonNull;
 
 import com.example.bogdan.dou_feed.di.ActivityScope;
-import com.example.bogdan.dou_feed.lib.Presenter;
-import com.example.bogdan.dou_feed.lib.PresenterCache;
-import com.example.bogdan.dou_feed.lib.PresenterFactory;
+import com.example.bogdan.dou_feed.ui.lib.PresenterCache;
+import com.example.bogdan.dou_feed.ui.lib.PresenterFactory;
 import com.example.bogdan.dou_feed.model.DouModel;
 import com.example.bogdan.dou_feed.ui.feed.presenter.FeedPresenter;
 import com.example.bogdan.dou_feed.ui.feed.presenter.FeedPresenterImpl;

@@ -1,4 +1,4 @@
-package com.example.bogdan.dou_feed.lib;
+package com.example.bogdan.dou_feed.ui.lib;
 
 import android.support.v4.util.SimpleArrayMap;
 import android.util.Log;
