@@ -8,6 +8,7 @@ import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
 import com.example.bogdan.dou_feed.ui.common.BasePresenter;
 import com.example.bogdan.dou_feed.ui.feed.view.FeedView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,16 +23,22 @@ import rx.Observer;
 public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
     private FeedView mView;
     private int pageNumber = 0;
+    private List<FeedItem> mFeed;
 
     @Inject
     public FeedPresenterImpl(DouModel model, FeedView view) {
         super(model);
         mView = view;
+        mFeed = new ArrayList<>();
     }
 
     @Override
     public void onCreateView() {
-        loadFeed(false);
+        if (mFeed.isEmpty()) {
+            loadFeed(false);
+        } else {
+            mView.showFeed(mFeed);
+        }
     }
 
     @Override
@@ -63,6 +70,7 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
                     @Override
                     public void onNext(List<FeedItem> feedItemEntities) {
                         if (feedItemEntities != null) {
+                            mFeed.addAll(feedItemEntities);
                             mView.showFeed(feedItemEntities);
                         }
                     }

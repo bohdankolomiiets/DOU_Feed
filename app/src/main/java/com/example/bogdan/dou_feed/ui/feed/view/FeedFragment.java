@@ -11,15 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bogdan.dou_feed.DouApp;
-import com.example.bogdan.dou_feed.ui.common.EndlessOnScrollListener;
 import com.example.bogdan.dou_feed.HTTPUtils;
 import com.example.bogdan.dou_feed.R;
 import com.example.bogdan.dou_feed.di.module.FeedViewModule;
 import com.example.bogdan.dou_feed.model.entity.feed.FeedItem;
-import com.example.bogdan.dou_feed.ui.feed.presenter.FeedPresenter;
 import com.example.bogdan.dou_feed.ui.article.view.ArticleFragment;
 import com.example.bogdan.dou_feed.ui.comments.view.CommentsFragment;
 import com.example.bogdan.dou_feed.ui.common.BaseFragment;
+import com.example.bogdan.dou_feed.ui.common.EndlessOnScrollListener;
+import com.example.bogdan.dou_feed.ui.feed.presenter.FeedPresenter;
 
 import java.util.List;
 
@@ -43,20 +43,20 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
     @BindView(R.id.swipeContainer)
     SwipeRefreshLayout swipeLayout;
 
-    private Parcelable mListState;
     private LinearLayoutManager mLayoutManager;
     private FeedAdapter mFeedAdapter;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        DouApp.getAppComponent().plus(new FeedViewModule(this)).inject(this);
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        DouApp.getAppComponent().plus(new FeedViewModule(this)).inject(this);
         View view = inflater.inflate(R.layout.feed_layout, container, false);
         ButterKnife.bind(this, view);
-        if (savedInstanceState != null) {
-            mListState = savedInstanceState.getParcelable("me");
-        }
         mLayoutManager = new LinearLayoutManager(getContext());
         feedRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -80,23 +80,6 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
 
         presenter.onCreateView();
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (mListState != null) {
-            mLayoutManager.onRestoreInstanceState(mListState);
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        mListState = mLayoutManager.onSaveInstanceState();
-        outState.putParcelable("me", mListState);
     }
 
     @Override

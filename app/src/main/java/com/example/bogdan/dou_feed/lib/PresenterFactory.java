@@ -8,6 +8,5 @@ import android.support.annotation.NonNull;
  * @date 30.06.16
  */
 public interface PresenterFactory<T extends Presenter> {
-
     @NonNull T createPresenter();
 }

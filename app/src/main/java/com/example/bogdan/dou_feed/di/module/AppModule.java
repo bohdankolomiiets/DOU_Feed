@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.bogdan.dou_feed.DouApp;
 import com.example.bogdan.dou_feed.api.DouApi;
+import com.example.bogdan.dou_feed.lib.PresenterCache;
 import com.example.bogdan.dou_feed.model.DouModel;
 import com.example.bogdan.dou_feed.model.DouModelImpl;
 
@@ -46,5 +47,11 @@ public class AppModule {
     @Provides
     DouModel provideDouModel(Observable.Transformer schedulerTransformer, DouApi api) {
         return new DouModelImpl(schedulerTransformer, api);
+    }
+
+    @Singleton
+    @Provides
+    PresenterCache providePresenterCache() {
+        return PresenterCache.getInstance();
     }
 }
