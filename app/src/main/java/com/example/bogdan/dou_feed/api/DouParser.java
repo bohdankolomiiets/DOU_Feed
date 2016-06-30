@@ -148,7 +148,7 @@ public class DouParser {
                     articlePage.addElement(list);
                     break;
             }
-            if (element.children().hasAttr("src")) {
+            if (element.children().hasAttr("src") && !element.children().hasAttr("scrolling")) {
                 articlePage.addElement(new Image(element.children().attr("src")));
             }
         }

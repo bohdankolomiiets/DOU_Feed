@@ -1,6 +1,7 @@
 package com.example.bogdan.dou_feed.ui.feed.view;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,6 +43,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
     @BindView(R.id.swipeContainer)
     SwipeRefreshLayout swipeLayout;
 
+    private Parcelable mListState;
     private LinearLayoutManager mLayoutManager;
     private FeedAdapter mFeedAdapter;
 
@@ -52,6 +54,9 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
         DouApp.getAppComponent().plus(new FeedViewModule(this)).inject(this);
         View view = inflater.inflate(R.layout.feed_layout, container, false);
         ButterKnife.bind(this, view);
+        if (savedInstanceState != null) {
+            mListState = savedInstanceState.getParcelable("me");
+        }
         mLayoutManager = new LinearLayoutManager(getContext());
         feedRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -75,6 +80,23 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
 
         presenter.onCreateView();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (mListState != null) {
+            mLayoutManager.onRestoreInstanceState(mListState);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        mListState = mLayoutManager.onSaveInstanceState();
+        outState.putParcelable("me", mListState);
     }
 
     @Override
