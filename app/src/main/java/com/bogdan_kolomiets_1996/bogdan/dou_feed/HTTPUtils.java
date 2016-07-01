@@ -1,6 +1,6 @@
 package com.bogdan_kolomiets_1996.bogdan.dou_feed;
 
-import com.bogdan_kolomiets_1996.bogdan.dou_feed.api.NetworkException;
+import java.net.SocketTimeoutException;
 
 import retrofit2.adapter.rxjava.HttpException;
 
@@ -37,7 +37,7 @@ public class HTTPUtils {
     }
 
     public static boolean isNetworkException(Throwable e) {
-        return e instanceof HttpException;
+        return (e instanceof HttpException) || (e instanceof SocketTimeoutException);
     }
 
     private static String getUrl(char[] characters, int baseLength) {

@@ -7,6 +7,7 @@ import com.bogdan_kolomiets_1996.bogdan.dou_feed.api.DouApi;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.api.DouConverterFactory;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
@@ -50,20 +51,24 @@ public class ApiModule {
     OkHttpClient provideHttpClient(Context app){
         return new OkHttpClient
                 .Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
                 .cache(new Cache(app.getCacheDir(), 10 * 1024 * 1024)) // 10 MB
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request request = chain.request();
-                        request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
 
-                        Response response = chain.proceed(request);
-
-                        if ((response.code() == 504) && DouApp.isNetworkAvailable()) {
-                            response = chain.proceed(request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build());
+                        if (DouApp.isNetworkAvailable()) {
+                            request = request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build();
+                        } else {
+                            request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
                         }
 
-                        return response;
+
+
+                        return chain.proceed(request);
                     }
                 })
                 .build();
