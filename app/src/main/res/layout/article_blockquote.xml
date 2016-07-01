@@ -3,7 +3,7 @@
     android:layout_height="wrap_content"
     android:padding="8dp"
     android:scrollHorizontally="true"
-    android:background="#eee"
+    android:background="@color/blockquoteBackground"
     android:textSize="16sp"
-    android:fontFamily="Georgia"
+    android:fontFamily="@string/font_georgia"
     xmlns:android="http://schemas.android.com/apk/res/android" />

@@ -9,4 +9,7 @@
     <color name="focused">#64B5F6</color>
     <color name="silver">#757575</color>
     <color name="transparentBlack">#D8000000</color>
+    <color name="background">#e0e0e0</color>
+    <color name="blockquoteBackground">#eee</color>
+    <color name="colorLink">#1876ac</color>
 </resources>

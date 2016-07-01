@@ -9,7 +9,7 @@
         android:id="@+id/articleTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#eee">
+        android:background="@color/blockquoteBackground">
 
     </TableLayout>
 

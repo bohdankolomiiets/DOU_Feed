@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:scrollHorizontally="true"
-        android:background="#eee"
+        android:background="@color/blockquoteBackground"
         android:textSize="14sp"
-        android:fontFamily="monospace" />
+        android:fontFamily="@string/font_monospace" />
 </HorizontalScrollView>
 
 

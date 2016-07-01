@@ -7,7 +7,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#e0e0e0">
+            android:background="@color/background">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/feedRecyclerView"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:text="В начало"
+            android:text="@string/btnUp"
             android:textColor="@color/white"
             android:background="@drawable/btn_up"
             android:visibility="invisible"/>

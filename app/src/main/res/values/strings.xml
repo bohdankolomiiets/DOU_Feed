@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">DOU BETA</string>
     <string name="font_roboto">Roboto Regular</string>
+    <string name="font_georgia">Georgia</string>
+    <string name="font_monospace">monospace</string>
+    <string name="btnUp">В начало</string>
 
 </resources>
