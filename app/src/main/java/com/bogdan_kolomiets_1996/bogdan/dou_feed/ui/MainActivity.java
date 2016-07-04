@@ -21,56 +21,62 @@ import butterknife.ButterKnife;
  * @version 1
  * @date 21.06.16
  */
-public class MainActivity extends AppCompatActivity  implements
-        FragmentManager.OnBackStackChangedListener, Image.OnImageClickListener{
-    private Toolbar mToolbar;
+public class MainActivity extends AppCompatActivity implements
+    FragmentManager.OnBackStackChangedListener, Image.OnImageClickListener {
+  private Toolbar mToolbar;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_layout);
-        ButterKnife.bind(this);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportFragmentManager().addOnBackStackChangedListener(this);
-        isDisplayingHomeBtn();
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new FeedFragment())
-                .commit();
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.main_layout);
+    ButterKnife.bind(this);
+    System.out.println(getApplication());
+    mToolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(mToolbar);
+    getSupportFragmentManager().addOnBackStackChangedListener(this);
+    isDisplayingHomeBtn();
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.container, new FeedFragment())
+        .commit();
 
-    }
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    System.exit(0);
+  }
+
+  private void isDisplayingHomeBtn() {
+    boolean display = isEmptyBackStack();
+    getSupportActionBar().setDisplayHomeAsUpEnabled(display);
+    getSupportActionBar().setDisplayShowHomeEnabled(display);
+  }
+
+  private boolean isEmptyBackStack() {
+    return getSupportFragmentManager().getBackStackEntryCount() > 0;
+  }
 
 
-    private void isDisplayingHomeBtn() {
-        boolean display = isEmptyBackStack();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(display);
-        getSupportActionBar().setDisplayShowHomeEnabled(display);
-    }
+  @Override
+  public void onBackStackChanged() {
+    isDisplayingHomeBtn();
+  }
 
-    private boolean isEmptyBackStack() {
-        return getSupportFragmentManager().getBackStackEntryCount()>0;
-    }
+  @Override
+  public boolean onSupportNavigateUp() {
+    getSupportFragmentManager().popBackStack();
+    return true;
+  }
 
-
-    @Override
-    public void onBackStackChanged() {
-        isDisplayingHomeBtn();
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        getSupportFragmentManager().popBackStack();
-        return true;
-    }
-
-    @Override
-    public void onImageClick(ImageView imageView) {
-        Bitmap image = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-        ImageDialog imageDialog = new ImageDialog(this);
-        imageDialog.show();
-        System.out.println("Size " + image.getByteCount());
-        imageDialog.setImage(image);
-    }
+  @Override
+  public void onImageClick(ImageView imageView) {
+    Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+    ImageDialog imageDialog = new ImageDialog(this);
+    imageDialog.show();
+    System.out.println("Size " + image.getByteCount());
+    imageDialog.setImage(image);
+  }
 
 
 }

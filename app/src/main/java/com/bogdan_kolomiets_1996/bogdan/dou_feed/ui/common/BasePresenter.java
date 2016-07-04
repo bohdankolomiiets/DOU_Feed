@@ -11,18 +11,19 @@ import rx.subscriptions.CompositeSubscription;
  * @date 21.06.16
  */
 public abstract class BasePresenter {
-    private CompositeSubscription mCompositeSubscription = new CompositeSubscription();
-    protected final DouModel mModel;
+  private CompositeSubscription mCompositeSubscription = new CompositeSubscription();
+  protected final DouModel mModel;
 
-    public BasePresenter(DouModel model) {
-        mModel = model;
-    }
+  public BasePresenter(DouModel model) {
+    mModel = model;
+  }
 
-    protected void addSubstription(Subscription subscription) {
-        mCompositeSubscription.add(subscription);
-    }
+  protected void addSubstription(Subscription subscription) {
+    mCompositeSubscription.add(subscription);
+  }
 
-    public void onStop() {
-        mCompositeSubscription.clear();
-    }
+  public void onStop() {
+    mCompositeSubscription.unsubscribe();
+    mCompositeSubscription.clear();
+  }
 }

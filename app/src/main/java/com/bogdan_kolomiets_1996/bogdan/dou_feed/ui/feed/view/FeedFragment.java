@@ -86,6 +86,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
     configureButtonSendNews();
 
     presenter.onCreateView();
+    System.out.println("Activity = " + this);
     return view;
   }
 
