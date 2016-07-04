@@ -39,8 +39,8 @@ public class ArticlePresenterImpl extends BasePresenter implements ArticlePresen
 
     @Override
     public void onCreateView(Bundle savedInstanceState) {
-        if (DouApp.isNetworkAvailable()) {
-            mView.showLoading();
+        if (HTTPUtils.isNetworkAvailable(mView.getDouContext())) {
+          mView.showLoading();
         }
         mModel.getArticle(mRubric, mUrl)
                 .subscribe(new Observer<Article>() {

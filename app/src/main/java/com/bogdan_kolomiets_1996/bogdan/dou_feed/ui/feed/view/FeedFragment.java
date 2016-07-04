@@ -1,5 +1,6 @@
 package com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.feed.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -54,7 +55,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    DouApp.getAppComponent().plus(new FeedViewModule(this)).inject(this);
+    DouApp.get(getContext()).getAppComponent().plus(new FeedViewModule(this)).inject(this);
   }
 
   @Nullable
@@ -86,6 +87,7 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
     configureButtonSendNews();
 
     presenter.onCreateView();
+    System.out.println("Activity = " + this);
     return view;
   }
 
@@ -159,6 +161,11 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
   @Override
   public void showError(String message) {
     onError(message);
+  }
+
+  @Override
+  public Context getDouContext() {
+    return getContext();
   }
 
   private void configureButtonSendNews() {

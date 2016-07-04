@@ -46,9 +46,9 @@ public class CommentsPresenterImpl extends BasePresenter implements CommentsPres
 
     @Override
     public void loadComments(String rubric, String pageUrl, boolean showLoading) {
-        if (DouApp.isNetworkAvailable() && showLoading) {
+        if (HTTPUtils.isNetworkAvailable(mView.getDouContext()) && showLoading) {
             mView.showLoading();
-        } else if (!showLoading && !DouApp.isNetworkAvailable()) {
+        } else if (!showLoading && !HTTPUtils.isNetworkAvailable(mView.getDouContext())) {
             mView.showError(Constants.HTTP.NET_ERROR_MSG);
         }
 

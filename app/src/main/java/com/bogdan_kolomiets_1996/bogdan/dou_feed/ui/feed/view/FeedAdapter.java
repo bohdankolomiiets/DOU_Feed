@@ -123,6 +123,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
                     type = Type.COMMENT;
                     url = mFeedList.get(getLayoutPosition()).getFooter().getCommentUrl();
                     break;
+                case R.id.share:
+
                 default:
                     type = Type.FEED_ITEM;
                     url = mFeedList.get(getLayoutPosition()).getUrl();

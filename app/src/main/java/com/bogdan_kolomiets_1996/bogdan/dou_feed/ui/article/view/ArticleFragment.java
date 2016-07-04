@@ -1,5 +1,6 @@
 package com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.article.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -64,7 +65,7 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        DouApp.getAppComponent().plus(new ArticleViewModule(this)).inject(this);
+        DouApp.get(getContext()).getAppComponent().plus(new ArticleViewModule(this)).inject(this);
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         mRubric = getArguments().getString(RUBRIC_KEY);
@@ -116,6 +117,11 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
     @Override
     public void showError(String message) {
         onError(message);
+    }
+
+    @Override
+    public Context getDouContext() {
+        return getContext();
     }
 
     @Override

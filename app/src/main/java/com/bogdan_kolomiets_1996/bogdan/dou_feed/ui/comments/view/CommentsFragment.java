@@ -1,5 +1,6 @@
 package com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.comments.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -55,7 +56,7 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        DouApp.getAppComponent().plus(new CommentViewModule(this)).inject(this);
+        DouApp.get(getContext()).getAppComponent().plus(new CommentViewModule(this)).inject(this);
         super.onCreate(savedInstanceState);
         String rubric = getArguments().getString("rubric");
         String url = getArguments().getString("pageUrl");
@@ -112,5 +113,10 @@ public class CommentsFragment extends BaseFragment implements CommentsView{
     @Override
     public void showError(String message) {
         onError(message);
+    }
+
+    @Override
+    public Context getDouContext() {
+        return getContext();
     }
 }

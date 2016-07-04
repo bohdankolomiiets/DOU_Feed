@@ -1,5 +1,9 @@
 package com.bogdan_kolomiets_1996.bogdan.dou_feed;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import java.net.SocketTimeoutException;
 
 import retrofit2.adapter.rxjava.HttpException;
@@ -38,6 +42,13 @@ public class HTTPUtils {
 
     public static boolean isNetworkException(Throwable e) {
         return (e instanceof HttpException) || (e instanceof SocketTimeoutException);
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     private static String getUrl(char[] characters, int baseLength) {
