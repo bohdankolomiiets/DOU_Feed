@@ -1,32 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+    android:padding="16dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Как прислать статью"/>
+        android:paddingBottom="16dp"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:fontFamily="@string/font_roboto"
+        android:text="@string/add_article_header"/>
+
+    <TextView
+        android:id="@+id/add_article_redactor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:text="@string/add_article_p1"/>
+
+    <TextView
+        android:id="@+id/add_article_mail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        android:textSize="16sp"
+        android:text="@string/add_article_p2"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Привет, я Валентина, редактор ДОУ."/>
+        android:paddingBottom="16dp"
+        android:textSize="16sp"
+        android:text="@string/add_article_p3"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Присылайте нам свои статьи, колонки, новости, идеи, вопросы на valentina@dou.ua."/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Публикуем только уникальный контент. \\n Рекламные статьи в Ленте не размещаем."/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Все материалы вычитываем и при необходимости дорабатываем, согласовывая с автором."/>
+        android:textSize="16sp"
+        android:text="@string/add_article_p4"/>
 
 </LinearLayout>

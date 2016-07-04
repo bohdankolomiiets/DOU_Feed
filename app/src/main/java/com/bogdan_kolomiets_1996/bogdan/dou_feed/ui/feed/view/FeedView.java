@@ -15,4 +15,6 @@ public interface FeedView extends View {
 
   void stopRefresh();
 
+  void addNewArticle();
+
 }

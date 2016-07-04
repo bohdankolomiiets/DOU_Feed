@@ -16,19 +16,19 @@ import butterknife.ButterKnife;
  * @date 29.06.16
  */
 public class ImageDialog extends Dialog {
-    private static final int LAYOUT = R.layout.image_viewer_layout;
+  private static final int LAYOUT = R.layout.image_viewer_layout;
 
-    @BindView(R.id.viewerImage)
-    ImageView imageView;
+  @BindView(R.id.viewerImage)
+  ImageView imageView;
 
-    public ImageDialog(Context context) {
-        super(context, R.style.DialogTheme);
-        setContentView(LAYOUT);
-        ButterKnife.bind(this);
+  public ImageDialog(Context context) {
+    super(context, R.style.DialogTheme);
+    setContentView(LAYOUT);
+    ButterKnife.bind(this);
 
-    }
+  }
 
-    public void setImage(Bitmap image) {
-        imageView.setImageBitmap(image);
-    }
+  public void setImage(Bitmap image) {
+    imageView.setImageBitmap(image);
+  }
 }

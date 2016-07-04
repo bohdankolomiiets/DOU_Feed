@@ -83,4 +83,9 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
         pageNumber = 0;
         loadFeed(true);
     }
+
+    @Override
+    public void onAddArticleClick() {
+        mView.addNewArticle();
+    }
 }

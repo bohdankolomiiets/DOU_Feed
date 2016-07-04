@@ -14,4 +14,6 @@ public interface FeedPresenter extends Presenter {
   void loadFeed(boolean isRefresh);
 
   void onRefresh();
+
+  void onAddArticleClick();
 }

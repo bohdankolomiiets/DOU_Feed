@@ -5,4 +5,15 @@
     <string name="font_monospace">monospace</string>
     <string name="btnUp">В начало</string>
 
+    <string name="add_article_header">Как прислать статью</string>
+    <string name="add_article_p1">Привет, я
+        <a href='http://dou.ua/users/valentina-donchenko/'>Валентина </a>,
+        редактор ДОУ.</string>
+    <string name="add_article_p2">Присылайте нам свои статьи, колонки, новости, идеи, вопросы на
+        <a href="mailto:valentina@dou.ua">valentina@dou.ua</a>.</string>
+    <string name="add_article_p3">Публикуем только уникальный контент.\n
+        Рекламные статьи в Ленте не размещаем.</string>
+    <string name="add_article_p4">Все материалы вычитываем и при необходимости дорабатываем,
+        согласовывая с автором.</string>
+
 </resources>
