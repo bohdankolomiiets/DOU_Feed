@@ -66,8 +66,6 @@ public class ApiModule {
                             request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
                         }
 
-
-
                         return chain.proceed(request);
                     }
                 })
