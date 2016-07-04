@@ -3,6 +3,7 @@ package com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.feed.view;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.method.LinkMovementMethod;
+import android.view.Window;
 import android.widget.TextView;
 
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.R;
@@ -26,6 +27,7 @@ public class NewArticleDialog extends Dialog {
 
   public NewArticleDialog(Context context) {
     super(context);
+    requestWindowFeature(Window.FEATURE_NO_TITLE);
     setContentView(LAYOUT);
     ButterKnife.bind(this);
     redactorLink.setMovementMethod(LinkMovementMethod.getInstance());
