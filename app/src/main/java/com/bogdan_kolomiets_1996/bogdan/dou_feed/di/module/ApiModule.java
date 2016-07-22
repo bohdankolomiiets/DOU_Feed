@@ -3,6 +3,7 @@ package com.bogdan_kolomiets_1996.bogdan.dou_feed.di.module;
 import android.content.Context;
 
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.DouApp;
+import com.bogdan_kolomiets_1996.bogdan.dou_feed.HTTPUtils;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.api.DouApi;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.api.DouConverterFactory;
 
@@ -60,7 +61,7 @@ public class ApiModule {
                     public Response intercept(Chain chain) throws IOException {
                         Request request = chain.request();
 
-                        if (DouApp.isNetworkAvailable()) {
+                        if (HTTPUtils.isNetworkAvailable(app)) {
                             request = request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build();
                         } else {
                             request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
