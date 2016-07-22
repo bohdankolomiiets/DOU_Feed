@@ -17,19 +17,19 @@ import rx.Observable;
  */
 public interface DouApi {
 
-    @GET("{rubric}/page/{page-number}")
-    Observable<List<FeedItem>> getFeedEntityByRubric(@Path("rubric")String rubric,
-                                                     @Path("page-number") int pageNumber);
+  @GET("{rubric}/page/{page-number}")
+  Observable<List<FeedItem>> getFeedEntityByRubric(@Path("rubric") String rubric,
+                                                   @Path("page-number") int pageNumber);
 
-    @GET("page/{page-number}")
-    Observable<List<FeedItem>> getFeedEntity(@Path("page-number")int pageNumber);
+  @GET("page/{page-number}")
+  Observable<List<FeedItem>> getFeedEntity(@Path("page-number") int pageNumber);
 
-    @GET("{rubric}/{article-url}")
-    Observable<Article> getArticleEntity(@Path("rubric")String rubric,
-                                         @Path("article-url")String articleUrl);
+  @GET("{rubric}/{article-url}")
+  Observable<Article> getArticleEntity(@Path("rubric") String rubric,
+                                       @Path("article-url") String articleUrl);
 
-    @GET("{rubric}/{article-url}/#comments")
-    Observable<List<CommentItem>> getCommentListEntity(@Path("rubric")String rubric,
-                                                       @Path("article-url") String articleUrl);
+  @GET("{rubric}/{article-url}/#comments")
+  Observable<List<CommentItem>> getCommentListEntity(@Path("rubric") String rubric,
+                                                     @Path("article-url") String articleUrl);
 
 }

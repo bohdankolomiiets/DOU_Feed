@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -115,6 +116,11 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
       case COMMENT:
         CommentsFragment cf = CommentsFragment.newInstance(rubric, urlPage);
         getActivity().getSupportFragmentManager().beginTransaction()
+            .setCustomAnimations(
+                R.anim.right_in,
+                R.anim.left_out,
+                R.anim.left_in,
+                R.anim.right_out)
             .replace(R.id.container, cf, null)
             .addToBackStack(null)
             .commit();
@@ -122,6 +128,11 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
       case FEED_ITEM:
         ArticleFragment fragment = ArticleFragment.newInstance(rubric, urlPage);
         getActivity().getSupportFragmentManager().beginTransaction()
+            .setCustomAnimations(
+                R.anim.right_in,
+                R.anim.left_out,
+                R.anim.left_in,
+                R.anim.right_out)
             .replace(R.id.container, fragment, null)
             .addToBackStack(null)
             .commit();

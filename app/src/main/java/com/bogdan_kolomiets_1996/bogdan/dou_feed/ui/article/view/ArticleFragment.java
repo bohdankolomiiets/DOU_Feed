@@ -3,6 +3,7 @@ package com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.article.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,108 +32,113 @@ import butterknife.ButterKnife;
  * @date 22.06.16
  */
 public class ArticleFragment extends BaseFragment implements ArticleView {
-    private static final int LAYOUT = R.layout.article_layout;
-    private String mRubric;
-    private String mUrl;
+  private static final int LAYOUT = R.layout.article_layout;
+  private String mRubric;
+  private String mUrl;
 
-    @BindView(R.id.articleContainer)
-    LinearLayout container;
+  @BindView(R.id.articleContainer)
+  LinearLayout container;
 
-    @BindView(R.id.articleAuthor)
-    TextView authorView;
+  @BindView(R.id.articleAuthor)
+  TextView authorView;
 
-    @BindView(R.id.articleDate)
-    TextView dateView;
+  @BindView(R.id.articleDate)
+  TextView dateView;
 
-    @BindView(R.id.articleTitle)
-    TextView titleView;
+  @BindView(R.id.articleTitle)
+  TextView titleView;
 
-    @Inject
-    ArticlePresenter presenter;
+  @Inject
+  ArticlePresenter presenter;
 
-    private LayoutInflater mLayoutInflater;
+  private LayoutInflater mLayoutInflater;
 
-    public static ArticleFragment newInstance(String rubric, String url) {
-        ArticleFragment fragment = new ArticleFragment();
+  public static ArticleFragment newInstance(String rubric, String url) {
+    ArticleFragment fragment = new ArticleFragment();
 
-        Bundle args = new Bundle();
-        args.putString(RUBRIC_KEY, rubric);
-        args.putString(URL_KEY, url);
-        fragment.setArguments(args);
+    Bundle args = new Bundle();
+    args.putString(RUBRIC_KEY, rubric);
+    args.putString(URL_KEY, url);
+    fragment.setArguments(args);
 
-        return fragment;
+    return fragment;
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    DouApp.get(getContext()).getAppComponent().plus(new ArticleViewModule(this)).inject(this);
+    super.onCreate(savedInstanceState);
+    setHasOptionsMenu(true);
+    mRubric = getArguments().getString(RUBRIC_KEY);
+    mUrl = getArguments().getString(URL_KEY);
+    presenter.onCreate(mRubric, mUrl);
+  }
+
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    View view = inflater.inflate(LAYOUT, container, false);
+    ButterKnife.bind(this, view);
+    mLayoutInflater = inflater;
+    presenter.onCreateView(savedInstanceState);
+    return view;
+  }
+
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.article_menu, menu);
+    super.onCreateOptionsMenu(menu, inflater);
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.goComments:
+        CommentsFragment fragment = CommentsFragment.newInstance(mRubric, mUrl);
+        getActivity().getSupportFragmentManager().beginTransaction()
+            .setCustomAnimations(
+                R.anim.right_in,
+                R.anim.left_out,
+                R.anim.left_in,
+                R.anim.right_out)
+            .replace(R.id.container, fragment, null)
+            .addToBackStack(null)
+            .commit();
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
     }
+  }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        DouApp.get(getContext()).getAppComponent().plus(new ArticleViewModule(this)).inject(this);
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-        mRubric = getArguments().getString(RUBRIC_KEY);
-        mUrl = getArguments().getString(URL_KEY);
-        presenter.onCreate(mRubric, mUrl);
-    }
+  @Override
+  public void showLoading() {
+    showProgressDial();
+  }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(LAYOUT, container, false);
-        ButterKnife.bind(this, view);
-        mLayoutInflater = inflater;
-        presenter.onCreateView(savedInstanceState);
-        return view;
-    }
+  @Override
+  public void hideLoading() {
+    hideProgressDial();
+  }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.article_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+  @Override
+  public void showError(String message) {
+    onError(message);
+  }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.goComments:
-                CommentsFragment fragment = CommentsFragment.newInstance(mRubric, mUrl);
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, fragment, null)
-                        .addToBackStack(null)
-                        .commit();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+  @Override
+  public Context getDouContext() {
+    return getContext();
+  }
 
-    @Override
-    public void showLoading() {
-        showProgressDial();
-    }
+  @Override
+  public void showPageElement(PageElement element) {
+    element.display(mLayoutInflater, container);
+  }
 
-    @Override
-    public void hideLoading() {
-        hideProgressDial();
-    }
-
-    @Override
-    public void showError(String message) {
-        onError(message);
-    }
-
-    @Override
-    public Context getDouContext() {
-        return getContext();
-    }
-
-    @Override
-    public void showPageElement(PageElement element) {
-        element.display(mLayoutInflater, container);
-    }
-
-    @Override
-    public void showHead(String author, String date, String title) {
-        authorView.setText(author);
-        dateView.setText(date);
-        titleView.setText(title);
-    }
+  @Override
+  public void showHead(String author, String date, String title) {
+    authorView.setText(author);
+    dateView.setText(date);
+    titleView.setText(title);
+  }
 }
