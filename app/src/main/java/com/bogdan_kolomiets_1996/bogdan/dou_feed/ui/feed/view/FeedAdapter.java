@@ -1,10 +1,12 @@
 package com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.feed.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -100,6 +102,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
     @BindView(R.id.watchCount)
     TextView watchCountView;
 
+    @BindView(R.id.share)
+    ImageView shareView;
+
     @BindView(R.id.commentCount)
     TextView commentCountView;
 
@@ -111,6 +116,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
       ButterKnife.bind(this, itemView);
       commentContainer.setOnClickListener(this);
       itemView.setOnClickListener(this);
+      shareView.setOnClickListener(this);
     }
 
 
@@ -124,7 +130,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
           url = mFeedList.get(getLayoutPosition()).getFooter().getCommentUrl();
           break;
         case R.id.share:
-
+          type = Type.SHARE;
+          url = mFeedList.get(getLayoutPosition()).getUrl();
+          break;
         default:
           type = Type.FEED_ITEM;
           url = mFeedList.get(getLayoutPosition()).getUrl();
@@ -145,6 +153,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
 
   public enum Type {
     COMMENT,
-    FEED_ITEM
+    FEED_ITEM,
+    SHARE
   }
 }

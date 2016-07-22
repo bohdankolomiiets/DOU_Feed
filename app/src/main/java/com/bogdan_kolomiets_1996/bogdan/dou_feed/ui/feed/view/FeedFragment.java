@@ -1,6 +1,7 @@
 package com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.feed.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -136,6 +137,13 @@ public class FeedFragment extends BaseFragment implements FeedView, FeedAdapter.
             .replace(R.id.container, fragment, null)
             .addToBackStack(null)
             .commit();
+        break;
+      case SHARE:
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, url);
+        intent.setType("text/plain");
+        startActivity(intent);
         break;
     }
   }

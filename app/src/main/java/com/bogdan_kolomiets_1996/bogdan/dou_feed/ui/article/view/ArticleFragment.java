@@ -105,6 +105,8 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
             .addToBackStack(null)
             .commit();
         return true;
+      case R.id.goShare:
+        return true;
       default:
         return super.onOptionsItemSelected(item);
     }
