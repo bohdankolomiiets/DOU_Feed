@@ -4,14 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.provider.Settings;
 
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.di.module.ApiModule;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.di.component.AppComponent;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.di.module.AppModule;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.di.component.DaggerAppComponent;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 
 /**
  * @author Bogdan Kolomiets
@@ -19,28 +16,32 @@ import com.facebook.appevents.AppEventsLogger;
  * @date 21.06.16
  */
 public class DouApp extends Application {
-  private AppComponent mAppComponent;
+    private static AppComponent mAppComponent;
+    private static Context mContext;
 
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    resolveDependencies();
-    FacebookSdk.sdkInitialize(getApplicationContext());
-    AppEventsLogger.activateApp(this);
-  }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        resolveDependencies();
+        mContext = getApplicationContext();
+    }
 
-  private void resolveDependencies() {
-    mAppComponent = DaggerAppComponent.builder()
-        .appModule(new AppModule(this))
-        .apiModule(new ApiModule(Constants.HTTP.BASE_URL))
-        .build();
-  }
+    private void resolveDependencies() {
+        mAppComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .apiModule(new ApiModule(Constants.HTTP.BASE_URL))
+                .build();
+    }
 
-  public AppComponent getAppComponent() {
-    return mAppComponent;
-  }
+    public static AppComponent getAppComponent() {
+        return mAppComponent;
+    }
 
-  public static DouApp get(Context context) {
-    return (DouApp) context.getApplicationContext();
-  }
+    public static boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 }

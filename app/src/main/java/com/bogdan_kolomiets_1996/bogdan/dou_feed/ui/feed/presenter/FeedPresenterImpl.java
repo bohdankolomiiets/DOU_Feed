@@ -21,73 +21,71 @@ import rx.Observer;
  * @date 21.06.16
  */
 public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
-  private FeedView mView;
-  private int pageNumber = 0;
-  private List<FeedItem> mFeed;
+    private FeedView mView;
+    private int pageNumber = 0;
+    private List<FeedItem> mFeed;
 
-  @Inject
-  public FeedPresenterImpl(DouModel model, FeedView view) {
-    super(model);
-    mView = view;
-    mFeed = new ArrayList<>();
-  }
-
-  @Override
-  public void onCreateView() {
-    if (mFeed.isEmpty()) {
-      loadFeed(false);
-    } else {
-      mView.showFeed(mFeed);
-    }
-  }
-
-  @Override
-  public void loadFeed(boolean isRefresh) {
-    if (HTTPUtils.isNetworkAvailable(mView.getDouContext()) && !isRefresh) {
-      mView.showLoading();
-    } else if (isRefresh && !HTTPUtils.isNetworkAvailable(mView.getDouContext())) {
-      mView.showError(Constants.HTTP.NET_ERROR_MSG);
+    @Inject
+    public FeedPresenterImpl(DouModel model, FeedView view) {
+        super(model);
+        mView = view;
+        mFeed = new ArrayList<>();
     }
 
-    mModel.getFeed(++pageNumber)
-        .subscribe(new Observer<List<FeedItem>>() {
+    @Override
+    public void onCreateView() {
+        if (mFeed.isEmpty()) {
+            loadFeed(false);
+        } else {
+            mView.showFeed(mFeed);
+        }
+    }
 
-          @Override
-          public void onCompleted() {
-            mView.stopRefresh();
-            mView.hideLoading();
-          }
+    @Override
+    public void loadFeed(boolean isRefresh) {
+        if (DouApp.isNetworkAvailable() && !isRefresh) {
+            mView.showLoading();
+        } else if (isRefresh && !DouApp.isNetworkAvailable()) {
+            mView.showError(Constants.HTTP.NET_ERROR_MSG);
+        }
 
-          @Override
-          public void onError(Throwable e) {
-            e.printStackTrace();
-            mView.showError(e.getMessage());
-            mView.hideLoading();
+        mModel.getFeed(++pageNumber)
+                .subscribe(new Observer<List<FeedItem>>() {
 
-            if (HTTPUtils.isNetworkException(e)) {
-              mView.showError(Constants.HTTP.NET_ERROR_MSG);
-            }
-          }
+                    @Override
+                    public void onCompleted() {
+                        mView.stopRefresh();
+                        mView.hideLoading();
+                    }
 
-          @Override
-          public void onNext(List<FeedItem> feedItemEntities) {
-            if (feedItemEntities != null) {
-              mFeed.addAll(feedItemEntities);
-              mView.showFeed(feedItemEntities);
-            }
-          }
-        });
-  }
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        mView.hideLoading();
 
-  @Override
-  public void onRefresh() {
+                        if (HTTPUtils.isNetworkException(e)) {
+                            mView.showError(Constants.HTTP.NET_ERROR_MSG);                        }
+                    }
 
-    pageNumber = 0;
-    loadFeed(true);
-  }
+                    @Override
+                    public void onNext(List<FeedItem> feedItemEntities) {
+                        if (feedItemEntities != null) {
+                            mFeed.addAll(feedItemEntities);
+                            mView.showFeed(feedItemEntities);
+                        }
+                    }
+                });
+    }
 
-  @Override
-  public void onAddArticleClick() {
-    mView.addNewArticle();
-  }
+    @Override
+    public void onRefresh() {
+
+        pageNumber = 0;
+        loadFeed(true);
+    }
+
+    @Override
+    public void onAddArticleClick() {
+        mView.addNewArticle();
+    }
 }
