@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    System.exit(0);
   }
 
   private void isDisplayingHomeBtn() {
