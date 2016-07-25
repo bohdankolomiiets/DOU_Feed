@@ -13,4 +13,6 @@ public interface ArticlePresenter {
 
     void onCreateView(Bundle savedInstanceState);
 
+    void onShareClick();
+
 }

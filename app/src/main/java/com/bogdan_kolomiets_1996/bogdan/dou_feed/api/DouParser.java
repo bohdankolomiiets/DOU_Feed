@@ -35,7 +35,6 @@ public class DouParser {
     Elements feedItems = document.select(".b-lenta article");
 
     for (Element item : feedItems) {
-
       String url = item.select("h2 a").first().attr("href");
 
       String imageUrl = item.select("h2 a img").first().attr("src");

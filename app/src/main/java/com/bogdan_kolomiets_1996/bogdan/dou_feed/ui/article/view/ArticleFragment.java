@@ -106,6 +106,7 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
             .commit();
         return true;
       case R.id.goShare:
+        presenter.onShareClick();
         return true;
       default:
         return super.onOptionsItemSelected(item);
