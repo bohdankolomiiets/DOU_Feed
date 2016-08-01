@@ -81,7 +81,6 @@ public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
 
   @Override
   public void onRefresh() {
-
     pageNumber = 0;
     loadFeed(true);
   }
