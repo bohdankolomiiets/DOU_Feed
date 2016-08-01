@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.R;
 
 import java.util.ArrayList;
@@ -14,24 +16,24 @@ import java.util.ArrayList;
  * @date 26.06.16
  */
 public class ListElement extends PageElement {
-    private java.util.List<String> mList;
+  private List<String> mList;
 
-    public ListElement() {
-        mList = new ArrayList<>();
+  public ListElement() {
+    mList = new ArrayList<>();
+  }
+
+  public void add(String listElement) {
+    mList.add(listElement);
+  }
+
+  @Override
+  public void display(LayoutInflater inflater, ViewGroup container) {
+    TextView listView = (TextView) inflater.inflate(R.layout.article_content, null);
+
+    for (String listElement : mList) {
+      listView.append("- " + listElement + "\n");
     }
 
-    public void add(String listElement) {
-        mList.add(listElement);
-    }
-
-    @Override
-    public void display(LayoutInflater inflater, ViewGroup container) {
-        TextView listView = (TextView) inflater.inflate(R.layout.article_content, null);
-
-        for (String listElement : mList) {
-            listView.append("- " + listElement + "\n");
-        }
-
-        container.addView(listView);
-    }
+    container.addView(listView);
+  }
 }
