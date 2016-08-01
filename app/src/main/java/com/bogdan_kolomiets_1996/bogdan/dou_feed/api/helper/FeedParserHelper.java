@@ -12,8 +12,6 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 /**
  * @author Bogdan Kolomiets
  * @version 1
@@ -22,6 +20,20 @@ import javax.inject.Inject;
 public class FeedParserHelper {
   private static final int EMPTY_COUNT = 0;
   private static final String EMPTY_COMMENT_URL = null;
+
+  private static final String SELECTOR_FEED_ITEMS = ".b-lenta article";
+  private static final String SELECTOR_URL = "h2 a";
+  private static final String SELECTOR_IMAGE_URL = "h2 a img";
+  private static final String SELECTOR_AUTHOR_NAME = ".author";
+  private static final String SELECTOR_DATE = ".date";
+  private static final String SELECTOR_TITLE = "h2 a";
+  private static final String SELECTOR_DESCRIPTION = ".b-typo";
+  private static final String SELECTOR_WATCH_COUNT = ".pageviews";
+  private static final String SELECTOR_COMMENT_COUNT = ".b-typo a";
+  private static final String SELECTOR_COMMENT_URL = ".b-typo a";
+
+  private static final String ATTR_SELECTOR_HREF = "href";
+  private static final String ATTR_IMAGE_URL = "src";
 
   private List<FeedItem> mFeed;
 
@@ -53,24 +65,24 @@ public class FeedParserHelper {
   }
 
   private Elements selectFeedItems(Document document) {
-    return document.select(".b-lenta article");
+    return document.select(SELECTOR_FEED_ITEMS);
   }
 
   private String getUrl(Element item) {
-    return item.select("h2 a").first().attr("href");
+    return item.select(SELECTOR_URL).first().attr(ATTR_SELECTOR_HREF);
   }
 
   private Header createHeader(Element item) {
-    String imageUrl = item.select("h2 a img").first().attr("src");
-    String authorName = item.select(".author").first().html();
-    String date = item.select(".date").first().text();
+    String imageUrl = item.select(SELECTOR_IMAGE_URL).first().attr(ATTR_IMAGE_URL);
+    String authorName = item.select(SELECTOR_AUTHOR_NAME).first().html();
+    String date = item.select(SELECTOR_DATE).first().text();
 
     return new Header(imageUrl, authorName, date);
   }
 
   private Content createContent(Element item) {
-    String title = item.select("h2 a").first().text().replace("&nbsp;", " ");
-    String description = item.select(".b-typo").first().text();
+    String title = item.select(SELECTOR_TITLE).first().text().replace("&nbsp;", " ");
+    String description = item.select(SELECTOR_DESCRIPTION).first().text();
     description = deleteCommentCount(description);
 
     return new Content(title, description);
@@ -96,7 +108,7 @@ public class FeedParserHelper {
   }
 
   private int selectWatchCount(Element item) {
-    return Integer.parseInt(item.select(".pageviews").first().text());
+    return Integer.parseInt(item.select(SELECTOR_WATCH_COUNT).first().text());
   }
 
   private int getCommentCount(Element item) {
@@ -111,7 +123,7 @@ public class FeedParserHelper {
   }
 
   private int selectCommentCount(Element item) {
-    return Integer.parseInt(item.select(".b-typo a").first().html());
+    return Integer.parseInt(item.select(SELECTOR_COMMENT_COUNT).first().html());
   }
 
   private String getCommentUrl(Element item) {
@@ -125,7 +137,7 @@ public class FeedParserHelper {
   }
 
   private String selectCommentUrl(Element item) {
-    return item.select(".b-typo a").first().attr("href");
+    return item.select(SELECTOR_COMMENT_URL).first().attr(ATTR_SELECTOR_HREF);
   }
 
   private String deleteCommentCount(String text) {

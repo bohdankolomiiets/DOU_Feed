@@ -15,7 +15,6 @@ import retrofit2.Retrofit;
 public class DouConverterFactory extends Converter.Factory {
 
     private DouConverterFactory() {
-
     }
 
     public static DouConverterFactory create() {

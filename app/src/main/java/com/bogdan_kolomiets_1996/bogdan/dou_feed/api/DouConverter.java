@@ -22,12 +22,14 @@ import retrofit2.Converter;
  * @date 21.06.16
  */
 public class DouConverter implements Converter<ResponseBody, Object> {
-  private final DouParser mParser;
+  private static DouParser mParser = null;
   private Type mType;
 
   public DouConverter(Type type) {
     mType = type;
-    mParser = new DouParser();
+    if (mParser == null) {
+      mParser = new DouParser();
+    }
   }
 
   @Override
