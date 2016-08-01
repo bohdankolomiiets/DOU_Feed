@@ -1,6 +1,8 @@
 package com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.article.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -10,12 +12,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.DouApp;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.R;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.di.module.ArticleViewModule;
+import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.page.Image;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.page.PageElement;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.article.presenter.ArticlePresenter;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.comments.view.CommentsFragment;
@@ -31,7 +35,7 @@ import butterknife.ButterKnife;
  * @version 1
  * @date 22.06.16
  */
-public class ArticleFragment extends BaseFragment implements ArticleView {
+public class ArticleFragment extends BaseFragment implements ArticleView, Image.OnImageClickListener {
   private static final int LAYOUT = R.layout.article_layout;
   private String mRubric;
   private String mUrl;
@@ -143,5 +147,13 @@ public class ArticleFragment extends BaseFragment implements ArticleView {
     authorView.setText(author);
     dateView.setText(date);
     titleView.setText(title);
+  }
+
+  @Override
+  public void onImageClick(ImageView imageView) {
+    Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+    ImageDialog imageDialog = new ImageDialog(getActivity());
+    imageDialog.show();
+    imageDialog.setImage(image);
   }
 }

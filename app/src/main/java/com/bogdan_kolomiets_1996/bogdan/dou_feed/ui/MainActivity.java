@@ -27,10 +27,10 @@ import butterknife.ButterKnife;
  * @version 1
  * @date 21.06.16
  */
-public class MainActivity extends AppCompatActivity implements Image.OnImageClickListener {
+public class MainActivity extends AppCompatActivity {
   private Toolbar mToolbar;
 
-  private FragmentLauncher mLauncher;
+  private FragmentLauncher mLauncher; // TODO: 01.08.16 add it to DI
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,13 +55,5 @@ public class MainActivity extends AppCompatActivity implements Image.OnImageClic
   public boolean onSupportNavigateUp() {
     getSupportFragmentManager().popBackStack();
     return true;
-  }
-
-  @Override
-  public void onImageClick(ImageView imageView) {
-    Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-    ImageDialog imageDialog = new ImageDialog(this);
-    imageDialog.show();
-    imageDialog.setImage(image);
   }
 }

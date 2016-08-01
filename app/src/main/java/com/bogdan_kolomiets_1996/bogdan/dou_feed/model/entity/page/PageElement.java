@@ -10,5 +10,6 @@ import android.view.ViewGroup;
  */
 public abstract class PageElement {
 
-    public abstract void display(LayoutInflater inflater, ViewGroup container);
+  public abstract void display(LayoutInflater inflater, ViewGroup container);
+
 }

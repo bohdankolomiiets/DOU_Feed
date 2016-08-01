@@ -1,6 +1,9 @@
 package com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.page;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,15 +42,22 @@ public class Image extends PageElement implements OnClickListener {
   @Override
   public void onClick(View v) {
     if (v == mImageView) {
-      if (hasImageClickListener(mContext)) {
 
-        ((OnImageClickListener) mContext).onImageClick(mImageView);
+      if (hasImageClickListener()) {
+
+        ((OnImageClickListener) getFragment()).onImageClick(mImageView);
       }
     }
   }
 
-  private boolean hasImageClickListener(Context context) {
-    return context instanceof OnImageClickListener;
+  private boolean hasImageClickListener() {
+    return getFragment() instanceof OnImageClickListener;
+  }
+
+  private Fragment getFragment() {
+    FragmentManager fm = ((AppCompatActivity) mContext).getSupportFragmentManager();
+
+    return fm.findFragmentById(R.id.container);
   }
 
   public interface OnImageClickListener {
