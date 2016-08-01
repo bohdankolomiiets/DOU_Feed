@@ -47,6 +47,11 @@ public class FragmentLauncher implements FragmentManager.OnBackStackChangedListe
     }
   }
 
+  public void onNewIntent(Intent intent) {
+    mIntent = intent;
+    startFragmentFromAction();
+  }
+
   private void startFeedFragment() {
     startFragment(new FeedFragment());
   }

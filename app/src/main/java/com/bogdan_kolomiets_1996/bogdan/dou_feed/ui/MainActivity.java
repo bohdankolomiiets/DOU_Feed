@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements Image.OnImageClic
   @Override
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
+    mLauncher.onNewIntent(intent);
   }
 
   @Override
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements Image.OnImageClic
     Bitmap image = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
     ImageDialog imageDialog = new ImageDialog(this);
     imageDialog.show();
-    System.out.println("Size " + image.getByteCount());
     imageDialog.setImage(image);
   }
 }

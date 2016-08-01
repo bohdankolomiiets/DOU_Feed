@@ -16,42 +16,41 @@ import com.squareup.picasso.Picasso;
  * @date 26.06.16
  */
 public class Image extends PageElement implements OnClickListener {
-    private String mUrl;
-    private ImageView mImageView;
-    private Context mContext;
+  private String mUrl;
+  private ImageView mImageView;
+  private Context mContext;
 
-    public Image(String url) {
-        mUrl = url;
+  public Image(String url) {
+    mUrl = url;
+  }
+
+  @Override
+  public void display(LayoutInflater inflater, ViewGroup container) {
+    mContext = inflater.getContext();
+
+    mImageView = (ImageView) inflater.inflate(R.layout.article_image, null);
+    Picasso.with(mContext)
+        .load(mUrl)
+        .into(mImageView);
+    container.addView(mImageView);
+    mImageView.setOnClickListener(this);
+  }
+
+  @Override
+  public void onClick(View v) {
+    if (v == mImageView) {
+      if (hasImageClickListener(mContext)) {
+
+        ((OnImageClickListener) mContext).onImageClick(mImageView);
+      }
     }
+  }
 
-    @Override
-    public void display(LayoutInflater inflater, ViewGroup container) {
-        mContext = inflater.getContext();
+  private boolean hasImageClickListener(Context context) {
+    return context instanceof OnImageClickListener;
+  }
 
-        mImageView = (ImageView) inflater.inflate(R.layout.article_image, null);
-        Picasso.with(mContext)
-                .load(mUrl)
-                .into(mImageView);
-        container.addView(mImageView);
-        mImageView.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v == mImageView) {
-            if (hasImageClickListener(mContext)) {
-                System.out.println("YEAHHHH");
-
-                ((OnImageClickListener)mContext).onImageClick(mImageView);
-            }
-        }
-    }
-
-    private boolean hasImageClickListener(Context context) {
-        return context instanceof OnImageClickListener;
-    }
-
-    public interface OnImageClickListener {
-        void onImageClick(ImageView imageView);
-    }
+  public interface OnImageClickListener {
+    void onImageClick(ImageView imageView);
+  }
 }
