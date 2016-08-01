@@ -1,4 +1,4 @@
-package com.bogdan_kolomiets_1996.bogdan.dou_feed.api;
+package com.bogdan_kolomiets_1996.bogdan.dou_feed.api.helper;
 
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.feed.Content;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.feed.FeedItem;
@@ -12,6 +12,8 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * @author Bogdan Kolomiets
  * @version 1
@@ -20,8 +22,10 @@ import java.util.List;
 public class FeedParserHelper {
   private static final int EMPTY_COUNT = 0;
   private static final String EMPTY_COMMENT_URL = null;
+
   private List<FeedItem> mFeed;
 
+  @Inject
   public FeedParserHelper() {
     mFeed = new ArrayList<>();
   }

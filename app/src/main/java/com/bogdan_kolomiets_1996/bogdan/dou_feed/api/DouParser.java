@@ -1,10 +1,11 @@
 package com.bogdan_kolomiets_1996.bogdan.dou_feed.api;
 
+import com.bogdan_kolomiets_1996.bogdan.dou_feed.api.helper.CommentParserHelper;
+import com.bogdan_kolomiets_1996.bogdan.dou_feed.api.helper.FeedParserHelper;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.CommentItem;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.article.Article;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.article.ArticleHeader;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.feed.FeedItem;
-import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.feed.Header;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.page.Blockquote;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.page.Code;
 import com.bogdan_kolomiets_1996.bogdan.dou_feed.model.entity.page.Heading;
@@ -17,8 +18,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * @author Bogdan Kolomiets
@@ -27,9 +29,19 @@ import java.util.List;
  */
 public class DouParser {
 
-  public static List<FeedItem> parseFeed(Document document) {
-    FeedParserHelper helper = new FeedParserHelper();
-    return helper.parseFeed(document);
+  @Inject
+  FeedParserHelper feedHelper;
+
+  @Inject
+  CommentParserHelper commentHelper;
+
+  @Inject
+  public DouParser() {
+
+  }
+
+  public List<FeedItem> parseFeed(Document document) {
+    return feedHelper.parseFeed(document);
   }
 
 
@@ -132,37 +144,7 @@ public class DouParser {
     return list;
   }
 
-  public static List<CommentItem> parseComments(Document document) {
-    List<CommentItem> commentsList = new ArrayList<>();
-
-    Element commentBlock = document.getElementById("commentsList");
-    for (Element commentItem : commentBlock.children()) {
-      String imageUrl = commentItem.select("img.g-avatar").first().attr("src");
-      String authorName;
-      String date;
-      try {
-        authorName = commentItem.select("a").first().text();
-      } catch (NullPointerException e) {
-        authorName = "Unknown";
-      }
-      try {
-        date = commentItem.select(".comment-link").first().text();
-      } catch (NullPointerException e) {
-        date = "";
-      }
-      Header header = new Header(imageUrl, authorName, date);
-
-      String content;
-      try {
-        content = commentItem.select(".text.b-typo").first().text();
-      } catch (NullPointerException e) {
-        content = "";
-      }
-
-      CommentItem comment = new CommentItem(header, content);
-      commentsList.add(comment);
-    }
-
-    return commentsList;
+  public List<CommentItem> parseComments(Document document) {
+    return commentHelper.parseComments(document);
   }
 }
