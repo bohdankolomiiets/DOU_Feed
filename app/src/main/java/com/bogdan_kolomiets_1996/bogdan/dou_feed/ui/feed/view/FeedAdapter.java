@@ -1,7 +1,6 @@
 package com.bogdan_kolomiets_1996.bogdan.dou_feed.ui.feed.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +26,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * @date 21.06.16
  */
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
+  private static final int PRIMARY_POSITION_TO_SHOW_BTN_UP = 7;
+  private static final int EMPTY_VALUE = 0;
+
   private Context mContext;
   private List<FeedItem> mFeedList;
   private OnFeedListener mOnClickListener;
@@ -45,11 +47,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
 
   @Override
   public void onBindViewHolder(Holder holder, int position) {
-    if (position >= 7) {
-      mOnClickListener.onShowBtnUp();
-    } else {
-      mOnClickListener.onHideBtnUp();
-    }
+    showBtnUP(position);
     FeedItem feedItem = mFeedList.get(position);
 
     Picasso.with(mContext)
@@ -59,9 +57,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
     holder.dateView.setText(feedItem.getHeader().getDate());
     holder.titleView.setText(feedItem.getContent().getTitle());
     holder.descriptionView.setText(feedItem.getContent().getDescription());
-    if (feedItem.getFooter().getWatchCount() != 0)
+    if (feedItem.getFooter().getWatchCount() != EMPTY_VALUE)
       holder.watchCountView.setText(String.valueOf(feedItem.getFooter().getWatchCount()));
-    if (feedItem.getFooter().getCommentCount() != 0)
+    if (feedItem.getFooter().getCommentCount() != EMPTY_VALUE)
       holder.commentCountView.setText(String.valueOf(feedItem.getFooter().getCommentCount()));
 
 
@@ -80,6 +78,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.Holder> {
   public void addFeed(List<FeedItem> feed) {
     mFeedList.addAll(feed);
     notifyDataSetChanged();
+  }
+  
+  private void showBtnUP(int position) {
+    if (position >= PRIMARY_POSITION_TO_SHOW_BTN_UP) {
+      mOnClickListener.onShowBtnUp();
+    } else {
+      mOnClickListener.onHideBtnUp();
+    }
   }
 
 
