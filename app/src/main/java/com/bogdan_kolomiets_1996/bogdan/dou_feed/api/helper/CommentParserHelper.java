@@ -32,7 +32,6 @@ public class CommentParserHelper {
 
   private List<CommentItem> mComments;
 
-  @Inject
   public CommentParserHelper() {
     mComments = new ArrayList<>();
   }
@@ -63,14 +62,14 @@ public class CommentParserHelper {
   }
 
   private Header createHeader(Element item) {
-    String imageUrl = selectImageUrl(item);
+    String imageUrl = getImageUrl(item);
     String authorName = getAuthorName(item);
     String date = getTxtDate(item);
 
     return new Header(imageUrl, authorName, date);
   }
 
-  private String selectImageUrl(Element commentItem) {
+  private String getImageUrl(Element commentItem) {
     return commentItem.select(SELECTOR_IMAGE_URL).first().attr(ATTR_SELECTOR_IMG);
   }
 

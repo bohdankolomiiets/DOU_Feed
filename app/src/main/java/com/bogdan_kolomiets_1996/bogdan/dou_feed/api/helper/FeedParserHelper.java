@@ -25,7 +25,6 @@ public class FeedParserHelper {
 
   private List<FeedItem> mFeed;
 
-  @Inject
   public FeedParserHelper() {
     mFeed = new ArrayList<>();
   }

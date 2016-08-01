@@ -22,23 +22,22 @@ import retrofit2.Converter;
  * @date 21.06.16
  */
 public class DouConverter implements Converter<ResponseBody, Object> {
+  private final DouParser mParser;
   private Type mType;
-
-  @Inject
-  DouParser parser;
 
   public DouConverter(Type type) {
     mType = type;
+    mParser = new DouParser();
   }
 
   @Override
   public Object convert(ResponseBody value) throws IOException {
     if (mType.toString().equals(new TypeToken<List<FeedItem>>() {}.getType().toString())) {
-      return parser.parseFeed(Jsoup.parse(value.string()));
+      return mParser.parseFeed(Jsoup.parse(value.string()));
     } else if (mType.toString().equals(new TypeToken<Article>() {}.getType().toString())) {
-      return DouParser.parseArticle(Jsoup.parse(value.string()));
+      return mParser.parseArticle(Jsoup.parse(value.string()));
     } else if (mType.toString().equals(new TypeToken<List<CommentItem>>() {}.getType().toString())) {
-      return parser.parseComments(Jsoup.parse(value.string()));
+      return mParser.parseComments(Jsoup.parse(value.string()));
     }
     throw new IllegalArgumentException("This type does not supported " + mType);
   }
