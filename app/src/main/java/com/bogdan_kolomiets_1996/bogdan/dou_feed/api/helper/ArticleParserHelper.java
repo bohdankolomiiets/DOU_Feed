@@ -41,6 +41,9 @@ public class ArticleParserHelper {
   private static final String SELECTOR_TITLE = "article.b-typo h1";
   private static final String SELECTOR_PAGE_ELEMENTS = "article.b-typo div";
 
+  private ListElement mList;
+  private Table mTable;
+
   public ArticleParserHelper() {
 
   }
@@ -88,7 +91,7 @@ public class ArticleParserHelper {
           articlePage.addElement(createListElement(pageElement));
           break;
       }
-      if (pageElement.children().hasAttr("src") && !pageElement.children().hasAttr("scrolling")) {
+      if (isImgAndNotVidget(pageElement)) {
         articlePage.addElement(new Image(pageElement.children().attr("src")));
       }
     }
@@ -96,12 +99,28 @@ public class ArticleParserHelper {
     return articlePage;
   }
 
+  private boolean isImgAndNotVidget(Element element) {
+    return element.children().hasAttr("src") && element.children().hasAttr("scrolling");
+  }
+
   private ArticleHeader createArticleHeader(Document document) {
-    String authorName = document.select(SELECTOR_AUTHOR_NAME).first().html();
-    String date = document.select(SELECTOR_DATE).first().text();
-    String title = document.select(SELECTOR_TITLE).first().text().replace("&nbsp;", " ");
+    String authorName = selectAuthorName(document);
+    String date = selectDate(document);
+    String title = selectTitle(document);
 
     return new ArticleHeader(authorName, date, title);
+  }
+
+  private String selectAuthorName(Document document) {
+    return document.select(SELECTOR_AUTHOR_NAME).first().html();
+  }
+
+  private String selectDate(Document document) {
+    return document.select(SELECTOR_DATE).first().text();
+  }
+
+  private String selectTitle(Document document) {
+    return document.select(SELECTOR_TITLE).first().text().replace("&nbsp;", " ");
   }
 
   private Elements selectArticlePageElements(Document document) {
@@ -109,38 +128,51 @@ public class ArticleParserHelper {
   }
 
   private Table createTable(Element tableFromPage) {
-    Table table = new Table();
-    for (Element tableElements : tableFromPage.children()) {
-      switch (tableElements.tagName()) {
-        case TABLE_HEAD_TAG:
-          table.addTableRow();
-          for (Element head : tableElements.children().first().children()) {
-            table.addRowCell(head.text());
-          }
-          break;
-        case TABLE_BODY_TAG:
-          for (Element row : tableElements.children()) {
-            table.addTableRow();
-            for (Element column : row.children()) {
-              table.addRowCell(column.text());
-            }
-          }
-          break;
-      }
+    mTable = new Table();
+    for (Element tableElement : tableFromPage.children()) {
+      addTableRow(tableElement);
     }
 
-    return table;
+    return mTable;
+  }
+
+  private void addTableRow(Element tableElement) {
+    switch (tableElement.tagName()) {
+      case TABLE_HEAD_TAG:
+        createTableRowFrom(tableElement.children().first().children());
+        break;
+      case TABLE_BODY_TAG:
+        for (Element row : tableElement.children()) {
+          createTableRowFrom(row.children());
+        }
+        break;
+    }
+  }
+
+  private void createTableRowFrom(Elements elements) {
+    mTable.addTableRow();
+    for (Element item : elements) {
+      mTable.addRowCell(item.text());
+    }
   }
 
   private ListElement createListElement(Element listFromPage) {
-    ListElement list = new ListElement();
-    for (Element listChildren : listFromPage.children()) {
-      if (listChildren.tagName().equals(LIST_ITEM_TAG)) {
-        list.add(listChildren.text());
-      }
+    mList = new ListElement();
+    for (Element item : listFromPage.children()) {
+      addToList(item);
     }
 
-    return list;
+    return mList;
+  }
+
+  private void addToList(Element item) {
+    if (isListItem(item)) {
+      mList.add(item.text());
+    }
+  }
+
+  private boolean isListItem(Element item) {
+    return item.tagName().equals(LIST_ITEM_TAG);
   }
 
 }

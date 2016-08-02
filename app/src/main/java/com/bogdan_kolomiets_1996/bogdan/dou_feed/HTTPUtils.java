@@ -15,6 +15,7 @@ import retrofit2.adapter.rxjava.HttpException;
  */
 public class HTTPUtils {
   private static final int lentaLength = "/lenta/".length();
+  private static final String HTTPS = "https";
 
   private HTTPUtils() {
 
@@ -79,8 +80,8 @@ public class HTTPUtils {
   }
 
   private static boolean isSecure(String url) {
-    url = url.substring(0, 5);
+    String protocol = url.substring(0, 5);
 
-    return url.equals("https");
+    return protocol.equals(HTTPS);
   }
 }
