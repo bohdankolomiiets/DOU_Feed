@@ -123,7 +123,13 @@ public class FeedParserHelper {
   }
 
   private int selectCommentCount(Element item) {
-    return Integer.parseInt(item.select(SELECTOR_COMMENT_COUNT).first().html());
+    int result;
+    try {
+      result = Integer.parseInt(item.select(SELECTOR_COMMENT_COUNT).first().html());
+    } catch (NumberFormatException exception) {
+      result = 1000;
+    }
+    return result;
   }
 
   private String getCommentUrl(Element item) {
