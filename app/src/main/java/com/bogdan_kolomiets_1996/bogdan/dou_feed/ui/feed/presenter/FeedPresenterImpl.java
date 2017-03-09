@@ -21,72 +21,82 @@ import rx.Observer;
  * @date 21.06.16
  */
 public class FeedPresenterImpl extends BasePresenter implements FeedPresenter {
-  private FeedView mView;
-  private int pageNumber = 0;
-  private List<FeedItem> mFeed;
+    private FeedView mView;
+    private int pageNumber = 0;
+    private List<FeedItem> mFeed;
 
-  @Inject
-  public FeedPresenterImpl(DouModel model, FeedView view) {
-    super(model);
-    mView = view;
-    mFeed = new ArrayList<>();
-  }
-
-  @Override
-  public void onCreateView() {
-    if (mFeed.isEmpty()) {
-      loadFeed(false);
-    } else {
-      mView.showFeed(mFeed);
-    }
-  }
-
-  @Override
-  public void loadFeed(boolean isRefresh) {
-    if (HTTPUtils.isNetworkAvailable(mView.getDouContext()) && !isRefresh) {
-      mView.showLoading();
-    } else if (isRefresh && !HTTPUtils.isNetworkAvailable(mView.getDouContext())) {
-      mView.showError(Constants.HTTP.NET_ERROR_MSG);
+    @Inject
+    public FeedPresenterImpl(DouModel model, FeedView view) {
+        super(model);
+        mView = view;
+        mFeed = new ArrayList<>();
     }
 
-    mModel.getFeed(++pageNumber)
-        .subscribe(new Observer<List<FeedItem>>() {
+    @Override
+    public void onCreateView() {
+        if (mFeed.isEmpty()) {
+            loadFeed(false);
+        } else {
+            mView.showFeed(mFeed);
+        }
+    }
 
-          @Override
-          public void onCompleted() {
-            mView.stopRefresh();
+    @Override
+    public void loadFeed(boolean isRefresh) {
+        if (HTTPUtils.isNetworkAvailable(mView.getDouContext()) && !isRefresh) {
+            mView.showLoading();
+        } else if (isRefresh && !HTTPUtils.isNetworkAvailable(mView.getDouContext())) {
+            mView.showError(Constants.HTTP.NET_ERROR_MSG);
+        }
+
+        mModel.getFeed(++pageNumber)
+                .subscribe(new Observer<List<FeedItem>>() {
+
+                    @Override
+                    public void onCompleted() {
+                        mView.stopRefresh();
+                        mView.hideLoading();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        mView.showError(e.getMessage());
+                        mView.hideLoading();
+
+                        if (HTTPUtils.isNetworkException(e)) {
+                            mView.showError(Constants.HTTP.NET_ERROR_MSG);
+                        }
+                    }
+
+                    @Override
+                    public void onNext(List<FeedItem> feedItemEntities) {
+                        if (feedItemEntities != null) {
+                            mFeed.addAll(feedItemEntities);
+                            mView.showFeed(feedItemEntities);
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void onRefresh() {
+        pageNumber = 0;
+        loadFeed(true);
+    }
+
+    @Override
+    public void onAddArticleClick() {
+        mView.addNewArticle();
+    }
+
+    @Override
+    public void onSearchClick(String query) {
+        mView.showLoading();
+        if (!HTTPUtils.isNetworkAvailable(mView.getDouContext())) {
+            mView.showError(Constants.HTTP.NET_ERROR_MSG);
             mView.hideLoading();
-          }
-
-          @Override
-          public void onError(Throwable e) {
-            e.printStackTrace();
-            mView.showError(e.getMessage());
-            mView.hideLoading();
-
-            if (HTTPUtils.isNetworkException(e)) {
-              mView.showError(Constants.HTTP.NET_ERROR_MSG);
-            }
-          }
-
-          @Override
-          public void onNext(List<FeedItem> feedItemEntities) {
-            if (feedItemEntities != null) {
-              mFeed.addAll(feedItemEntities);
-              mView.showFeed(feedItemEntities);
-            }
-          }
-        });
-  }
-
-  @Override
-  public void onRefresh() {
-    pageNumber = 0;
-    loadFeed(true);
-  }
-
-  @Override
-  public void onAddArticleClick() {
-    mView.addNewArticle();
-  }
+            return;
+        }
+    }
 }

@@ -16,4 +16,6 @@ public interface FeedPresenter extends Presenter {
   void onRefresh();
 
   void onAddArticleClick();
+
+    void onSearchClick(String query);
 }

@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SearchTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/silver</item>
+        <item name="colorPrimaryDark">@color/silver</item>
+    </style>
+
     <style name="DialogTheme" parent="android:Theme.Dialog">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
